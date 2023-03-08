@@ -1,7 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
 import { apiRouter } from "./routers";
-import { PrismaClient } from "@prisma/client";
 
 // load environment variables from .env file
 dotenv.config();
@@ -12,7 +11,7 @@ app.use(express.json());
 app.use("/api", apiRouter);
 
 // start server
-const port = process.env.PORT || 3001;
+const port = process.env.PORT;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
