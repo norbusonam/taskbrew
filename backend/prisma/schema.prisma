@@ -33,4 +33,6 @@ model Todo {
   
   // belongs to
   creator User @relation(fields: [creatorId], references: [id])
+
+  @@unique([creatorId, id])
 }
