@@ -6,8 +6,8 @@ import { getUser, updateUser } from "./user";
 
 export const apiRouter = Router()
   // auth routes
-  .post("/login", login)
-  .post("/signup", signup)
+  .post("/auth/login", login)
+  .post("/auth/signup", signup)
 
   // todo routes
   .get("/todos", listTodos)
