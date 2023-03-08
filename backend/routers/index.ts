@@ -2,7 +2,7 @@ import { Router } from "express";
 import { checkAuth } from "../middleware/check-auth";
 import { login, signup } from "./auth";
 import { createTodo, deleteTodo, updateTodo, listTodos } from "./todo";
-import { getUser, updateUser } from "./user";
+import { getMe, updateUser } from "./user";
 
 export const apiRouter = Router()
   // auth routes
@@ -16,5 +16,5 @@ export const apiRouter = Router()
   .delete("/todos/:id", checkAuth, deleteTodo)
 
   // user routes
-  .get("/users", checkAuth, getUser)
-  .post("/users", checkAuth, updateUser);
+  .get("/users", checkAuth, getMe)
+  .put("/users", checkAuth, updateUser);
