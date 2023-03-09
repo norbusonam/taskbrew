@@ -7,6 +7,8 @@ import { Landing } from './routes/landing';
 import { About } from './routes/about';
 import { Pricing } from './routes/pricing';
 import { App } from './app';
+import { Auth } from './routes/auth';
+import { Home } from './routes/home';
 
 const router = createBrowserRouter([
   {
@@ -17,12 +19,24 @@ const router = createBrowserRouter([
         element: <Landing />,
       },
       {
+        path: '/login',
+        element: <Auth type="login" />,
+      },
+      {
+        path: '/signup',
+        element: <Auth type="signup" />,
+      },
+      {
         path: '/about',
         element: <About />,
       },
       {
         path: '/pricing',
         element: <Pricing />,
+      },
+      {
+        path: '/home',
+        element: <Home />,
       },
     ],
   },
