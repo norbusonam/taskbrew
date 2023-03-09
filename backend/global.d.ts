@@ -3,6 +3,7 @@ namespace NodeJS {
     PORT: number;
     DATABASE_URL: string;
     TOKEN_SECRET: string;
+    APP_ORIGIN: string;
   }
 }
 
