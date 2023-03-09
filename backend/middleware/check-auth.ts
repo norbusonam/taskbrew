@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { ErrorResBody } from "../types/error-res-body";
+import { ErrorResBody } from "../types";
 
 export function checkAuth(
   req: Request,

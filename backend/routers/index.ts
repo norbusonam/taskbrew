@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { checkAuth } from "../middleware/check-auth";
+import { checkAuth } from "../middleware";
 import { login, signup } from "./auth";
 import { createTodo, deleteTodo, updateTodo, listTodos } from "./todo";
 import { getMe, updateUser } from "./user";

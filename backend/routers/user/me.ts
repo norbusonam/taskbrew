@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import prisma from "../../prisma/client";
-import { ErrorResBody } from "../../types/error-res-body";
+import { ErrorResBody } from "../../types";
 
 type GetMeResBody = {
   user: {

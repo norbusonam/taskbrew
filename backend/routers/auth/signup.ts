@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import prisma from "../../prisma/client";
-import { ErrorResBody } from "../../types/error-res-body";
+import { ErrorResBody } from "../../types";
 import { AuthResBody } from "./types/auth-res-body";
 
 type SignupReqBody = {
