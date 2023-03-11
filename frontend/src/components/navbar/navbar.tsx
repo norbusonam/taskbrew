@@ -19,7 +19,7 @@ export const Navbar: React.FC = () => {
     <nav className="navbar bg-base-200 rounded-xl border-2 border-base-100 shadow-lg">
       <div className="navbar-start">
         <Link to="/" className="btn btn-ghost normal-case text-xl">
-          todo
+          Taskbrew
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">

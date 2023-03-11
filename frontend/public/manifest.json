@@ -1,6 +1,6 @@
 {
-  "short_name": "Todo",
-  "name": "Todo App",
+  "short_name": "Taskbrew",
+  "name": "Taskbrew App",
   "icons": [],
   "start_url": ".",
   "display": "standalone",

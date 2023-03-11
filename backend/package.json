@@ -1,5 +1,5 @@
 {
-  "name": "todo-backend",
+  "name": "taskbrew-backend",
   "version": "1.0.0",
   "description": "server for todo app",
   "main": "index.ts",
