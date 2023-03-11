@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { Landing } from './routes/landing';
@@ -9,6 +10,7 @@ import { Pricing } from './routes/pricing';
 import { App } from './app';
 import { Auth } from './routes/auth';
 import { Home } from './routes/home';
+import { store } from './store';
 
 const router = createBrowserRouter([
   {
@@ -45,7 +47,9 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>,
 );
 
