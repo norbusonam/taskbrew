@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { api } from '../api';
-import { User } from '../types';
+import { useAuth } from '../hooks';
 
 type AuthProps = {
   type: 'login' | 'signup';
@@ -12,29 +12,23 @@ export const Auth: React.FC<AuthProps> = props => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
-  const navigate = useNavigate();
-
-  const onSuccessfulAuthentication = (user: User, token: string) => {
-    localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify(user));
-    navigate('/home');
-  };
+  const { onAuthenticated } = useAuth();
 
   const onSignup = () => {
     api
       .signup({ email, name, password })
-      .then(res => onSuccessfulAuthentication(res.data.user, res.data.token))
+      .then(res => onAuthenticated(res.data.user, res.data.token))
       .catch(() => {
-        console.log('Signup failed');
+        console.error('Signup failed');
       });
   };
 
   const onLogin = () => {
     api
       .login({ email, password })
-      .then(res => onSuccessfulAuthentication(res.data.user, res.data.token))
-      .catch(e => {
-        console.log('Login failed');
+      .then(res => onAuthenticated(res.data.user, res.data.token))
+      .catch(() => {
+        console.error('Login failed');
       });
   };
 
