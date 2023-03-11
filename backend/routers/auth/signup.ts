@@ -28,7 +28,6 @@ export const signup = async (
     return res.status(500).json({ message: "Unable to create user" });
   }
   const token = jwt.sign({ sub: user.id }, process.env.TOKEN_SECRET);
-  console.log(token);
   res.json({
     user: {
       id: user.id,
