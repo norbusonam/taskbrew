@@ -1,40 +1,33 @@
-import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { authenticated, logout } from '../slices/auth-slice';
 import { User } from '../types';
+import { useAppDispatch, useAppSelector } from './use-redux';
 
 export const useAuth = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  const [user, setUser] = useState<User | null>(null);
+  const user = useAppSelector(state => state.auth.user);
+  const token = useAppSelector(state => state.auth.token);
+  const isAuthenticated = useAppSelector(state => state.auth.isAuthenticated);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    const user = localStorage.getItem('user');
-    if (token && user) {
-      setIsAuthenticated(true);
-      setUser(JSON.parse(user));
-    }
-  }, []);
 
   const onAuthenticated = (user: User, token: string) => {
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user));
-    setUser(user);
-    setIsAuthenticated(true);
+    dispatch(authenticated({ user, token }));
     navigate('/home');
   };
 
   const onLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    setUser(null);
-    setIsAuthenticated(false);
+    dispatch(logout());
     navigate('/login');
   };
 
   return {
-    isAuthenticated,
     user,
+    isAuthenticated,
+    token,
     onAuthenticated,
     onLogout,
   };
