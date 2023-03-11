@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { api } from '../api';
 import { useAuth } from '../hooks';
 
@@ -12,7 +12,16 @@ export const Auth: React.FC<AuthProps> = props => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
-  const { onAuthenticated } = useAuth();
+  const { onAuthenticated, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  // if user is already authenticated, redirect to home
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/home');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

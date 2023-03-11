@@ -5,8 +5,6 @@ import { Provider } from 'react-redux';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { Landing } from './routes/landing';
-import { About } from './routes/about';
-import { Pricing } from './routes/pricing';
 import { App } from './app';
 import { Auth } from './routes/auth';
 import { Home } from './routes/home';
@@ -27,14 +25,6 @@ const router = createBrowserRouter([
       {
         path: '/signup',
         element: <Auth type="signup" />,
-      },
-      {
-        path: '/about',
-        element: <About />,
-      },
-      {
-        path: '/pricing',
-        element: <Pricing />,
       },
       {
         path: '/home',

@@ -22,16 +22,6 @@ export const Navbar: React.FC = () => {
           Taskbrew
         </Link>
       </div>
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          <li>
-            <Link to="/about">About Us</Link>
-          </li>
-          <li>
-            <Link to="/pricing">Pricing</Link>
-          </li>
-        </ul>
-      </div>
       <div className="navbar-end gap-2">
         <label className="swap swap-rotate btn btn-ghost btn-circle">
           <input type="checkbox" onChange={onThemeChange} checked={theme === 'dark'} />
