@@ -13,6 +13,7 @@ export const Auth: React.FC<AuthProps> = props => {
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const { onAuthenticated, isAuthenticated } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   // if user is already authenticated, redirect to home
@@ -33,20 +34,28 @@ export const Auth: React.FC<AuthProps> = props => {
   };
 
   const onSignup = () => {
+    setIsLoading(true);
     api
       .signup({ email, name, password })
       .then(res => onAuthenticated(res.data.user, res.data.token))
       .catch(() => {
         console.error('Signup failed');
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
   const onLogin = () => {
+    setIsLoading(true);
     api
       .login({ email, password })
       .then(res => onAuthenticated(res.data.user, res.data.token))
       .catch(() => {
         console.error('Login failed');
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -108,8 +117,8 @@ export const Auth: React.FC<AuthProps> = props => {
                 onChange={e => setPasswordConfirmation(e.target.value)}
               />
             </div>
-            <div className="card-actions justify-end pt-2">
-              <button type="submit" className="btn btn-primary">
+            <div className="card-actions justify-center mt-5">
+              <button type="submit" className={`btn btn-primary ${isLoading && 'loading'}`}>
                 {props.type === 'login' ? 'Login' : 'Signup'}
               </button>
             </div>
