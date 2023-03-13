@@ -3,6 +3,33 @@ import { useEffect, useState } from 'react';
 const THEMES = {
   light: 'light',
   dark: 'dark',
+  cupcake: 'cupcake',
+  bumblebee: 'bumblebee',
+  emerald: 'emerald',
+  corporate: 'corporate',
+  synthwave: 'synthwave',
+  retro: 'retro',
+  cyberpunk: 'cyberpunk',
+  valentine: 'valentine',
+  halloween: 'halloween',
+  garden: 'garden',
+  forest: 'forest',
+  aqua: 'aqua',
+  lofi: 'lofi',
+  pastel: 'pastel',
+  fantasy: 'fantasy',
+  wireframe: 'wireframe',
+  black: 'black',
+  luxury: 'luxury',
+  dracula: 'dracula',
+  cmyc: 'cmyc',
+  autumn: 'autumn',
+  business: 'business',
+  acid: 'acid',
+  lemonade: 'lemonade',
+  night: 'night',
+  coffee: 'coffee',
+  winter: 'winter',
 };
 
 export const useTheme = () => {
@@ -25,7 +52,8 @@ export const useTheme = () => {
   }
 
   return {
-    theme,
+    currentTheme: theme,
     changeTheme,
+    themes: Object.keys(THEMES) as (keyof typeof THEMES)[],
   };
 };
