@@ -15,7 +15,7 @@ export const TodoList: React.FC<TodoListProps> = props => {
       <TodoListHeader header={props.header} subheader={props.subheader} />
       <div className="card bg-base-200">
         {props.todos.map(todo => (
-          <TodoListItem todo={todo} />
+          <TodoListItem key={todo.id} todo={todo} />
         ))}
       </div>
     </div>
