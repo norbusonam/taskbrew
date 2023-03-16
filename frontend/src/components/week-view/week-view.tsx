@@ -20,8 +20,7 @@ export const WeekView: React.FC<WeekViewProps> = props => {
         return (
           <TodoList
             key={date.toDateString()}
-            // TODO: filter todos by date
-            todos={props.todos}
+            todos={props.todos.filter(todo => new Date(todo.due).toDateString() === date.toDateString())}
             header={DAY_OF_WEEK[i]}
             subheader={date.toDateString()}
           />
