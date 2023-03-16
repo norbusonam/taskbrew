@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../api';
-import { TodoList } from '../components/todo-list';
+import { WeekView } from '../components/week-view';
 import { useAuth } from '../hooks';
 import { Todo } from '../types';
 
@@ -16,6 +16,7 @@ export const Home: React.FC = () => {
   useEffect(() => {
     if (!isAuthenticated) {
       navigate('/login');
+      return;
     }
     getAllTodos();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -49,7 +50,7 @@ export const Home: React.FC = () => {
       </div>
       <div>
         {isLoading && <p>Loading...</p>}
-        {todos && <TodoList todos={todos} header="all todos" subheader="all todos made by user" />}
+        {todos && <WeekView todos={todos} />}
       </div>
     </div>
   );
