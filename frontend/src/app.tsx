@@ -6,7 +6,7 @@ import { Navbar } from './components/navbar/navbar';
 export const App: React.FC = () => {
   return (
     <div>
-      <div className="m-8">
+      <div className="m-4">
         <Navbar />
       </div>
       <Outlet />
