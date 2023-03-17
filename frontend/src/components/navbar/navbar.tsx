@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CheckIcon, PaintBrushIcon } from '../../assets';
+import { CheckIcon, CoffeeIcon, PaintBrushIcon } from '../../assets';
 import { useAuth, useTheme } from '../../hooks';
 
 export const Navbar: React.FC = () => {
@@ -8,9 +8,10 @@ export const Navbar: React.FC = () => {
   const { isAuthenticated, user, onLogout } = useAuth();
 
   return (
-    <nav className="navbar bg-base-200 rounded-xl border-2 border-base-100 shadow-lg">
+    <nav className="navbar bg-base-200 rounded-box border-2 border-base-100 shadow-lg">
       <div className="navbar-start">
-        <Link to={isAuthenticated ? '/home' : '/'} className="btn btn-ghost normal-case text-xl">
+        <Link to={isAuthenticated ? '/home' : '/'} className="btn btn-ghost normal-case text-xl gap-2">
+          <CoffeeIcon className="w-6 h-6" />
           Taskbrew
         </Link>
       </div>
