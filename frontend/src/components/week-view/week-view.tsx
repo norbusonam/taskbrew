@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ArrowLeftIcon, ArrowRightIcon } from '../../assets';
 import { Todo } from '../../types';
 import { TodoList } from '../todo-list';
 
@@ -16,8 +17,8 @@ export const WeekView: React.FC<WeekViewProps> = props => {
 
   return (
     <div className="flex flex-row w-full gap-2 p-2">
-      <button className="btn" onClick={() => setWeek(prev => prev - 1)}>
-        Prev
+      <button className="btn btn-ghost btn-square" onClick={() => setWeek(prev => prev - 1)}>
+        <ArrowLeftIcon className="h-6 w-6" />
       </button>
       {[...Array(7)].map((_, i) => {
         const date = new Date(firstDayOfWeek);
@@ -33,8 +34,8 @@ export const WeekView: React.FC<WeekViewProps> = props => {
           </div>
         );
       })}
-      <button className="btn" onClick={() => setWeek(prev => prev + 1)}>
-        Next
+      <button className="btn btn-ghost btn-square" onClick={() => setWeek(prev => prev + 1)}>
+        <ArrowRightIcon className="h-6 w-6" />
       </button>
     </div>
   );
