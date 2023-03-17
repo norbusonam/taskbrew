@@ -24,7 +24,7 @@ export const Navbar: React.FC = () => {
               {themes.map(theme => (
                 <li key={theme}>
                   <button onClick={() => changeTheme(theme)}>
-                    {theme === currentTheme && <CheckIcon className="fill-transparent w-4 h-4" />}
+                    {theme === currentTheme && <CheckIcon className="w-4 h-4" />}
                     {theme}
                   </button>
                 </li>
