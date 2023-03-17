@@ -15,25 +15,25 @@ export const WeekView: React.FC<WeekViewProps> = props => {
   firstDayOfWeek.setDate(firstDayOfWeek.getDate() - firstDayOfWeek.getDay() + week * 7);
 
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row w-full gap-2 p-2">
       <button className="btn" onClick={() => setWeek(prev => prev - 1)}>
         Prev
       </button>
-      <div className="flex flex-row">
-        {[...Array(7)].map((_, i) => {
-          const date = new Date(firstDayOfWeek);
-          date.setDate(date.getDate() + i);
-          return (
+      {[...Array(7)].map((_, i) => {
+        const date = new Date(firstDayOfWeek);
+        date.setDate(date.getDate() + i);
+        return (
+          <div className="flex-1">
             <TodoList
               key={date.toDateString()}
               todos={props.todos.filter(todo => new Date(todo.due).toDateString() === date.toDateString())}
               header={DAY_OF_WEEK[i]}
-              subheader={date.toDateString()}
+              subheader={date.toLocaleDateString()}
             />
-          );
-        })}
-      </div>
-      <button className="btn" onClick={() => setWeek(prev => prev - 1)}>
+          </div>
+        );
+      })}
+      <button className="btn" onClick={() => setWeek(prev => prev + 1)}>
         Next
       </button>
     </div>
