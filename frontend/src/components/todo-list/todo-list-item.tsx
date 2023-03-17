@@ -1,4 +1,5 @@
 import React from 'react';
+import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import { Todo } from '../../types';
 
 type TodoListItemProps = {
@@ -8,7 +9,9 @@ type TodoListItemProps = {
 export const TodoListItem: React.FC<TodoListItemProps> = props => {
   return (
     <div>
-      <h3>{props.todo.title}</h3>
+      <p>
+        <ReactMarkdown>{props.todo.title}</ReactMarkdown>
+      </p>
     </div>
   );
 };
