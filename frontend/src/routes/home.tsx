@@ -39,14 +39,16 @@ export const Home: React.FC = () => {
 
   return (
     <div>
-      <div>
-        <h2>
-          {currentTime.getHours() < 12
-            ? `☕️ Good morning ${firstName ? ', ' + firstName : ''}`
-            : currentTime.getHours() >= 12 && currentTime.getHours() <= 17
-            ? `☀️ Good afternoon ${firstName ? ', ' + firstName : ''}`
-            : `🌕 Good evening ${firstName ? ', ' + firstName : ''}`}
-        </h2>
+      <div className="flex justify-center mb-4">
+        <div className="prose">
+          <h2>
+            {currentTime.getHours() < 12
+              ? `☕️ Good morning${firstName ? ', ' + firstName : ''}`
+              : currentTime.getHours() >= 12 && currentTime.getHours() <= 17
+              ? `☀️ Good afternoon${firstName ? ', ' + firstName : ''}`
+              : `🌕 Good evening${firstName ? ', ' + firstName : ''}`}
+          </h2>
+        </div>
       </div>
       <div>
         {isLoading && <p>Loading...</p>}
