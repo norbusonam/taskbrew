@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowDoubleLeftIcon, ArrowDoubleRightIcon, ArrowLeftIcon, ArrowRightIcon, HomeIcon } from '../../assets';
+import { useViewport } from '../../hooks';
 import { Todo } from '../../types';
 import { TodoList } from '../todo-list';
 
@@ -11,12 +12,26 @@ const getFirstDayOfWeek = () => {
   return firstDayOfWeek;
 };
 
-type WeekViewProps = {
+type TimeViewProps = {
   todos: Todo[];
 };
 
-export const WeekView: React.FC<WeekViewProps> = props => {
+export const TimeView: React.FC<TimeViewProps> = props => {
   const [startDate, setStartDate] = useState(getFirstDayOfWeek());
+  const [numDays, setNumDays] = useState(7);
+  const { width } = useViewport();
+
+  useEffect(() => {
+    if (width < 600) {
+      setNumDays(1);
+    } else if (width < 1000) {
+      setNumDays(3);
+    } else if (width < 1300) {
+      setNumDays(5);
+    } else {
+      setNumDays(7);
+    }
+  }, [width]);
 
   const shiftStartDate = (shift: number) => {
     setStartDate(prev => {
@@ -32,14 +47,16 @@ export const WeekView: React.FC<WeekViewProps> = props => {
         <button className="btn btn-ghost btn-square" onClick={() => shiftStartDate(-1)}>
           <ArrowLeftIcon className="h-6 w-6" />
         </button>
-        <button className="btn btn-ghost btn-square" onClick={() => shiftStartDate(-7)}>
+        <button
+          className={`btn btn-ghost btn-square ${numDays === 1 && 'hidden'}`}
+          onClick={() => shiftStartDate(-numDays)}>
           <ArrowDoubleLeftIcon className="h-6 w-6" />
         </button>
         <button className="btn btn-ghost btn-square" onClick={() => setStartDate(getFirstDayOfWeek())}>
           <HomeIcon className="h-6 w-6" />
         </button>
       </div>
-      {[...Array(7)].map((_, i) => {
+      {[...Array(numDays)].map((_, i) => {
         const date = new Date(startDate);
         date.setDate(date.getDate() + i);
         return (
@@ -57,7 +74,9 @@ export const WeekView: React.FC<WeekViewProps> = props => {
         <button className="btn btn-ghost btn-square" onClick={() => shiftStartDate(1)}>
           <ArrowRightIcon className="h-6 w-6" />
         </button>
-        <button className="btn btn-ghost btn-square" onClick={() => shiftStartDate(7)}>
+        <button
+          className={`btn btn-ghost btn-square ${numDays === 1 && 'hidden'}`}
+          onClick={() => shiftStartDate(numDays)}>
           <ArrowDoubleRightIcon className="h-6 w-6" />
         </button>
       </div>

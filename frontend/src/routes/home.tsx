@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../api';
-import { WeekView } from '../components/week-view';
+import { TimeView } from '../components/time-view';
 import { useAuth } from '../hooks';
 import { Todo } from '../types';
 
@@ -52,7 +52,7 @@ export const Home: React.FC = () => {
       </div>
       <div>
         {isLoading && <p>Loading...</p>}
-        {todos && <WeekView todos={todos} />}
+        {todos && <TimeView todos={todos} />}
       </div>
     </div>
   );
