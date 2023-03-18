@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeftIcon, ArrowRightIcon } from '../../assets';
+import { ArrowLeftIcon, ArrowRightIcon, HomeIcon } from '../../assets';
 import { Todo } from '../../types';
 import { TodoList } from '../todo-list';
 
@@ -17,9 +17,14 @@ export const WeekView: React.FC<WeekViewProps> = props => {
 
   return (
     <div className="flex flex-row w-full gap-2 p-2">
-      <button className="btn btn-ghost btn-square" onClick={() => setWeek(prev => prev - 1)}>
-        <ArrowLeftIcon className="h-6 w-6" />
-      </button>
+      <div className="flex flex-col gap-2">
+        <button className="btn btn-ghost btn-square" onClick={() => setWeek(prev => prev - 1)}>
+          <ArrowLeftIcon className="h-6 w-6" />
+        </button>
+        <button className="btn btn-ghost btn-square" onClick={() => setWeek(0)}>
+          <HomeIcon className="h-6 w-6" />
+        </button>
+      </div>
       {[...Array(7)].map((_, i) => {
         const date = new Date(firstDayOfWeek);
         date.setDate(date.getDate() + i);
@@ -34,9 +39,11 @@ export const WeekView: React.FC<WeekViewProps> = props => {
           </div>
         );
       })}
-      <button className="btn btn-ghost btn-square" onClick={() => setWeek(prev => prev + 1)}>
-        <ArrowRightIcon className="h-6 w-6" />
-      </button>
+      <div className="flex flex-col gap-2">
+        <button className="btn btn-ghost btn-square" onClick={() => setWeek(prev => prev + 1)}>
+          <ArrowRightIcon className="h-6 w-6" />
+        </button>
+      </div>
     </div>
   );
 };
