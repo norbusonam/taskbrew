@@ -66,6 +66,7 @@ export const TimeView: React.FC<TimeViewProps> = props => {
               todos={props.todos.filter(todo => new Date(todo.due).toDateString() === date.toDateString())}
               header={DAY_OF_WEEK[date.getDay()]}
               subheader={date.toLocaleDateString()}
+              indicator={date.toDateString() === new Date().toDateString() ? 'Today' : undefined}
               isDisabled={
                 date.getFullYear() < new Date().getFullYear() ||
                 (date.getFullYear() === new Date().getFullYear() && date.getMonth() < new Date().getMonth()) ||
