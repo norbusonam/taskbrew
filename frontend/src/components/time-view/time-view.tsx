@@ -6,10 +6,10 @@ import { TodoList } from '../todo-list';
 
 const DAY_OF_WEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-const getFirstDayOfWeek = () => {
-  const firstDayOfWeek = new Date();
-  firstDayOfWeek.setDate(firstDayOfWeek.getDate() - firstDayOfWeek.getDay());
-  return firstDayOfWeek;
+const getYesterday = () => {
+  const date = new Date();
+  date.setDate(date.getDate() - 1);
+  return date;
 };
 
 type TimeViewProps = {
@@ -17,7 +17,7 @@ type TimeViewProps = {
 };
 
 export const TimeView: React.FC<TimeViewProps> = props => {
-  const [startDate, setStartDate] = useState(getFirstDayOfWeek());
+  const [startDate, setStartDate] = useState(getYesterday());
   const [numDays, setNumDays] = useState(7);
   const { width } = useViewport();
 
@@ -52,7 +52,7 @@ export const TimeView: React.FC<TimeViewProps> = props => {
           onClick={() => shiftStartDate(-numDays)}>
           <ArrowDoubleLeftIcon className="h-6 w-6" />
         </button>
-        <button className="btn btn-ghost btn-square" onClick={() => setStartDate(getFirstDayOfWeek())}>
+        <button className="btn btn-ghost btn-square" onClick={() => setStartDate(getYesterday())}>
           <HomeIcon className="h-6 w-6" />
         </button>
       </div>
