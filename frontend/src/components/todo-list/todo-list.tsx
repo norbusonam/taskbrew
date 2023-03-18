@@ -7,12 +7,13 @@ type TodoListProps = {
   header: string;
   subheader?: string;
   todos: Todo[];
+  isDisabled?: boolean;
 };
 
 export const TodoList: React.FC<TodoListProps> = props => {
   return (
     <div className="mb-4">
-      <TodoListHeader header={props.header} subheader={props.subheader} />
+      <TodoListHeader header={props.header} subheader={props.subheader} isDisabled={props.isDisabled} />
       <div className="card card-compact bg-base-200 shadow-md min-h-[32rem]">
         <div className="card-body">
           {props.todos.map(todo => (
