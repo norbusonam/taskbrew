@@ -10,9 +10,9 @@ export const api = {
   updateTodo: (
     id: string,
     body: {
-      title: string;
-      completed: boolean;
-      due: Date;
+      title?: string;
+      completed?: boolean;
+      due?: Date;
     },
   ) => client.put<{ todo: Todo }>(`todos/${id}`, body),
   deleteTodo: (id: string) => client.delete<null>(`todos/${id}`),
