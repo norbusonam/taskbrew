@@ -3,6 +3,7 @@ import React from 'react';
 type TodoListHeaderProps = {
   header: string;
   subheader?: string;
+  indicatorStyle?: 'primary' | 'secondary';
   indicator?: string;
   isDisabled?: boolean;
 };
@@ -14,7 +15,12 @@ export const TodoListHeader: React.FC<TodoListHeaderProps> = props => {
         props.isDisabled && 'line-through'
       }`}>
       {props.indicator && (
-        <span className="indicator-item badge badge-primary indicator-center">{props.indicator}</span>
+        <span
+          className={`indicator-item indicator-center badge ${
+            props.indicatorStyle && `badge-${props.indicatorStyle}`
+          }`}>
+          {props.indicator}
+        </span>
       )}
       <div className="card-body items-center">
         <div className="card-title">{props.header}</div>

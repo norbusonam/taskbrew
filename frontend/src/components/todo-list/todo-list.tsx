@@ -7,6 +7,7 @@ type TodoListProps = {
   header: string;
   subheader?: string;
   todos: Todo[];
+  indicatorStyle?: 'primary' | 'secondary';
   indicator?: string;
   isDisabled?: boolean;
 };
@@ -18,6 +19,7 @@ export const TodoList: React.FC<TodoListProps> = props => {
         header={props.header}
         subheader={props.subheader}
         isDisabled={props.isDisabled}
+        indicatorStyle={props.indicatorStyle}
         indicator={props.indicator}
       />
       <div className="card card-compact bg-base-200 shadow-md min-h-[32rem]">

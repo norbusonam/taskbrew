@@ -59,21 +59,24 @@ export const TimeView: React.FC<TimeViewProps> = props => {
       {[...Array(numDays)].map((_, i) => {
         const date = new Date(startDate);
         date.setDate(date.getDate() + i);
+        const isToday = date.toDateString() === new Date().toDateString();
+        const isTomorrow =
+          date.toDateString() === new Date(new Date().setDate(new Date().getDate() + 1)).toDateString();
+        const isPastDay =
+          date.getFullYear() < new Date().getFullYear() ||
+          (date.getFullYear() === new Date().getFullYear() && date.getMonth() < new Date().getMonth()) ||
+          (date.getFullYear() === new Date().getFullYear() &&
+            date.getMonth() === new Date().getMonth() &&
+            date.getDate() < new Date().getDate());
         return (
-          <div className="flex-1">
+          <div className="flex-1" key={date.toDateString()}>
             <TodoList
-              key={date.toDateString()}
               todos={props.todos.filter(todo => new Date(todo.due).toDateString() === date.toDateString())}
               header={DAY_OF_WEEK[date.getDay()]}
               subheader={date.toLocaleDateString()}
-              indicator={date.toDateString() === new Date().toDateString() ? 'Today' : undefined}
-              isDisabled={
-                date.getFullYear() < new Date().getFullYear() ||
-                (date.getFullYear() === new Date().getFullYear() && date.getMonth() < new Date().getMonth()) ||
-                (date.getFullYear() === new Date().getFullYear() &&
-                  date.getMonth() === new Date().getMonth() &&
-                  date.getDate() < new Date().getDate())
-              }
+              indicatorStyle={isToday ? 'primary' : isTomorrow ? 'secondary' : undefined}
+              indicator={isToday ? 'Today' : isTomorrow ? 'Tomorrow' : isPastDay ? 'Past' : undefined}
+              isDisabled={isPastDay}
             />
           </div>
         );
