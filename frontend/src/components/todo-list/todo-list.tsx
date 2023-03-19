@@ -7,7 +7,7 @@ type TodoListProps = {
   header: string;
   subheader?: string;
   todos: Todo[];
-  indicatorStyle?: 'primary' | 'secondary';
+  indicatorColor?: 'primary' | 'secondary';
   indicator?: string;
   isDisabled?: boolean;
 };
@@ -19,11 +19,11 @@ export const TodoList: React.FC<TodoListProps> = props => {
         header={props.header}
         subheader={props.subheader}
         isDisabled={props.isDisabled}
-        indicatorStyle={props.indicatorStyle}
+        indicatorColor={props.indicatorColor}
         indicator={props.indicator}
       />
       <div className="card card-compact bg-base-200 shadow-md min-h-[32rem]">
-        <div className="card-body">
+        <div className="card-body gap-0">
           {props.todos.map(todo => (
             <TodoListItem key={todo.id} todo={todo} />
           ))}

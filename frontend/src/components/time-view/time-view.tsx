@@ -74,7 +74,7 @@ export const TimeView: React.FC<TimeViewProps> = props => {
               todos={props.todos.filter(todo => new Date(todo.due).toDateString() === date.toDateString())}
               header={DAY_OF_WEEK[date.getDay()]}
               subheader={date.toLocaleDateString()}
-              indicatorStyle={isToday ? 'primary' : isTomorrow ? 'secondary' : undefined}
+              indicatorColor={isToday ? 'primary' : isTomorrow ? 'secondary' : undefined}
               indicator={isToday ? 'Today' : isTomorrow ? 'Tomorrow' : isPastDay ? 'Past' : undefined}
               isDisabled={isPastDay}
             />
