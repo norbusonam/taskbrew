@@ -6,3 +6,6 @@ export { ReactComponent as ArrowDoubleRightIcon } from './arrow-double-right.svg
 export { ReactComponent as ArrowDoubleLeftIcon } from './arrow-double-left.svg';
 export { ReactComponent as CoffeeIcon } from './coffee.svg';
 export { ReactComponent as HomeIcon } from './home.svg';
+export { ReactComponent as PencilIcon } from './pencil.svg';
+export { ReactComponent as TrashIcon } from './trash.svg';
+export { ReactComponent as CancelIcon } from './cancel.svg';
