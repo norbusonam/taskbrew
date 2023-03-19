@@ -29,6 +29,9 @@ export const listTodos = async (
           lte: req.query.to,
         },
       },
+      orderBy: {
+        created: "desc",
+      },
     });
   } catch (error) {
     return res.status(500).json({ message: "Unable to list todos" });
