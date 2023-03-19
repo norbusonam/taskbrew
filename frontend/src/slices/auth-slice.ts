@@ -9,6 +9,7 @@ type AuthState = {
 
 type AuthReducer = {
   authenticated: (state: AuthState, action: { payload: { user: User; token: string } }) => void;
+  updateUser: (state: AuthState, action: { payload: { user: User } }) => void;
   logout: (state: AuthState) => void;
 };
 
@@ -36,6 +37,9 @@ export const authSlice = createSlice<AuthState, AuthReducer>({
       state.token = action.payload.token;
       state.isAuthenticated = true;
     },
+    updateUser: (state, action) => {
+      state.user = action.payload.user;
+    },
     logout: state => {
       state.user = null;
       state.token = null;
@@ -44,6 +48,6 @@ export const authSlice = createSlice<AuthState, AuthReducer>({
   },
 });
 
-export const { authenticated, logout } = authSlice.actions;
+export const { authenticated, updateUser, logout } = authSlice.actions;
 
 export default authSlice.reducer;

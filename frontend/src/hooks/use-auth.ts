@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { authenticated, logout } from '../slices/auth-slice';
+import { authenticated, logout, updateUser } from '../slices/auth-slice';
 import { User } from '../types';
 import { useAppDispatch, useAppSelector } from './use-redux';
 
@@ -17,6 +17,11 @@ export const useAuth = () => {
     navigate('/home');
   };
 
+  const onUpdateUser = (user: User) => {
+    localStorage.setItem('user', JSON.stringify(user));
+    dispatch(updateUser({ user }));
+  };
+
   const onLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -29,6 +34,7 @@ export const useAuth = () => {
     isAuthenticated,
     token,
     onAuthenticated,
+    onUpdateUser,
     onLogout,
   };
 };

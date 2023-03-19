@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { CheckIcon, CoffeeIcon, PaintBrushIcon } from '../../assets';
 import { useAuth, useTheme } from '../../hooks';
+import { ProfileModal } from '../profile-modal';
 
 export const Navbar: React.FC = () => {
   const { changeTheme, currentTheme, themes } = useTheme();
@@ -49,10 +50,9 @@ export const Navbar: React.FC = () => {
           </label>
           <ul tabIndex={0} className="menu menu-compact mt-3 p-2 shadow dropdown-content bg-base-200 rounded-box w-52">
             <li>
-              <button className="justify-between">
+              <label htmlFor="profile-modal" className="justify-between">
                 Profile
-                <span className="badge">Coming soon</span>
-              </button>
+              </label>
             </li>
             <li>
               <button onClick={onLogout}>Logout</button>
@@ -60,6 +60,7 @@ export const Navbar: React.FC = () => {
           </ul>
         </div>
       </div>
+      <ProfileModal />
     </nav>
   );
 };
