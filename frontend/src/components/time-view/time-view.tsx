@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowDoubleLeftIcon, ArrowDoubleRightIcon, ArrowLeftIcon, ArrowRightIcon, HomeIcon } from '../../assets';
+import { FastArrowLeft, FastArrowRight, Home, NavArrowLeft, NavArrowRight } from 'iconoir-react';
 import { useViewport } from '../../hooks';
 import { Todo } from '../../types';
 import { TodoList } from '../todo-list';
@@ -45,15 +45,15 @@ export const TimeView: React.FC<TimeViewProps> = props => {
     <div className="flex flex-row w-full gap-2 p-2">
       <div className="flex flex-col gap-2">
         <button className="btn btn-ghost btn-square" onClick={() => shiftStartDate(-1)}>
-          <ArrowLeftIcon className="h-6 w-6" />
+          <NavArrowLeft className="h-6 w-6" />
         </button>
         <button
           className={`btn btn-ghost btn-square ${numDays === 1 && 'hidden'}`}
           onClick={() => shiftStartDate(-numDays)}>
-          <ArrowDoubleLeftIcon className="h-6 w-6" />
+          <FastArrowLeft className="h-6 w-6" />
         </button>
         <button className="btn btn-ghost btn-square" onClick={() => setStartDate(getYesterday())}>
-          <HomeIcon className="h-6 w-6" />
+          <Home className="h-6 w-6" />
         </button>
       </div>
       {[...Array(numDays)].map((_, i) => {
@@ -83,12 +83,12 @@ export const TimeView: React.FC<TimeViewProps> = props => {
       })}
       <div className="flex flex-col gap-2">
         <button className="btn btn-ghost btn-square" onClick={() => shiftStartDate(1)}>
-          <ArrowRightIcon className="h-6 w-6" />
+          <NavArrowRight className="h-6 w-6" />
         </button>
         <button
           className={`btn btn-ghost btn-square ${numDays === 1 && 'hidden'}`}
           onClick={() => shiftStartDate(numDays)}>
-          <ArrowDoubleRightIcon className="h-6 w-6" />
+          <FastArrowRight className="h-6 w-6" />
         </button>
       </div>
     </div>

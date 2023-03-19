@@ -1,6 +1,6 @@
 import React from 'react';
+import { Check, CoffeeCup, Palette } from 'iconoir-react';
 import { Link } from 'react-router-dom';
-import { CheckIcon, CoffeeIcon, PaintBrushIcon } from '../../assets';
 import { useAuth, useTheme } from '../../hooks';
 import { ProfileModal } from '../profile-modal';
 
@@ -12,21 +12,21 @@ export const Navbar: React.FC = () => {
     <nav className="navbar bg-base-200 rounded-box border-2 border-base-100 shadow-lg">
       <div className="navbar-start">
         <Link to={isAuthenticated ? '/home' : '/'} className="btn btn-ghost normal-case text-xl gap-2">
-          <CoffeeIcon className="w-6 h-6" />
+          <CoffeeCup className="w-7 h-7" />
           Taskbrew
         </Link>
       </div>
       <div className="navbar-end gap-2">
         <div className="dropdown dropdown-bottom dropdown-end">
           <label tabIndex={0} className="btn btn-ghost btn-circle">
-            <PaintBrushIcon className="fill-current w-6 h-6" />
+            <Palette className="w-7 h-7" />
           </label>
           <div className="dropdown-content rounded-box h-64 mt-3 shadow overflow-y-scroll">
             <ul tabIndex={0} className="menu menu-compact p-2 bg-base-200 w-52 gap-2">
               {themes.map(theme => (
                 <li key={theme}>
                   <button onClick={() => changeTheme(theme)}>
-                    {theme === currentTheme && <CheckIcon className="w-4 h-4" />}
+                    {theme === currentTheme && <Check className="w-4 h-4" />}
                     {theme}
                   </button>
                 </li>

@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
+import { Cancel } from 'iconoir-react';
 import { api } from '../../api';
-import { CancelIcon } from '../../assets';
 import { useAuth } from '../../hooks';
 
 export const ProfileModal: React.FC = () => {
@@ -28,7 +28,7 @@ export const ProfileModal: React.FC = () => {
             <div className="flex justify-between">
               <h3 className="font-bold text-lg">My Profile</h3>
               <label htmlFor="profile-modal" className="btn btn-sm btn-error btn-square">
-                <CancelIcon className="w-4 h-4" />
+                <Cancel className="w-4 h-4" />
               </label>
             </div>
             <div className="flex justify-center">

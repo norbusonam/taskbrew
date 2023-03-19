@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import { EditPencil, Trash } from 'iconoir-react';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import { api } from '../../api';
-import { PencilIcon, TrashIcon } from '../../assets';
 import { useTodos } from '../../hooks';
 import { Todo } from '../../types';
 
@@ -39,13 +39,13 @@ export const TodoListItem: React.FC<TodoListItemProps> = props => {
   };
 
   const handleEditTitle = (title: string) => {
+    setIsEditing(false);
     if (title && title !== props.todo.title) {
       api
         .updateTodo(props.todo.id, {
           title,
         })
         .then(res => {
-          setIsEditing(false);
           onUpdateTodo(res.data.todo);
         })
         .catch(err => {
@@ -84,11 +84,11 @@ export const TodoListItem: React.FC<TodoListItemProps> = props => {
         !isEditing &&
         (props.todo.completed ? (
           <button className="btn btn-ghost btn-square p-2 text-error" onClick={handleDelete}>
-            <TrashIcon className="w-4 h-4" />
+            <Trash className="w-4 h-4" />
           </button>
         ) : (
           <button className="btn btn-ghost btn-square p-2" onClick={() => setIsEditing(true)}>
-            <PencilIcon className="w-4 h-4" />
+            <EditPencil className="w-4 h-4" />
           </button>
         ))}
     </div>
