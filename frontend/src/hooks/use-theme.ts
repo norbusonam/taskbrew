@@ -22,7 +22,7 @@ const THEMES = {
   black: 'black',
   luxury: 'luxury',
   dracula: 'dracula',
-  cmyc: 'cmyc',
+  cmyk: 'cmyk',
   autumn: 'autumn',
   business: 'business',
   acid: 'acid',
