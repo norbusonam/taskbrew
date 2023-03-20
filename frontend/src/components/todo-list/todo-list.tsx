@@ -24,9 +24,11 @@ export const TodoList: React.FC<TodoListProps> = props => {
       />
       <div className="card card-compact bg-base-200 shadow-md min-h-[32rem]">
         <div className="card-body gap-0">
-          {props.todos.map(todo => (
-            <TodoListItem key={todo.id} todo={todo} />
-          ))}
+          {props.todos
+            .sort(a => (a.completed ? 1 : -1))
+            .map(todo => (
+              <TodoListItem key={todo.id} todo={todo} />
+            ))}
         </div>
       </div>
     </div>

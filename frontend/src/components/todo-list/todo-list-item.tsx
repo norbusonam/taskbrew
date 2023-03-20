@@ -74,7 +74,7 @@ export const TodoListItem: React.FC<TodoListItemProps> = props => {
       ) : (
         <button
           className={`btn btn-ghost normal-case p-2 text-left w-full text-xs flex-shrink overflow-scroll ${
-            props.todo.completed && 'line-through'
+            props.todo.completed && 'line-through opacity-50'
           }`}
           onClick={handleToggleCompleted}>
           <ReactMarkdown>{props.todo.title}</ReactMarkdown>
