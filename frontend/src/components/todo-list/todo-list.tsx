@@ -8,6 +8,7 @@ type TodoListProps = {
   subheader?: string;
   todos: Todo[];
   indicatorColor?: 'primary' | 'secondary';
+  hideCompleted?: boolean;
   indicator?: string;
   isDisabled?: boolean;
 };
@@ -26,6 +27,7 @@ export const TodoList: React.FC<TodoListProps> = props => {
         <div className="card-body gap-0">
           {props.todos
             .sort(a => (a.completed ? 1 : -1))
+            .filter(todo => !props.hideCompleted || !todo.completed)
             .map(todo => (
               <TodoListItem key={todo.id} todo={todo} />
             ))}

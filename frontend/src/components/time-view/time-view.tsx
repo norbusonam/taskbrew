@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FastArrowLeft, FastArrowRight, Home, NavArrowLeft, NavArrowRight } from 'iconoir-react';
+import { FastArrowLeft, FastArrowRight, Home, NavArrowLeft, NavArrowRight, EyeEmpty, EyeOff } from 'iconoir-react';
 import { useViewport } from '../../hooks';
 import { Todo } from '../../types';
 import { TodoList } from '../todo-list';
@@ -19,6 +19,7 @@ type TimeViewProps = {
 export const TimeView: React.FC<TimeViewProps> = props => {
   const [startDate, setStartDate] = useState(getYesterday());
   const [numDays, setNumDays] = useState(7);
+  const [hideCompleted, setHideCompleted] = useState(false);
   const { width } = useViewport();
 
   useEffect(() => {
@@ -74,6 +75,7 @@ export const TimeView: React.FC<TimeViewProps> = props => {
               todos={props.todos.filter(todo => new Date(todo.due).toDateString() === date.toDateString())}
               header={DAY_OF_WEEK[date.getDay()]}
               subheader={date.toLocaleDateString()}
+              hideCompleted={hideCompleted}
               indicatorColor={isToday ? 'primary' : isTomorrow ? 'secondary' : undefined}
               indicator={isToday ? 'Today' : isTomorrow ? 'Tomorrow' : isPastDay ? 'Past' : undefined}
               isDisabled={isPastDay}
@@ -90,6 +92,11 @@ export const TimeView: React.FC<TimeViewProps> = props => {
           onClick={() => shiftStartDate(numDays)}>
           <FastArrowRight className="h-6 w-6" />
         </button>
+        <label className="swap swap-rotate btn btn-ghost btn-square">
+          <input type="checkbox" checked={hideCompleted} onChange={() => setHideCompleted(prev => !prev)} />
+          <EyeOff className="swap-on h-6 w-6" />
+          <EyeEmpty className="swap-off h-6 w-6" />
+        </label>
       </div>
     </div>
   );
