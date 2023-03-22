@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { FastArrowLeft, FastArrowRight, Home, NavArrowLeft, NavArrowRight, EyeEmpty, EyeOff } from 'iconoir-react';
-import { useViewport } from '../../hooks';
+import { useTodos, useViewport } from '../../hooks';
 import { Todo } from '../../types';
 import { TodoList } from '../todo-list';
+import { api } from '../../api';
 
 const DAY_OF_WEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
@@ -20,6 +21,7 @@ export const TimeView: React.FC<TimeViewProps> = props => {
   const [startDate, setStartDate] = useState(getYesterday());
   const [numDays, setNumDays] = useState(7);
   const [hideCompleted, setHideCompleted] = useState(false);
+  const { onCreateTodo } = useTodos();
   const { width } = useViewport();
 
   useEffect(() => {
@@ -40,6 +42,20 @@ export const TimeView: React.FC<TimeViewProps> = props => {
       newDate.setDate(newDate.getDate() + shift);
       return newDate;
     });
+  };
+
+  const handleCreateTodo = (title: string, due: Date) => {
+    api
+      .createTodo({
+        title,
+        due,
+      })
+      .then(res => {
+        onCreateTodo(res.data.todo);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   return (
@@ -79,6 +95,7 @@ export const TimeView: React.FC<TimeViewProps> = props => {
               indicatorColor={isToday ? 'primary' : isTomorrow ? 'secondary' : undefined}
               indicator={isToday ? 'Today' : isTomorrow ? 'Tomorrow' : isPastDay ? 'Past' : undefined}
               isDisabled={isPastDay}
+              onCreateTodo={title => handleCreateTodo(title, date)}
             />
           </div>
         );
