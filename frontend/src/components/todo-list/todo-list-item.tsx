@@ -66,7 +66,7 @@ export const TodoListItem: React.FC<TodoListItemProps> = props => {
         <input
           autoFocus
           type="text"
-          className="input w-full flex-shrink text-xs focus:outline-none"
+          className="input w-full flex-shrink text-xs p-2 focus:outline-none"
           onBlur={e => handleEditTitle(e.target.value)}
           onKeyDown={checkForEnter}
           defaultValue={props.todo.title}
