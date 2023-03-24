@@ -66,19 +66,21 @@ export const TodoListItem: React.FC<TodoListItemProps> = props => {
         <input
           autoFocus
           type="text"
-          className="input w-full flex-shrink text-xs p-2 focus:outline-none"
+          className="input w-full text-xs p-2 focus:outline-none"
           onBlur={e => handleEditTitle(e.target.value)}
           onKeyDown={checkForEnter}
           defaultValue={props.todo.title}
         />
       ) : (
-        <button
-          className={`btn btn-ghost normal-case p-2 text-left w-full text-xs flex-shrink overflow-scroll ${
-            props.todo.completed && 'line-through opacity-50'
-          }`}
-          onClick={handleToggleCompleted}>
-          <ReactMarkdown>{props.todo.title}</ReactMarkdown>
-        </button>
+        <div className="tooltip w-full" data-tip={props.todo.title}>
+          <button
+            className={`btn btn-ghost normal-case p-2 text-left w-full text-xs overflow-hidden ${
+              props.todo.completed && 'line-through opacity-50'
+            }`}
+            onClick={handleToggleCompleted}>
+            <ReactMarkdown>{props.todo.title}</ReactMarkdown>
+          </button>
+        </div>
       )}
       {isHovering &&
         !isEditing &&
