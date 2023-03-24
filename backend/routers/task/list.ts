@@ -1,27 +1,27 @@
 import { Request, Response } from "express";
 import prisma from "../../prisma/client";
 import { ErrorResBody } from "../../types";
-import { ResTodo } from "./types/res-todo";
+import { ResTask } from "./types/res-task";
 
-type ListTodosReqQuery = {
+type ListTasksReqQuery = {
   from: string;
   to: string;
 };
 
-type ListTodosResBody = {
-  todos: ResTodo[];
+type ListTasksResBody = {
+  tasks: ResTask[];
 };
 
-export const listTodos = async (
-  req: Request<{}, {}, {}, ListTodosReqQuery>,
-  res: Response<ListTodosResBody | ErrorResBody>
+export const listTasks = async (
+  req: Request<{}, {}, {}, ListTasksReqQuery>,
+  res: Response<ListTasksResBody | ErrorResBody>
 ) => {
   if (!req.userId) {
     return res.status(401).json({ message: "Unauthorized" });
   }
-  let todos;
+  let tasks;
   try {
-    todos = await prisma.todo.findMany({
+    tasks = await prisma.task.findMany({
       where: {
         creatorId: req.userId,
         created: {
@@ -34,14 +34,14 @@ export const listTodos = async (
       },
     });
   } catch (error) {
-    return res.status(500).json({ message: "Unable to list todos" });
+    return res.status(500).json({ message: "Unable to list tasks" });
   }
   return res.status(200).json({
-    todos: todos.map((todo) => ({
-      id: todo.id,
-      title: todo.title,
-      completed: todo.completed,
-      due: todo.due,
+    tasks: tasks.map((task) => ({
+      id: task.id,
+      title: task.title,
+      completed: task.completed,
+      due: task.due,
     })),
   });
 };

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { checkAuth } from "../middleware";
 import { login, signup } from "./auth";
-import { createTodo, deleteTodo, updateTodo, listTodos } from "./todo";
+import { createTask, deleteTask, updateTask, listTasks } from "./task";
 import { getMe, updateUser } from "./user";
 
 export const apiRouter = Router()
@@ -9,11 +9,11 @@ export const apiRouter = Router()
   .post("/auth/login", login)
   .post("/auth/signup", signup)
 
-  // todo routes
-  .get("/todos", checkAuth, listTodos)
-  .post("/todos", checkAuth, createTodo)
-  .put("/todos/:id", checkAuth, updateTodo)
-  .delete("/todos/:id", checkAuth, deleteTodo)
+  // task routes
+  .get("/tasks", checkAuth, listTasks)
+  .post("/tasks", checkAuth, createTask)
+  .put("/tasks/:id", checkAuth, updateTask)
+  .delete("/tasks/:id", checkAuth, deleteTask)
 
   // user routes
   .get("/users", checkAuth, getMe)

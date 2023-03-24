@@ -1,7 +1,7 @@
 {
   "name": "taskbrew-backend",
   "version": "1.0.0",
-  "description": "server for todo app",
+  "description": "Taskbrew backend",
   "main": "index.ts",
   "scripts": {
     "build": "npx tsc",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/norbusonam/todo.git"
+    "url": "git+https://github.com/norbusonam/taskbrew.git"
   },
   "author": "Norbu Sonam",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/norbusonam/todo/issues"
+    "url": "https://github.com/norbusonam/taskbrew/issues"
   },
-  "homepage": "https://github.com/norbusonam/todo#readme",
+  "homepage": "https://github.com/norbusonam/taskbrew#readme",
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
     "@types/cors": "^2.8.13",

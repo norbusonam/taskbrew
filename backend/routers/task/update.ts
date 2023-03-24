@@ -1,28 +1,28 @@
 import { Request, Response } from "express";
 import prisma from "../../prisma/client";
-import { ResTodo } from "./types/res-todo";
+import { ResTask } from "./types/res-task";
 
-type UpdateTodoReqParams = {
+type UpdateTaskReqParams = {
   id: string;
 };
 
-type UpdateTodoReqBody = {
+type UpdateTaskReqBody = {
   title: string;
   completed: boolean;
   due: Date;
 };
 
-type UpdateTodoResBody = {
-  todo: ResTodo;
+type UpdateTaskResBody = {
+  task: ResTask;
 };
 
-export const updateTodo = async (req: Request, res: Response) => {
+export const updateTask = async (req: Request, res: Response) => {
   if (!req.userId) {
     return res.status(401).json({ message: "Unauthorized" });
   }
-  let todo;
+  let task;
   try {
-    todo = await prisma.todo.update({
+    task = await prisma.task.update({
       where: {
         creatorId_id: {
           creatorId: req.userId,
@@ -34,14 +34,14 @@ export const updateTodo = async (req: Request, res: Response) => {
       },
     });
   } catch (error) {
-    return res.status(500).json({ message: "Unable to update todo" });
+    return res.status(500).json({ message: "Unable to update task" });
   }
   return res.status(200).json({
-    todo: {
-      id: todo.id,
-      title: todo.title,
-      completed: todo.completed,
-      due: todo.due,
+    task: {
+      id: task.id,
+      title: task.title,
+      completed: task.completed,
+      due: task.due,
     },
   });
 };

@@ -1,4 +1,4 @@
-export type ResTodo = {
+export type ResTask = {
   id: string;
   title: string;
   completed: boolean;
