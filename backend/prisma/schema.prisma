@@ -19,20 +19,38 @@ model User {
   updated  DateTime @updatedAt
 
   // has many
-  todos Todo[]
+  tasks Task[]
+  lists List[]
 }
 
-model Todo {
+model List {
   id        String   @id @default(cuid())
   title     String
-  completed Boolean  @default(false)
-  due       DateTime
   creatorId String
   created   DateTime @default(now())
   updated   DateTime @updatedAt
-  
+
   // belongs to
   creator User @relation(fields: [creatorId], references: [id])
+
+  // has many
+  tasks Task[]
+}
+
+model Task {
+  id        String    @id @default(cuid())
+  title     String
+  completed Boolean   @default(false)
+  due       DateTime?
+  listId    String?
+  order     Int
+  creatorId String
+  created   DateTime  @default(now())
+  updated   DateTime  @updatedAt
+  
+  // belongs to
+  creator User  @relation(fields: [creatorId], references: [id])
+  list    List? @relation(fields: [listId], references: [id])
 
   @@unique([creatorId, id])
 }
