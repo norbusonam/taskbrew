@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { FastArrowLeft, FastArrowRight, Home, NavArrowLeft, NavArrowRight, EyeEmpty, EyeOff } from 'iconoir-react';
 import { useTodos, useViewport } from '../../hooks';
 import { Todo } from '../../types';
 import { TodoList } from '../todo-list';
 import { api } from '../../api';
-
-const DAY_OF_WEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
-const getYesterday = () => {
-  const date = new Date();
-  date.setDate(date.getDate() - 1);
-  return date;
-};
+import { getYesterday } from './utils';
+import { LeftNav } from './left-nav';
+import { RightNav } from './right-nav';
+import { DAY_OF_WEEK } from './constants';
 
 type TimeViewProps = {
   todos: Todo[];
@@ -60,19 +55,7 @@ export const TimeView: React.FC<TimeViewProps> = props => {
 
   return (
     <div className="flex flex-row w-full gap-2 p-2">
-      <div className="flex flex-col gap-2">
-        <button className="btn btn-ghost btn-square" onClick={() => shiftStartDate(-1)}>
-          <NavArrowLeft className="h-6 w-6" />
-        </button>
-        <button
-          className={`btn btn-ghost btn-square ${numDays === 1 && 'hidden'}`}
-          onClick={() => shiftStartDate(-numDays)}>
-          <FastArrowLeft className="h-6 w-6" />
-        </button>
-        <button className="btn btn-ghost btn-square" onClick={() => setStartDate(getYesterday())}>
-          <Home className="h-6 w-6" />
-        </button>
-      </div>
+      <LeftNav shiftStartDate={shiftStartDate} setStartDate={setStartDate} numDays={numDays} />
       {[...Array(numDays)].map((_, i) => {
         const date = new Date(startDate);
         date.setDate(date.getDate() + i);
@@ -100,21 +83,13 @@ export const TimeView: React.FC<TimeViewProps> = props => {
           </div>
         );
       })}
-      <div className="flex flex-col gap-2">
-        <button className="btn btn-ghost btn-square" onClick={() => shiftStartDate(1)}>
-          <NavArrowRight className="h-6 w-6" />
-        </button>
-        <button
-          className={`btn btn-ghost btn-square ${numDays === 1 && 'hidden'}`}
-          onClick={() => shiftStartDate(numDays)}>
-          <FastArrowRight className="h-6 w-6" />
-        </button>
-        <label className="swap swap-rotate btn btn-ghost btn-square">
-          <input type="checkbox" checked={hideCompleted} onChange={() => setHideCompleted(prev => !prev)} />
-          <EyeOff className="swap-on h-6 w-6" />
-          <EyeEmpty className="swap-off h-6 w-6" />
-        </label>
-      </div>
+      <RightNav
+        shiftStartDate={shiftStartDate}
+        setStartDate={setStartDate}
+        numDays={numDays}
+        hideCompleted={hideCompleted}
+        setHideCompleted={setHideCompleted}
+      />
     </div>
   );
 };
