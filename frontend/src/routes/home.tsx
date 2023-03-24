@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { api } from '../api';
 import { TimeView } from '../components/time-view';
 import { useAuth } from '../hooks';
-import { useTodos } from '../hooks';
+import { useTasks } from '../hooks';
 
 export const Home: React.FC = () => {
   const { isAuthenticated, user } = useAuth();
-  const { todos, onGetTodos } = useTodos();
+  const { tasks, onGetTasks } = useTasks();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const currentTime = new Date();
@@ -18,19 +18,19 @@ export const Home: React.FC = () => {
       navigate('/login');
       return;
     }
-    getAllTodos();
+    getAllTasks();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getAllTodos = () => {
+  const getAllTasks = () => {
     setIsLoading(true);
     api
-      .getTodos(new Date(2000, 0, 1), new Date(2100, 0, 1))
+      .getTasks(new Date(2000, 0, 1), new Date(2100, 0, 1))
       .then(res => {
-        onGetTodos(res.data.todos);
+        onGetTasks(res.data.tasks);
       })
       .catch(() => {
-        console.log('Could not get todos');
+        console.log('Could not get tasks');
       })
       .finally(() => {
         setIsLoading(false);
@@ -52,7 +52,7 @@ export const Home: React.FC = () => {
       </div>
       <div>
         {isLoading && <p>Loading...</p>}
-        {todos && <TimeView todos={todos} />}
+        {tasks && <TimeView tasks={tasks} />}
       </div>
     </div>
   );

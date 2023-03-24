@@ -1,27 +1,28 @@
 import React from 'react';
 import { api } from '../../api';
-import { useTodos } from '../../hooks';
-import { Todo } from '../../types';
-import { TodoList } from '../todo-list';
+import { useTasks } from '../../hooks';
+import { Task } from '../../types';
+import { TaskList } from '../task-list';
 import { getDayOfWeek, isInPast, isToday, isTomorrow } from './utils';
 
 type DayListProps = {
   date: Date;
-  todos: Todo[];
+  tasks: Task[];
   hideCompleted?: boolean;
 };
 
 export const DayList: React.FC<DayListProps> = props => {
-  const { onCreateTodo } = useTodos();
+  const { onCreateTask } = useTasks();
 
-  const handleCreateTodo = (title: string) => {
+  const handleCreateTask = (title: string) => {
     api
-      .createTodo({
+      .createTask({
         title,
         due: props.date,
+        order: props.tasks.length,
       })
       .then(res => {
-        onCreateTodo(res.data.todo);
+        onCreateTask(res.data.task);
       })
       .catch(err => {
         console.log(err);
@@ -29,11 +30,11 @@ export const DayList: React.FC<DayListProps> = props => {
   };
 
   return (
-    <TodoList
+    <TaskList
       header={getDayOfWeek(props.date)}
       subheader={props.date.toLocaleDateString()}
-      todos={props.todos}
-      onCreateTodo={handleCreateTodo}
+      tasks={props.tasks}
+      onCreateTask={handleCreateTask}
       isDisabled={isInPast(props.date)}
       hideCompleted={props.hideCompleted}
       indicator={

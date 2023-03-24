@@ -1,5 +1,5 @@
 export { useAuth } from './use-auth';
-export { useTodos } from './use-todos';
+export { useTasks } from './use-tasks';
 export { useToast } from './use-toast';
 export { useTheme } from './use-theme';
 export { useViewport } from './use-viewport';

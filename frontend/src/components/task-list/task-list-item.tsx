@@ -2,25 +2,25 @@ import React, { useState } from 'react';
 import { EditPencil, Trash } from 'iconoir-react';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import { api } from '../../api';
-import { useTodos } from '../../hooks';
-import { Todo } from '../../types';
+import { useTasks } from '../../hooks';
+import { Task } from '../../types';
 
-type TodoListItemProps = {
-  todo: Todo;
+type TaskListItemProps = {
+  task: Task;
 };
 
-export const TodoListItem: React.FC<TodoListItemProps> = props => {
+export const TaskListItem: React.FC<TaskListItemProps> = props => {
   const [isHovering, setIsHovering] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const { onUpdateTodo, onDeleteTodo } = useTodos();
+  const { onUpdateTask, onDeleteTask } = useTasks();
 
   const handleToggleCompleted = () => {
     api
-      .updateTodo(props.todo.id, {
-        completed: !props.todo.completed,
+      .updateTask(props.task.id, {
+        completed: !props.task.completed,
       })
       .then(res => {
-        onUpdateTodo(res.data.todo);
+        onUpdateTask(res.data.task);
       })
       .catch(err => {
         console.log(err);
@@ -29,9 +29,9 @@ export const TodoListItem: React.FC<TodoListItemProps> = props => {
 
   const handleDelete = () => {
     api
-      .deleteTodo(props.todo.id)
+      .deleteTask(props.task.id)
       .then(() => {
-        onDeleteTodo(props.todo.id);
+        onDeleteTask(props.task.id);
       })
       .catch(err => {
         console.log(err);
@@ -40,13 +40,13 @@ export const TodoListItem: React.FC<TodoListItemProps> = props => {
 
   const handleEditTitle = (title: string) => {
     setIsEditing(false);
-    if (title && title !== props.todo.title) {
+    if (title && title !== props.task.title) {
       api
-        .updateTodo(props.todo.id, {
+        .updateTask(props.task.id, {
           title,
         })
         .then(res => {
-          onUpdateTodo(res.data.todo);
+          onUpdateTask(res.data.task);
         })
         .catch(err => {
           console.log(err);
@@ -69,22 +69,22 @@ export const TodoListItem: React.FC<TodoListItemProps> = props => {
           className="input w-full text-xs p-2 focus:outline-none"
           onBlur={e => handleEditTitle(e.target.value)}
           onKeyDown={checkForEnter}
-          defaultValue={props.todo.title}
+          defaultValue={props.task.title}
         />
       ) : (
-        <div className="tooltip w-full" data-tip={props.todo.title}>
+        <div className="tooltip w-full" data-tip={props.task.title}>
           <button
             className={`btn btn-ghost normal-case p-2 text-left w-full text-xs overflow-hidden ${
-              props.todo.completed && 'line-through opacity-50'
+              props.task.completed && 'line-through opacity-50'
             }`}
             onClick={handleToggleCompleted}>
-            <ReactMarkdown>{props.todo.title}</ReactMarkdown>
+            <ReactMarkdown>{props.task.title}</ReactMarkdown>
           </button>
         </div>
       )}
       {isHovering &&
         !isEditing &&
-        (props.todo.completed ? (
+        (props.task.completed ? (
           <button className="btn btn-ghost btn-square p-2 text-error" onClick={handleDelete}>
             <Trash className="w-4 h-4" />
           </button>

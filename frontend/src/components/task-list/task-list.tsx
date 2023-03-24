@@ -1,41 +1,41 @@
 import React, { useState } from 'react';
-import { Todo } from '../../types';
-import { TodoListHeader } from './todo-list-header';
-import { TodoListItem } from './todo-list-item';
+import { Task } from '../../types';
+import { TaskListHeader } from './task-list-header';
+import { TaskListItem } from './task-list-item';
 
-type TodoListProps = {
+type TaskListProps = {
   header: string;
   subheader?: string;
-  todos: Todo[];
-  onCreateTodo: (title: string) => void;
+  tasks: Task[];
+  onCreateTask: (title: string) => void;
   indicatorColor?: 'primary' | 'secondary';
   hideCompleted?: boolean;
   indicator?: string;
   isDisabled?: boolean;
 };
 
-export const TodoList: React.FC<TodoListProps> = props => {
-  const [newTodoTitle, setNewTodoTitle] = useState('');
-  const [isNewTodoFocused, setIsNewTodoFocused] = useState(false);
+export const TaskList: React.FC<TaskListProps> = props => {
+  const [newTaskTitle, setNewTaskTitle] = useState('');
+  const [isNewTaskFocused, setIsNewTaskFocused] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
 
-  const onCreateTodo = () => {
-    setIsNewTodoFocused(false);
-    if (newTodoTitle) {
-      props.onCreateTodo(newTodoTitle);
-      setNewTodoTitle('');
+  const onCreateTask = () => {
+    setIsNewTaskFocused(false);
+    if (newTaskTitle) {
+      props.onCreateTask(newTaskTitle);
+      setNewTaskTitle('');
     }
   };
 
   const checkForEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      onCreateTodo();
+      onCreateTask();
     }
   };
 
   return (
     <div className="mb-4">
-      <TodoListHeader
+      <TaskListHeader
         header={props.header}
         subheader={props.subheader}
         isDisabled={props.isDisabled}
@@ -47,21 +47,21 @@ export const TodoList: React.FC<TodoListProps> = props => {
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}>
         <div className="card-body gap-0">
-          {props.todos
+          {props.tasks
             .sort(a => (a.completed ? 1 : -1))
-            .filter(todo => !props.hideCompleted || !todo.completed)
-            .map(todo => (
-              <TodoListItem key={todo.id} todo={todo} />
+            .filter(task => !props.hideCompleted || !task.completed)
+            .map(task => (
+              <TaskListItem key={task.id} task={task} />
             ))}
-          <div className={`flex transition-opacity ${!isHovering && !isNewTodoFocused && 'opacity-0'}`}>
+          <div className={`flex transition-opacity ${!isHovering && !isNewTaskFocused && 'opacity-0'}`}>
             <input
-              value={newTodoTitle}
-              onChange={e => setNewTodoTitle(e.target.value)}
+              value={newTaskTitle}
+              onChange={e => setNewTaskTitle(e.target.value)}
               type="text"
               className="input input-ghost w-full flex-shrink text-xs p-2 focus:outline-none"
-              onBlur={onCreateTodo}
+              onBlur={onCreateTask}
               onKeyDown={checkForEnter}
-              onFocus={() => setIsNewTodoFocused(true)}
+              onFocus={() => setIsNewTaskFocused(true)}
               placeholder="Creata a new task"
             />
           </div>

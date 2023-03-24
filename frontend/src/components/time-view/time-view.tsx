@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useViewport } from '../../hooks';
-import { Todo } from '../../types';
+import { Task } from '../../types';
 import { getYesterday } from './utils';
 import { LeftNav } from './left-nav';
 import { RightNav } from './right-nav';
 import { DayList } from './day-list';
 
 type TimeViewProps = {
-  todos: Todo[];
+  tasks: Task[];
 };
 
 export const TimeView: React.FC<TimeViewProps> = props => {
@@ -47,7 +47,7 @@ export const TimeView: React.FC<TimeViewProps> = props => {
             <DayList
               date={date}
               hideCompleted={hideCompleted}
-              todos={props.todos.filter(todo => new Date(todo.due).toDateString() === date.toDateString())}
+              tasks={props.tasks.filter(task => task.due && new Date(task.due).toDateString() === date.toDateString())}
             />
           </div>
         );

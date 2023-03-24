@@ -1,6 +1,6 @@
 import React from 'react';
 
-type TodoListHeaderProps = {
+type TaskListHeaderProps = {
   header: string;
   subheader?: string;
   indicatorColor?: 'primary' | 'secondary';
@@ -8,7 +8,7 @@ type TodoListHeaderProps = {
   isDisabled?: boolean;
 };
 
-export const TodoListHeader: React.FC<TodoListHeaderProps> = props => {
+export const TaskListHeader: React.FC<TaskListHeaderProps> = props => {
   return (
     <div
       className={`card bg-base-200 shadow-md mb-2 ${props.indicator && 'indicator w-full'} ${

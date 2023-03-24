@@ -1,20 +1,20 @@
 import { v4 as uuidv4 } from 'uuid';
-import { setTodos, addTodo, removeTodo, updateTodo } from '../slices/todo-slice';
-import { Todo } from '../types';
+import { setTasks, addTask, removeTask, updateTask } from '../slices/task-slice';
+import { Task } from '../types';
 import { useAppDispatch, useAppSelector } from './use-redux';
 import { useToast } from './use-toast';
 
-export const useTodos = () => {
-  const todos = useAppSelector(state => state.todo.todos);
+export const useTasks = () => {
+  const tasks = useAppSelector(state => state.task.tasks);
   const dispatch = useAppDispatch();
   const { makeToast } = useToast();
 
-  const onGetTodos = (todos: Todo[]) => {
-    dispatch(setTodos(todos));
+  const onGetTasks = (tasks: Task[]) => {
+    dispatch(setTasks(tasks));
   };
 
-  const onCreateTodo = (todo: Todo) => {
-    dispatch(addTodo(todo));
+  const onCreateTask = (task: Task) => {
+    dispatch(addTask(task));
     makeToast({
       id: uuidv4(),
       title: 'Task Created 🚀',
@@ -24,8 +24,8 @@ export const useTodos = () => {
     });
   };
 
-  const onDeleteTodo = (id: string) => {
-    dispatch(removeTodo(id));
+  const onDeleteTask = (id: string) => {
+    dispatch(removeTask(id));
     makeToast({
       id: uuidv4(),
       title: 'Task Deleted 🗑️',
@@ -35,8 +35,8 @@ export const useTodos = () => {
     });
   };
 
-  const onUpdateTodo = (todo: Todo) => {
-    dispatch(updateTodo(todo));
+  const onUpdateTask = (task: Task) => {
+    dispatch(updateTask(task));
     makeToast({
       id: uuidv4(),
       title: 'Task Updated ☕️',
@@ -47,10 +47,10 @@ export const useTodos = () => {
   };
 
   return {
-    todos,
-    onGetTodos,
-    onCreateTodo,
-    onDeleteTodo,
-    onUpdateTodo,
+    tasks,
+    onGetTasks,
+    onCreateTask,
+    onDeleteTask,
+    onUpdateTask,
   };
 };

@@ -1,20 +1,28 @@
-import { Todo, User } from '../types';
+import { Task, User } from '../types';
 import { client } from './client';
 import { AuthResBody } from './types/auth-res-body';
+
+type UpdateTaskBody = {
+  title?: string;
+  completed?: boolean;
+  order?: number;
+  listId?: string;
+  due?: Date;
+};
+
+type CreateTaskBody = {
+  title: string;
+  order: number;
+  due?: Date;
+  listId?: string;
+};
 
 export const api = {
   login: (body: { email: string; password: string }) => client.post<AuthResBody>('auth/login', body),
   signup: (body: { email: string; name: string; password: string }) => client.post<AuthResBody>('auth/signup', body),
   updateUser: (body: { name?: string; email?: string }) => client.put<{ user: User }>('users', body),
-  getTodos: (from: Date, to: Date) => client.get<{ todos: Todo[] }>('todos', { params: { from, to } }),
-  createTodo: (body: { title: string; due: Date }) => client.post<{ todo: Todo }>('todos', body),
-  updateTodo: (
-    id: string,
-    body: {
-      title?: string;
-      completed?: boolean;
-      due?: Date;
-    },
-  ) => client.put<{ todo: Todo }>(`todos/${id}`, body),
-  deleteTodo: (id: string) => client.delete<null>(`todos/${id}`),
+  getTasks: (from: Date, to: Date) => client.get<{ tasks: Task[] }>('tasks', { params: { from, to } }),
+  createTask: (body: CreateTaskBody) => client.post<{ task: Task }>('tasks', body),
+  updateTask: (id: string, body: UpdateTaskBody) => client.put<{ task: Task }>(`tasks/${id}`, body),
+  deleteTask: (id: string) => client.delete<null>(`tasks/${id}`),
 };
