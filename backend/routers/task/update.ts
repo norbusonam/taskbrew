@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import prisma from "../../prisma/client";
+import { ErrorResBody } from "../../types";
 import { ResTask } from "./types/res-task";
 
 type UpdateTaskReqParams = {
@@ -7,16 +8,21 @@ type UpdateTaskReqParams = {
 };
 
 type UpdateTaskReqBody = {
-  title: string;
-  completed: boolean;
-  due: Date;
+  title?: string;
+  completed?: boolean;
+  order?: number;
+  listId?: string;
+  due?: Date;
 };
 
 type UpdateTaskResBody = {
   task: ResTask;
 };
 
-export const updateTask = async (req: Request, res: Response) => {
+export const updateTask = async (
+  req: Request<UpdateTaskReqParams, {}, UpdateTaskReqBody>,
+  res: Response<UpdateTaskResBody | ErrorResBody>
+) => {
   if (!req.userId) {
     return res.status(401).json({ message: "Unauthorized" });
   }
@@ -42,6 +48,8 @@ export const updateTask = async (req: Request, res: Response) => {
       title: task.title,
       completed: task.completed,
       due: task.due,
+      order: task.order,
+      listId: task.listId,
     },
   });
 };

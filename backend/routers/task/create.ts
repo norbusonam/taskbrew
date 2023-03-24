@@ -5,7 +5,9 @@ import { ResTask } from "./types/res-task";
 
 type CreateTaskReqBody = {
   title: string;
-  due: Date;
+  order: number;
+  due?: Date;
+  listId?: string;
 };
 
 type CreateTaskResBody = {
@@ -28,6 +30,7 @@ export const createTask = async (
       },
     });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ message: "Unable to create task" });
   }
   return res.status(201).json({
@@ -35,7 +38,9 @@ export const createTask = async (
       id: task.id,
       title: task.title,
       completed: task.completed,
+      order: task.order,
       due: task.due,
+      listId: task.listId,
     },
   });
 };

@@ -41,6 +41,8 @@ export const listTasks = async (
       id: task.id,
       title: task.title,
       completed: task.completed,
+      order: task.order,
+      listId: task.listId,
       due: task.due,
     })),
   });
