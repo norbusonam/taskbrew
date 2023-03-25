@@ -15,6 +15,7 @@ CREATE TABLE "List" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "creatorId" TEXT NOT NULL,
+    "order" INTEGER NOT NULL,
     "created" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated" TIMESTAMP(3) NOT NULL,
 
@@ -38,6 +39,9 @@ CREATE TABLE "Task" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "List_creatorId_id_key" ON "List"("creatorId", "id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Task_creatorId_id_key" ON "Task"("creatorId", "id");

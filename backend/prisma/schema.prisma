@@ -27,6 +27,7 @@ model List {
   id        String   @id @default(cuid())
   title     String
   creatorId String
+  order     Int
   created   DateTime @default(now())
   updated   DateTime @updatedAt
 
@@ -35,6 +36,8 @@ model List {
 
   // has many
   tasks Task[]
+
+  @@unique([creatorId, id])
 }
 
 model Task {
