@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../api';
+import { ListView } from '../components/list-view';
 import { TimeView } from '../components/time-view';
 import { useAuth } from '../hooks';
 import { useTasks } from '../hooks';
@@ -52,7 +53,16 @@ export const Home: React.FC = () => {
       </div>
       <div>
         {isLoading && <p>Loading...</p>}
-        {tasks && <TimeView tasks={tasks} />}
+        {tasks && <TimeView tasks={tasks.filter(task => task.due)} />}
+      </div>
+      <div className="flex justify-center mb-4">
+        <div className="prose">
+          <h2>Your Lists</h2>
+        </div>
+      </div>
+      <div>
+        {isLoading && <p>Loading...</p>}
+        {tasks && <ListView tasks={tasks.filter(task => task.listId)} />}
       </div>
     </div>
   );
