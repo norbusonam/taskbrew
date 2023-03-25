@@ -3,17 +3,12 @@ import prisma from "../../prisma/client";
 import { ErrorResBody } from "../../types";
 import { ResTask } from "./types/res-task";
 
-type ListTasksReqQuery = {
-  from: string;
-  to: string;
-};
-
 type ListTasksResBody = {
   tasks: ResTask[];
 };
 
 export const listTasks = async (
-  req: Request<{}, {}, {}, ListTasksReqQuery>,
+  req: Request,
   res: Response<ListTasksResBody | ErrorResBody>
 ) => {
   if (!req.userId) {

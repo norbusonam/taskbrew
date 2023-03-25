@@ -25,7 +25,7 @@ export const Home: React.FC = () => {
   const getAllTasks = () => {
     setIsLoading(true);
     api
-      .getTasks(new Date(2000, 0, 1), new Date(2100, 0, 1))
+      .getTasks()
       .then(res => {
         onGetTasks(res.data.tasks);
       })
