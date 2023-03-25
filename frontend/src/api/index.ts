@@ -1,4 +1,4 @@
-import { Task, User } from '../types';
+import { List, Task, User } from '../types';
 import { client } from './client';
 import { AuthResBody } from './types/auth-res-body';
 
@@ -17,6 +17,16 @@ type CreateTaskBody = {
   listId?: string;
 };
 
+type UpdateListBody = {
+  title?: string;
+  order?: number;
+};
+
+type CreateListBody = {
+  title: string;
+  order: number;
+};
+
 export const api = {
   login: (body: { email: string; password: string }) => client.post<AuthResBody>('auth/login', body),
   signup: (body: { email: string; name: string; password: string }) => client.post<AuthResBody>('auth/signup', body),
@@ -25,4 +35,8 @@ export const api = {
   createTask: (body: CreateTaskBody) => client.post<{ task: Task }>('tasks', body),
   updateTask: (id: string, body: UpdateTaskBody) => client.put<{ task: Task }>(`tasks/${id}`, body),
   deleteTask: (id: string) => client.delete<null>(`tasks/${id}`),
+  getLists: () => client.get<{ lists: List[] }>('lists'),
+  createList: (body: CreateListBody) => client.post<{ list: List }>('lists', body),
+  updateList: (id: string, body: UpdateListBody) => client.put<{ list: List }>(`lists/${id}`, body),
+  deleteList: (id: string) => client.delete<null>(`lists/${id}`),
 };
