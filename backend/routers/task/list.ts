@@ -19,10 +19,6 @@ export const listTasks = async (
     tasks = await prisma.task.findMany({
       where: {
         creatorId: req.userId,
-        created: {
-          gte: req.query.from,
-          lte: req.query.to,
-        },
       },
       orderBy: {
         created: "desc",
