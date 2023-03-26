@@ -48,7 +48,7 @@ export const TaskList: React.FC<TaskListProps> = props => {
         onMouseLeave={() => setIsHovering(false)}>
         <div className="card-body gap-0">
           {props.tasks
-            .sort(a => (a.completed ? 1 : -1))
+            .sort((a, b) => a.order - b.order)
             .filter(task => !props.hideCompleted || !task.completed)
             .map(task => (
               <TaskListItem key={task.id} task={task} />

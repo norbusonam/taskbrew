@@ -20,9 +20,6 @@ export const listTasks = async (
       where: {
         creatorId: req.userId,
       },
-      orderBy: {
-        created: "desc",
-      },
     });
   } catch (error) {
     return res.status(500).json({ message: "Unable to list tasks" });

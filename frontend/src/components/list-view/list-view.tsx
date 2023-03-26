@@ -33,7 +33,10 @@ export const ListView: React.FC<ListViewProps> = props => {
         <div>No lists 😢</div>
       ) : (
         <div className="flex flex-row w-full gap-2 p-2">
-          {lists && lists.map(list => <ListViewList key={list.id} list={list} tasks={props.tasks} />)}
+          {lists &&
+            lists
+              .sort((a, b) => a.order - b.order)
+              .map(list => <ListViewList key={list.id} list={list} tasks={props.tasks} />)}
         </div>
       )}
       <CreateListButton onCreateList={handleCreateList} />
