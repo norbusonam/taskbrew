@@ -34,6 +34,6 @@ export const listSlice = createSlice<ListState, ListReducer>({
   },
 });
 
-export const { setLists, addList, removeList, updateList } = listSlice.actions;
+export const listActions = listSlice.actions;
 
 export default listSlice.reducer;

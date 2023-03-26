@@ -10,7 +10,7 @@ type ListViewProps = {
 };
 
 export const ListView: React.FC<ListViewProps> = props => {
-  const { lists, onGetLists, onCreateList } = useLists();
+  const { lists, getAllLists, createList } = useLists();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -18,33 +18,11 @@ export const ListView: React.FC<ListViewProps> = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getAllLists = () => {
-    setIsLoading(true);
-    api
-      .getLists()
-      .then(res => {
-        onGetLists(res.data.lists);
-      })
-      .catch(() => {
-        console.log('Could not get lists');
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  };
-
   const handleCreateList = (title: string) => {
-    api
-      .createList({
-        title,
-        order: lists.length,
-      })
-      .then(res => {
-        onCreateList(res.data.list);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    createList({
+      title,
+      order: lists.length,
+    });
   };
 
   return (
