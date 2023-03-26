@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { CoffeeCup, HalfMoon, SunLight, List, TaskList } from 'iconoir-react';
 import { useNavigate } from 'react-router-dom';
 import { ListView } from '../components/list-view';
 import { TimeView } from '../components/time-view';
@@ -25,19 +26,30 @@ export const Home: React.FC = () => {
     <div>
       <div className="flex justify-center mb-4">
         <div className="prose">
-          <h2>
-            {currentTime.getHours() < 12
-              ? `☕️ Good morning${firstName ? ', ' + firstName : ''}`
-              : currentTime.getHours() >= 12 && currentTime.getHours() <= 17
-              ? `☀️ Good afternoon${firstName ? ', ' + firstName : ''}`
-              : `🌕 Good evening${firstName ? ', ' + firstName : ''}`}
+          <h2 className="flex flex-row gap-4 items-center">
+            {currentTime.getHours() < 12 ? (
+              <>
+                <CoffeeCup className="w-6 h-6" /> {`Good morning${firstName ? ', ' + firstName : ''}`}
+              </>
+            ) : currentTime.getHours() >= 12 && currentTime.getHours() <= 17 ? (
+              <>
+                <SunLight className="w-6 h-6" /> {`Good afternoon${firstName ? ', ' + firstName : ''}`}
+              </>
+            ) : (
+              <>
+                <HalfMoon className="w-6 h-6" />
+                {`Good evening${firstName ? ', ' + firstName : ''}`}
+              </>
+            )}
           </h2>
         </div>
       </div>
       <div>{tasks && <TimeView tasks={tasks.filter(task => task.due)} />}</div>
       <div className="flex justify-center mb-4">
         <div className="prose">
-          <h2>Your Lists</h2>
+          <h2 className="flex flex-row gap-4 items-center">
+            <TaskList className="w-6 h-6" /> {`Your lists`}
+          </h2>
         </div>
       </div>
       <div>{tasks && <ListView tasks={tasks.filter(task => task.listId)} />}</div>
