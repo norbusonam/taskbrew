@@ -1,5 +1,4 @@
 import React from 'react';
-import { api } from '../../api';
 import { useTasks } from '../../hooks';
 import { List, Task } from '../../types';
 import { TaskList } from '../task-list';
@@ -10,21 +9,14 @@ type ListViewListProps = {
 };
 
 export const ListViewList: React.FC<ListViewListProps> = props => {
-  const { onCreateTask } = useTasks();
+  const { createTask } = useTasks();
 
   const handleCreateTask = (title: string) => {
-    api
-      .createTask({
-        title,
-        listId: props.list.id,
-        order: props.tasks.length,
-      })
-      .then(res => {
-        onCreateTask(res.data.task);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    createTask({
+      title,
+      listId: props.list.id,
+      order: props.tasks.length,
+    });
   };
 
   return (

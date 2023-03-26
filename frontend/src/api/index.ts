@@ -2,7 +2,7 @@ import { List, Task, User } from '../types';
 import { client } from './client';
 import { AuthResBody } from './types/auth-res-body';
 
-type UpdateTaskBody = {
+export type UpdateTaskBody = {
   title?: string;
   completed?: boolean;
   order?: number;
@@ -10,19 +10,19 @@ type UpdateTaskBody = {
   due?: Date;
 };
 
-type CreateTaskBody = {
+export type CreateTaskBody = {
   title: string;
   order: number;
   due?: Date;
   listId?: string;
 };
 
-type UpdateListBody = {
+export type UpdateListBody = {
   title?: string;
   order?: number;
 };
 
-type CreateListBody = {
+export type CreateListBody = {
   title: string;
   order: number;
 };

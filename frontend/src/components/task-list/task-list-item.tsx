@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { EditPencil, Trash } from 'iconoir-react';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
-import { api } from '../../api';
 import { useTasks } from '../../hooks';
 import { Task } from '../../types';
 
@@ -12,45 +11,25 @@ type TaskListItemProps = {
 export const TaskListItem: React.FC<TaskListItemProps> = props => {
   const [isHovering, setIsHovering] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const { onUpdateTask, onDeleteTask } = useTasks();
+  const { updateTask, deleteTask } = useTasks();
 
   const handleToggleCompleted = () => {
-    api
-      .updateTask(props.task.id, {
-        completed: !props.task.completed,
-      })
-      .then(res => {
-        onUpdateTask(res.data.task);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    updateTask(props.task.id, {
+      completed: !props.task.completed,
+    });
   };
 
   const handleDelete = () => {
-    api
-      .deleteTask(props.task.id)
-      .then(() => {
-        onDeleteTask(props.task.id);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    deleteTask(props.task.id);
   };
 
   const handleEditTitle = (title: string) => {
     setIsEditing(false);
+
     if (title && title !== props.task.title) {
-      api
-        .updateTask(props.task.id, {
-          title,
-        })
-        .then(res => {
-          onUpdateTask(res.data.task);
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      updateTask(props.task.id, {
+        title,
+      });
     }
   };
 

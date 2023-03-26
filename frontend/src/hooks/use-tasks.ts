@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
-import { setTasks, addTask, removeTask, updateTask } from '../slices/task-slice';
-import { Task } from '../types';
+import { api, CreateTaskBody, UpdateTaskBody } from '../api';
+import { taskActions } from '../slices/task-slice';
 import { useAppDispatch, useAppSelector } from './use-redux';
 import { useToast } from './use-toast';
 
@@ -9,48 +9,76 @@ export const useTasks = () => {
   const dispatch = useAppDispatch();
   const { makeToast } = useToast();
 
-  const onGetTasks = (tasks: Task[]) => {
-    dispatch(setTasks(tasks));
+  const getAllTasks = () => {
+    api.getTasks().then(
+      res => {
+        dispatch(taskActions.setTasks(res.data.tasks));
+      },
+      err => {
+        console.log(err);
+      },
+    );
   };
 
-  const onCreateTask = (task: Task) => {
-    dispatch(addTask(task));
-    makeToast({
-      id: uuidv4(),
-      title: 'Task Created 🚀',
-      description: 'Task has been created successfully',
-      type: 'success',
-      duration: 5000,
-    });
+  const createTask = (task: CreateTaskBody) => {
+    api.createTask(task).then(
+      res => {
+        dispatch(taskActions.addTask(res.data.task));
+        makeToast({
+          id: uuidv4(),
+          title: 'Task Created 🎉',
+          description: 'Task has been created successfully',
+          type: 'success',
+          duration: 5000,
+        });
+      },
+      err => {
+        console.log(err);
+      },
+    );
   };
 
-  const onDeleteTask = (id: string) => {
-    dispatch(removeTask(id));
-    makeToast({
-      id: uuidv4(),
-      title: 'Task Deleted 🗑️',
-      description: 'Task has been deleted successfully',
-      type: 'info',
-      duration: 5000,
-    });
+  const deleteTask = (id: string) => {
+    api.deleteTask(id).then(
+      res => {
+        dispatch(taskActions.removeTask(id));
+        makeToast({
+          id: uuidv4(),
+          title: 'Task Deleted 🗑️',
+          description: 'Task has been deleted successfully',
+          type: 'error',
+          duration: 5000,
+        });
+      },
+      err => {
+        console.log(err);
+      },
+    );
   };
 
-  const onUpdateTask = (task: Task) => {
-    dispatch(updateTask(task));
-    makeToast({
-      id: uuidv4(),
-      title: 'Task Updated ☕️',
-      description: 'Task has been updated successfully',
-      type: 'info',
-      duration: 5000,
-    });
+  const updateTask = (id: string, task: UpdateTaskBody) => {
+    api.updateTask(id, task).then(
+      res => {
+        dispatch(taskActions.updateTask(res.data.task));
+        makeToast({
+          id: uuidv4(),
+          title: 'Task Updated ✅',
+          description: 'Task has been updated successfully',
+          type: 'success',
+          duration: 5000,
+        });
+      },
+      err => {
+        console.log(err);
+      },
+    );
   };
 
   return {
     tasks,
-    onGetTasks,
-    onCreateTask,
-    onDeleteTask,
-    onUpdateTask,
+    getAllTasks,
+    createTask,
+    deleteTask,
+    updateTask,
   };
 };

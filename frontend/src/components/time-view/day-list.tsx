@@ -1,5 +1,4 @@
 import React from 'react';
-import { api } from '../../api';
 import { useTasks } from '../../hooks';
 import { Task } from '../../types';
 import { TaskList } from '../task-list';
@@ -12,21 +11,14 @@ type DayListProps = {
 };
 
 export const DayList: React.FC<DayListProps> = props => {
-  const { onCreateTask } = useTasks();
+  const { createTask } = useTasks();
 
   const handleCreateTask = (title: string) => {
-    api
-      .createTask({
-        title,
-        due: props.date,
-        order: props.tasks.length,
-      })
-      .then(res => {
-        onCreateTask(res.data.task);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    createTask({
+      title,
+      due: props.date,
+      order: props.tasks.length,
+    });
   };
 
   return (
