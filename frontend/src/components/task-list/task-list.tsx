@@ -62,7 +62,7 @@ export const TaskList: React.FC<TaskListProps> = props => {
               onBlur={onCreateTask}
               onKeyDown={checkForEnter}
               onFocus={() => setIsNewTaskFocused(true)}
-              placeholder="Creata a new task"
+              placeholder="Create a new task"
             />
           </div>
         </div>
