@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { CoffeeCup, HalfMoon, SunLight, List, TaskList } from 'iconoir-react';
+import { CoffeeCup, HalfMoon, SunLight, TaskList } from 'iconoir-react';
 import { useNavigate } from 'react-router-dom';
 import { ListView } from '../components/list-view';
 import { TimeView } from '../components/time-view';
