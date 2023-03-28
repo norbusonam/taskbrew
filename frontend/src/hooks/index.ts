@@ -4,4 +4,5 @@ export { useLists } from './use-lists';
 export { useToast } from './use-toast';
 export { useTheme } from './use-theme';
 export { useViewport } from './use-viewport';
+export { useNumLists } from './use-num-lists';
 export { useAppDispatch, useAppSelector } from './use-redux';

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useViewport } from '../../hooks';
+import React, { useState } from 'react';
 import { Task } from '../../types';
 import { getYesterday } from './utils';
 import { LeftNav } from './left-nav';
 import { RightNav } from './right-nav';
 import { DayList } from './day-list';
+import { useNumLists } from '../../hooks';
 
 type TimeViewProps = {
   tasks: Task[];
@@ -12,21 +12,8 @@ type TimeViewProps = {
 
 export const TimeView: React.FC<TimeViewProps> = props => {
   const [startDate, setStartDate] = useState(getYesterday());
-  const [numDays, setNumDays] = useState(7);
+  const { numLists: numDays } = useNumLists();
   const [hideCompleted, setHideCompleted] = useState(false);
-  const { width } = useViewport();
-
-  useEffect(() => {
-    if (width < 600) {
-      setNumDays(1);
-    } else if (width < 1000) {
-      setNumDays(3);
-    } else if (width < 1300) {
-      setNumDays(5);
-    } else {
-      setNumDays(7);
-    }
-  }, [width]);
 
   const shiftStartDate = (shift: number) => {
     setStartDate(prev => {
