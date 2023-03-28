@@ -5,6 +5,7 @@ import { TaskList } from '../task-list';
 
 type ListViewListProps = {
   list: List;
+  hideCompleted: boolean;
   tasks: Task[];
 };
 
@@ -23,6 +24,7 @@ export const ListViewList: React.FC<ListViewListProps> = props => {
     <TaskList
       header={props.list.title}
       tasks={props.tasks.filter(task => task.listId === props.list.id)}
+      hideCompleted={props.hideCompleted}
       onCreateTask={title => handleCreateTask(title)}
     />
   );
