@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Cancel } from 'iconoir-react';
+import { Cancel, Plus } from 'iconoir-react';
 
 type CreateListButtonProps = {
   onCreateList: (title: string) => void;
@@ -19,8 +19,8 @@ export const CreateListButton: React.FC<CreateListButtonProps> = props => {
 
   return (
     <div>
-      <label htmlFor="create-list" className="btn btn-primary">
-        Create list
+      <label htmlFor="create-list" className="btn btn-ghost btn-square">
+        <Plus className="h-6 w-6" />
       </label>
       <input type="checkbox" id="create-list" className="modal-toggle" />
       <div className="modal">

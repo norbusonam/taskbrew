@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLists, useNumLists } from '../../hooks';
 import { Task } from '../../types';
-import { CreateListButton } from './create-list-button';
 import { LeftNav } from './left-nav';
 import { RightNav } from './right-nav';
 import { ListViewList } from './list-view-list';
@@ -34,7 +33,7 @@ export const ListView: React.FC<ListViewProps> = props => {
         <div>No lists 😢</div>
       ) : (
         <div className="flex flex-row w-full gap-2 p-2">
-          <LeftNav onLeftClicked={() => setStartIndex(prev => Math.max(prev - 1, 0))} />
+          <LeftNav onLeftClicked={() => setStartIndex(prev => Math.max(prev - 1, 0))} onCreateList={handleCreateList} />
           {[...Array(numLists)].map((_, i) => {
             const list = lists[startIndex + i];
             return (
@@ -54,7 +53,6 @@ export const ListView: React.FC<ListViewProps> = props => {
           />
         </div>
       )}
-      <CreateListButton onCreateList={handleCreateList} />
     </div>
   );
 };

@@ -1,8 +1,10 @@
 import React from 'react';
-import { NavArrowLeft, Plus } from 'iconoir-react';
+import { NavArrowLeft } from 'iconoir-react';
+import { CreateListButton } from './create-list-button';
 
 type LeftNavProps = {
   onLeftClicked: () => void;
+  onCreateList: (title: string) => void;
 };
 
 export const LeftNav: React.FC<LeftNavProps> = props => {
@@ -11,9 +13,7 @@ export const LeftNav: React.FC<LeftNavProps> = props => {
       <button className="btn btn-ghost btn-square" onClick={props.onLeftClicked}>
         <NavArrowLeft className="h-6 w-6" />
       </button>
-      <button className="btn btn-ghost btn-square">
-        <Plus className="h-6 w-6" />
-      </button>
+      <CreateListButton onCreateList={props.onCreateList} />
     </div>
   );
 };
