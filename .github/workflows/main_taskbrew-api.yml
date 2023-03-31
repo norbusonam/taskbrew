@@ -54,4 +54,4 @@ jobs:
           app-name: "taskbrew-api"
           slot-name: "Production"
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_01FABE4ADBEC44C586B31805334B79E7 }}
-          package: .
+          package: "backend"
