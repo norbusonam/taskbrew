@@ -16,9 +16,14 @@ export const TaskListHeader: React.FC<TaskListHeaderProps> = props => {
       }`}>
       {props.indicator && (
         <span
-          className={`indicator-item indicator-center badge ${
-            props.indicatorColor && `badge-${props.indicatorColor}`
-          }`}>
+          className={
+            'indicator-item indicator-center badge ' +
+            (props.indicatorColor === 'primary'
+              ? 'badge-primary'
+              : props.indicatorColor === 'secondary'
+              ? 'badge-secondary'
+              : '')
+          }>
           {props.indicator}
         </span>
       )}
