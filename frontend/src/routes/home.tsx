@@ -54,7 +54,7 @@ export const Home: React.FC = () => {
           </h2>
         </div>
       </div>
-      <div>{tasks && <ListView tasks={tasks.filter(task => task.listId)} />}</div>
+      <div className="mb-6">{tasks && <ListView tasks={tasks.filter(task => task.listId)} />}</div>
     </div>
   );
 };
