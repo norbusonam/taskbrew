@@ -43,7 +43,7 @@ export const TaskList: React.FC<TaskListProps> = props => {
         indicator={props.indicator}
       />
       <div
-        className="card card-compact bg-base-200 shadow-md min-h-[32rem]"
+        className="card card-compact bg-base-200 shadow-md h-[32rem] overflow-y-scroll"
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}>
         <div className="card-body gap-0">
