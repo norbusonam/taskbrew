@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { UniqueIdentifier } from '@dnd-kit/core';
 import { Task } from '../../types';
 import { TaskListHeader } from './task-list-header';
 import { TaskListItem } from './task-list-item';
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 
 type TaskListProps = {
   header: string;
@@ -33,6 +35,8 @@ export const TaskList: React.FC<TaskListProps> = props => {
     }
   };
 
+  const sortedTasks = props.tasks.sort((a, b) => a.order - b.order);
+
   return (
     <div className="mb-4">
       <TaskListHeader
@@ -47,12 +51,13 @@ export const TaskList: React.FC<TaskListProps> = props => {
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}>
         <div className="card-body gap-0">
-          {props.tasks
-            .sort((a, b) => a.order - b.order)
-            .filter(task => !props.hideCompleted || !task.completed)
-            .map(task => (
-              <TaskListItem key={task.id} task={task} />
-            ))}
+          <SortableContext items={sortedTasks.map(task => task.id)} strategy={verticalListSortingStrategy}>
+            {sortedTasks
+              .filter(task => !props.hideCompleted || !task.completed)
+              .map(task => (
+                <TaskListItem key={task.id} task={task} />
+              ))}
+          </SortableContext>
           <div className={`flex transition-opacity ${!isHovering && !isNewTaskFocused && 'opacity-0'}`}>
             <input
               value={newTaskTitle}

@@ -3,6 +3,8 @@ import { EditPencil, Trash } from 'iconoir-react';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import { useTasks } from '../../hooks';
 import { Task } from '../../types';
+import { CSS } from '@dnd-kit/utilities';
+import { useSortable } from '@dnd-kit/sortable';
 
 type TaskListItemProps = {
   task: Task;
@@ -12,7 +14,11 @@ export const TaskListItem: React.FC<TaskListItemProps> = props => {
   const [isHovering, setIsHovering] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const { updateTask, deleteTask } = useTasks();
-
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: props.task.id });
+  const dragStyles = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
   const handleToggleCompleted = () => {
     updateTask(props.task.id, {
       completed: !props.task.completed,
@@ -40,7 +46,14 @@ export const TaskListItem: React.FC<TaskListItemProps> = props => {
   };
 
   return (
-    <div onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)} className="flex">
+    <div
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+      className="flex"
+      ref={setNodeRef}
+      style={dragStyles}
+      {...attributes}
+      {...listeners}>
       {isEditing ? (
         <input
           autoFocus
