@@ -10,7 +10,17 @@ export const ToastProvider: React.FC = () => {
       {toasts.map((toast, index) => (
         <div
           key={`${index}-${toast.title}`}
-          className={`alert ${toast.type && `alert-${toast.type}`} shadow-lg gap-10`}>
+          className={`alert ${
+            toast.type === 'success'
+              ? 'alert-success'
+              : toast.type === 'error'
+              ? 'alert-error'
+              : toast.type === 'warning'
+              ? 'alert-warning'
+              : toast.type === 'info'
+              ? 'alert-info'
+              : ''
+          } shadow-lg gap-10`}>
           <div>
             {toast.type === 'success' && <CheckCircle className="w-6 h-6" />}
             {toast.type === 'error' && <DeleteCircle className="w-6 h-6" />}
