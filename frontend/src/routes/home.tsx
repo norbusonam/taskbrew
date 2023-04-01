@@ -26,14 +26,16 @@ export const Home: React.FC = () => {
     <div>
       <div className="flex justify-center mb-4">
         <div className="prose">
-          <h2 className="flex flex-row gap-4 items-center">
+          <h2 className="flex flex-row gap-3 items-center">
             {currentTime.getHours() < 12 ? (
               <>
-                <CoffeeCup className="w-6 h-6" /> {`Good morning${firstName ? ', ' + firstName : ''}`}
+                <CoffeeCup className="w-6 h-6" />
+                {`Good morning${firstName ? ', ' + firstName : ''}`}
               </>
             ) : currentTime.getHours() >= 12 && currentTime.getHours() <= 17 ? (
               <>
-                <SunLight className="w-6 h-6" /> {`Good afternoon${firstName ? ', ' + firstName : ''}`}
+                <SunLight className="w-6 h-6" />
+                {`Good afternoon${firstName ? ', ' + firstName : ''}`}
               </>
             ) : (
               <>
