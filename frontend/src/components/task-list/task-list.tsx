@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { UniqueIdentifier } from '@dnd-kit/core';
 import { Task } from '../../types';
 import { TaskListHeader } from './task-list-header';
 import { TaskListItem } from './task-list-item';
