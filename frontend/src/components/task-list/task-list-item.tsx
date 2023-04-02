@@ -70,7 +70,13 @@ export const TaskListItem: React.FC<TaskListItemProps> = props => {
               isHovering && 'h-auto'
             } ${props.task.completed && 'line-through opacity-50'}`}
             onClick={handleToggleCompleted}>
-            <ReactMarkdown>{props.task.title}</ReactMarkdown>
+            {!isHovering ? (
+              <ReactMarkdown>{`${props.task.title.slice(0, 18)}${
+                props.task.title.length > 18 ? '...' : ''
+              }`}</ReactMarkdown>
+            ) : (
+              <ReactMarkdown>{props.task.title}</ReactMarkdown>
+            )}
           </button>
         </div>
       )}
