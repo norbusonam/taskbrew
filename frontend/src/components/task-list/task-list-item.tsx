@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { EditPencil, Trash } from 'iconoir-react';
-import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
+import ReactMarkdown from 'react-markdown';
 import { useTasks } from '../../hooks';
 import { Task } from '../../types';
 import { CSS } from '@dnd-kit/utilities';
@@ -67,8 +67,8 @@ export const TaskListItem: React.FC<TaskListItemProps> = props => {
         <div className="tooltip w-full" data-tip={props.task.title}>
           <button
             className={`btn btn-ghost normal-case p-2 text-left w-full text-xs overflow-hidden ${
-              props.task.completed && 'line-through opacity-50'
-            }`}
+              isHovering && 'h-auto'
+            } ${props.task.completed && 'line-through opacity-50'}`}
             onClick={handleToggleCompleted}>
             <ReactMarkdown>{props.task.title}</ReactMarkdown>
           </button>
