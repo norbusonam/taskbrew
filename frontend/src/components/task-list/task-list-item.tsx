@@ -64,7 +64,7 @@ export const TaskListItem: React.FC<TaskListItemProps> = props => {
           defaultValue={props.task.title}
         />
       ) : (
-        <div className="tooltip w-full" data-tip={props.task.title}>
+        <div className="w-full">
           <button
             className={`btn btn-ghost normal-case p-2 text-left w-full text-xs overflow-hidden ${
               isHovering && 'h-auto'
