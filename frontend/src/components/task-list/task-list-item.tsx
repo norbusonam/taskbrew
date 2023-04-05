@@ -14,7 +14,7 @@ export const TaskListItem: React.FC<TaskListItemProps> = props => {
   const [isHovering, setIsHovering] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const { updateTask, deleteTask } = useTasks();
-  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: props.task.id });
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: props.task.id });
   const dragStyles = {
     transform: CSS.Transform.toString(transform),
     transition,
@@ -70,13 +70,11 @@ export const TaskListItem: React.FC<TaskListItemProps> = props => {
               isHovering && 'h-auto'
             } ${props.task.completed && 'line-through opacity-50'}`}
             onClick={handleToggleCompleted}>
-            {!isHovering ? (
-              <ReactMarkdown>{`${props.task.title.slice(0, 18)}${
-                props.task.title.length > 18 ? '...' : ''
-              }`}</ReactMarkdown>
-            ) : (
-              <ReactMarkdown>{props.task.title}</ReactMarkdown>
-            )}
+            <ReactMarkdown>
+              {!isHovering || isDragging
+                ? `${props.task.title.slice(0, 18)}${props.task.title.length > 18 ? '...' : ''}`
+                : props.task.title}
+            </ReactMarkdown>
           </button>
         </div>
       )}
