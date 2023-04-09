@@ -1,7 +1,13 @@
 import { Router } from "express";
 import { checkAuth } from "../middleware";
 import { login, signup } from "./auth";
-import { createTask, deleteTask, updateTask, listTasks } from "./task";
+import {
+  createTask,
+  deleteTask,
+  updateTask,
+  listTasks,
+  reorderTasks,
+} from "./task";
 import { createList, deleteList, updateList, listLists } from "./list";
 import { getMe, updateUser } from "./user";
 
@@ -14,6 +20,7 @@ export const apiRouter = Router()
   .get("/tasks", checkAuth, listTasks)
   .post("/tasks", checkAuth, createTask)
   .put("/tasks/:id", checkAuth, updateTask)
+  .put("/tasks/reorder", checkAuth, reorderTasks)
   .delete("/tasks/:id", checkAuth, deleteTask)
 
   // list routes
