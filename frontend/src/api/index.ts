@@ -27,6 +27,13 @@ export type CreateListBody = {
   order: number;
 };
 
+export type ReorderTasksBody = {
+  tasks: {
+    id: string;
+    order: number;
+  }[];
+};
+
 export const api = {
   login: (body: { email: string; password: string }) => client.post<AuthResBody>('auth/login', body),
   signup: (body: { email: string; name: string; password: string }) => client.post<AuthResBody>('auth/signup', body),
@@ -34,6 +41,7 @@ export const api = {
   getTasks: () => client.get<{ tasks: Task[] }>('tasks'),
   createTask: (body: CreateTaskBody) => client.post<{ task: Task }>('tasks', body),
   updateTask: (id: string, body: UpdateTaskBody) => client.put<{ task: Task }>(`tasks/${id}`, body),
+  reorderTasks: (body: { tasks: ReorderTasksBody }) => client.put<{ tasks: Task[] }>('tasks/reorder', body),
   deleteTask: (id: string) => client.delete<null>(`tasks/${id}`),
   getLists: () => client.get<{ lists: List[] }>('lists'),
   createList: (body: CreateListBody) => client.post<{ list: List }>('lists', body),
