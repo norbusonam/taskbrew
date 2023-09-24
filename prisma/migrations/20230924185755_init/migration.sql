@@ -10,9 +10,11 @@ CREATE TABLE "User" (
 
 -- CreateTable
 CREATE TABLE "Task" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "id" TEXT NOT NULL PRIMARY KEY,
     "title" TEXT NOT NULL,
     "completed" BOOLEAN NOT NULL DEFAULT false,
+    "targetDate" DATETIME NOT NULL,
+    "duration" INTEGER NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL,
     "userId" TEXT NOT NULL,
