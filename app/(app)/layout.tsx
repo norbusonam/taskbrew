@@ -72,7 +72,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex">
       {/* sidebar */}
-      <div className="w-56 bg-gray-200 rounded-2xl m-4 p-4">
+      <div className="w-64 bg-gray-200 rounded-2xl m-4 p-4">
         <h2 className="text-xl font-bold">Menu</h2>
         <h4 className="text-xs font-bold py-2">TASKS</h4>
         <ul className="font-light">
@@ -93,7 +93,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* page */}
-      {children}
+      <div className="w-full mt-4">{children}</div>
     </div>
   );
 }
