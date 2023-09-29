@@ -14,7 +14,7 @@ const ROUTES = [
         viewBox="0 0 24 24"
         strokeWidth={1.5}
         stroke="currentColor"
-        className="w-4 h-4"
+        className="h-4 w-4"
       >
         <path
           strokeLinecap="round"
@@ -34,7 +34,7 @@ const ROUTES = [
         viewBox="0 0 24 24"
         strokeWidth={1.5}
         stroke="currentColor"
-        className="w-4 h-4"
+        className="h-4 w-4"
       >
         <path
           strokeLinecap="round"
@@ -54,7 +54,7 @@ const ROUTES = [
         viewBox="0 0 24 24"
         strokeWidth={1.5}
         stroke="currentColor"
-        className="w-4 h-4"
+        className="h-4 w-4"
       >
         <path
           strokeLinecap="round"
@@ -72,14 +72,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex">
       {/* sidebar */}
-      <div className="w-64 bg-gray-200 rounded-2xl m-4 p-4">
+      <div className="m-4 w-64 rounded-2xl bg-gray-200 p-4">
         <h2 className="text-xl font-bold">Menu</h2>
-        <h4 className="text-xs font-bold py-2">TASKS</h4>
+        <h4 className="py-2 text-xs font-bold">TASKS</h4>
         <ul className="font-light">
           {ROUTES.map((route) => (
             <li key={route.path}>
               <Link
-                className={`hover:bg-gray-300 transition-colors rounded-md py-1 px-2 active:bg-gray-400 flex flex-row gap-2 items-center ${
+                className={`flex flex-row items-center gap-2 rounded-md px-2 py-1 transition-colors hover:bg-gray-300 active:bg-gray-400 ${
                   pathname === route.path && "bg-gray-300"
                 }`}
                 href={route.path}
@@ -93,7 +93,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* page */}
-      <div className="w-full mt-4">{children}</div>
+      <div className="mt-4 w-full">{children}</div>
     </div>
   );
 }

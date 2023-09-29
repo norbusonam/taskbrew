@@ -9,7 +9,7 @@ export default async function Page() {
       {tasks.map((task) => (
         <div
           key={task.id}
-          className="flex flex-row gap-2 items-center border-b-[0.5px] border-gray-200 p-2 mr-4 hover:bg-gray-200 hover:rounded-md hover:cursor-pointer transition-all active:bg-gray-300"
+          className="mr-4 flex flex-row items-center gap-2 border-b-[0.5px] border-gray-200 p-2 transition-all hover:cursor-pointer hover:rounded-md hover:bg-gray-200 active:bg-gray-300"
         >
           <input type="checkbox" checked={task.completed} />
           <span>{task.title}</span>
@@ -17,14 +17,14 @@ export default async function Page() {
       ))}
 
       {/* add new task */}
-      <div className="flex flex-row gap-2 items-center  border-b-[0.5px] border-gray-200 p-2 mr-4 hover:bg-gray-200 hover:rounded-md hover:cursor-pointer transition-all text-gray-500 active:bg-gray-300">
+      <div className="mr-4 flex flex-row items-center  gap-2 border-b-[0.5px] border-gray-200 p-2 text-gray-500 transition-all hover:cursor-pointer hover:rounded-md hover:bg-gray-200 active:bg-gray-300">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-4 h-4"
+          className="h-4 w-4"
         >
           <path
             strokeLinecap="round"
