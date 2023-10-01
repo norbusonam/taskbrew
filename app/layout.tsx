@@ -13,7 +13,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      {/* this dark mode only really works well w/  shades, fix later */}
+      <body className="dark:bg-black dark:invert">{children}</body>
     </html>
   );
 }
