@@ -1,8 +1,25 @@
 import prisma from "@taskbrew/prisma/db";
 import { TaskList } from "@taskbrew/components/task-list";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@taskbrew/app/api/auth/[...nextauth]/route";
 
 export default async function Page() {
-  const tasks = await prisma.task.findMany();
+  const session = await getServerSession(authOptions);
+
+  if (!session || !session.user || !session.user.id) {
+    return null;
+  }
+
+  const tasks = await prisma.task.findMany({
+    where: {
+      userId: session.user.id,
+      // beginning of day to end of day
+      targetDate: {
+        gte: new Date().toISOString().split("T")[0] + "T00:00:00.000Z",
+        lte: new Date().toISOString().split("T")[0] + "T23:59:59.999Z",
+      },
+    },
+  });
 
   return (
     <div>
@@ -27,11 +44,6 @@ export default async function Page() {
         </svg>
         <span>New task</span>
       </div>
-
-      {/* no tasks */}
-      {tasks.length === 0 && (
-        <div className="text-gray-500">No tasks for today</div>
-      )}
     </div>
   );
 }
