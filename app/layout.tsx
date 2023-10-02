@@ -18,8 +18,7 @@ export default async function RootLayout({
   const session = await getServerSession(authOptions);
   return (
     <html lang="en">
-      {/* this dark mode only really works well w/  shades, fix later */}
-      <body className="dark:bg-black dark:invert">
+      <body>
         <TaskbrewSessionProvider session={session}>
           {children}
         </TaskbrewSessionProvider>
