@@ -1,14 +1,14 @@
 "use client";
 
 import { Task } from "@taskbrew/prisma/db";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 type Props = {
   task: Task;
 };
 
 export function TaskListItem(props: Props) {
-  const [task, setTask] = useState(props.task);
+  const router = useRouter();
 
   const onToggleComplete = (e: React.ChangeEvent<HTMLInputElement>) => {
     fetch(`/api/task/${props.task.id}`, {
@@ -19,11 +19,11 @@ export function TaskListItem(props: Props) {
       body: JSON.stringify({
         completed: e.target.checked,
       }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        setTask(res);
-      });
+    }).then((res) => {
+      if (res.ok) {
+        router.refresh();
+      }
+    });
   };
 
   return (
@@ -33,7 +33,7 @@ export function TaskListItem(props: Props) {
     >
       <input
         type="checkbox"
-        checked={task.completed}
+        checked={props.task.completed}
         onChange={onToggleComplete}
       />
       <span>{props.task.title}</span>
