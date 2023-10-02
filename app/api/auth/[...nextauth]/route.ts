@@ -16,6 +16,15 @@ export const authOptions: AuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
+  // add user id to session
+  callbacks: {
+    session: ({ session, user }) => {
+      if (session.user) {
+        session.user.id = user.id;
+      }
+      return session;
+    },
+  },
   secret: process.env.AUTH_SECRET,
 };
 
