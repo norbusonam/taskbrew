@@ -3,9 +3,20 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+
+function getHumanReadableError(error: "OAuthAccountNotLinked" | "da") {
+  switch (error) {
+    case "OAuthAccountNotLinked":
+      return "You already have an account with this email address. Please sign in with the same provider as before.";
+    default:
+      return "An error occurred.";
+  }
+}
 
 export default function Page() {
   const { data, status } = useSession();
+  const searchParams = useSearchParams();
 
   return (
     <div className="flex h-screen w-screen flex-col items-center justify-center gap-4">
@@ -83,6 +94,13 @@ export default function Page() {
             <p className="font-light">Continue with GitHub</p>
           </button>
         </>
+      )}
+      {searchParams.has("error") && (
+        <p className="w-96 px-6 text-center text-red-500">
+          {getHumanReadableError(
+            searchParams.get("error") as "OAuthAccountNotLinked",
+          )}
+        </p>
       )}
     </div>
   );
