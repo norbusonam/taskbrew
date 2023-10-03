@@ -59,18 +59,16 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // next auth properties
+  // relations
+  tasks Task[]
+
+  // next auth stuff
   name          String?
   email         String?   @unique
   emailVerified DateTime?
   image         String?
-
-  // relations
-  tasks Task[]
-
-  // next auth relations
-  Account Account[]
-  Session Session[]
+  Account       Account[]
+  Session       Session[]
 }
 
 model Task {
@@ -84,6 +82,6 @@ model Task {
   updatedAt  DateTime @updatedAt
 
   // relations
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
 }
