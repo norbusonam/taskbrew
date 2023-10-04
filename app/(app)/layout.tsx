@@ -41,14 +41,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {/* sidebar */}
       <div className="h-screen p-4">
         <div className="flex h-full flex-col justify-between rounded-2xl bg-gray-200 p-4 md:w-64">
-          <div className="space-y-2 overflow-scroll">
+          <div className="space-y-2 overflow-scroll text-center md:text-left">
             <Link
               href="/today"
-              className="flex items-center justify-center gap-2 md:justify-start"
+              className="inline-block space-x-2 transition-opacity hover:opacity-50"
             >
-              {/* make coffee icon transition between smaller and larger screens */}
-              <IconCoffee className="h-6 w-6" />
-              <h2 className="hidden text-xl font-medium leading-none md:inline">
+              <IconCoffee className="inline h-6 w-6" />
+              <h2 className="hidden align-bottom text-xl font-medium leading-none md:inline">
                 Taskbrew
               </h2>
             </Link>
