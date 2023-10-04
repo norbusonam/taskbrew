@@ -41,7 +41,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {/* sidebar */}
       <div className="h-screen p-4">
         <div className="flex h-full flex-col justify-between rounded-2xl bg-gray-200 p-4 md:w-64">
-          <div className="overflow-scroll">
+          <div className="space-y-2 overflow-scroll">
             <Link
               href="/today"
               className="flex items-center justify-center gap-2 md:justify-start"
@@ -52,7 +52,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 Taskbrew
               </h2>
             </Link>
-            <h4 className="py-2 text-xs font-bold">TASKS</h4>
+            <h4 className="text-xs font-bold">TASKS</h4>
             <ul className="font-light">
               {ROUTES.map((route) => (
                 <li key={route.path}>
