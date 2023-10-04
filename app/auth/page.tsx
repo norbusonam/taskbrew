@@ -76,14 +76,14 @@ export default function Page() {
             <IconGithub className="h-6 w-6" />
             <p className="font-light">Continue with GitHub</p>
           </button>
-        </>
-      )}
-      {searchParams.has("error") && (
-        <p className="w-96 px-6 text-center text-red-500">
-          {getHumanReadableError(
-            searchParams.get("error") as "OAuthAccountNotLinked",
+          {searchParams.has("error") && (
+            <p className="w-96 px-6 text-center text-red-500">
+              {getHumanReadableError(
+                searchParams.get("error") as "OAuthAccountNotLinked",
+              )}
+            </p>
           )}
-        </p>
+        </>
       )}
     </div>
   );
