@@ -42,9 +42,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <div className="h-screen p-4">
         <div className="flex h-full w-64 flex-col justify-between rounded-2xl bg-gray-200 p-4">
           <div className="overflow-scroll">
-            <div className="flex gap-2">
+            <div className="flex items-center gap-2">
               <IconCoffee className="h-6 w-6" />
-              <h2 className="text-xl font-medium">Taskbrew</h2>
+              <h2 className="text-xl font-medium leading-none">Taskbrew</h2>
             </div>
             <h4 className="py-2 text-xs font-bold">TASKS</h4>
             <ul className="font-light">
