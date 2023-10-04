@@ -7,7 +7,7 @@ export function SignOutButton() {
   return (
     <button
       onClick={() => signOut({ callbackUrl: "/auth" })}
-      className="flex w-full flex-row items-center justify-center gap-2 rounded-md p-2 font-light transition-colors hover:bg-gray-300 active:bg-gray-400 md:justify-start"
+      className="flex w-full flex-row items-center justify-center gap-2 rounded-md p-2 font-light transition-colors hover:bg-red-300 active:bg-red-400 md:justify-start"
     >
       <IconLogout className="h-6 w-6" />
       <p className="hidden md:block">Sign out</p>
