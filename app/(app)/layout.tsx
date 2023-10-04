@@ -42,13 +42,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <div className="h-screen p-4">
         <div className="flex h-full flex-col justify-between rounded-2xl bg-gray-200 p-4 md:w-64">
           <div className="overflow-scroll">
-            <div className="flex items-center justify-center gap-2 md:justify-start">
+            <Link
+              href="/today"
+              className="flex items-center justify-center gap-2 md:justify-start"
+            >
               {/* make coffee icon transition between smaller and larger screens */}
               <IconCoffee className="h-6 w-6" />
-              <h2 className="hidden text-xl font-medium leading-none md:block">
+              <h2 className="hidden text-xl font-medium leading-none md:inline">
                 Taskbrew
               </h2>
-            </div>
+            </Link>
             <h4 className="py-2 text-xs font-bold">TASKS</h4>
             <ul className="font-light">
               {ROUTES.map((route) => (
