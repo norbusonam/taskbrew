@@ -95,7 +95,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* page */}
-      <div className="h-screen w-full overflow-scroll pt-4">{children}</div>
+      <div className="h-screen w-full overflow-scroll py-4">{children}</div>
     </div>
   );
 }
