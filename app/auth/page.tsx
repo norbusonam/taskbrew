@@ -58,7 +58,7 @@ export default function Page() {
         </>
       ) : (
         <>
-          <Link href="/">
+          <Link className="transition-opacity hover:opacity-50" href="/">
             <IconCoffee className="h-12 w-12" />
           </Link>
           <h1 className="text-lg font-medium">Welcome to Taskbrew</h1>
