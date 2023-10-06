@@ -1,9 +1,9 @@
-import { authOptions } from "./api/auth/[...nextauth]/route";
-import "./globals.css";
 import { TaskbrewSessionProvider } from "@taskbrew/components/session-provider";
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
+import { authOptions } from "./api/auth/[...nextauth]/route";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Taskbrew",

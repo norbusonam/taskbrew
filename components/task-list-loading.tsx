@@ -1,5 +1,3 @@
-import { type } from "os";
-
 const POSSIBLE_WIDTHS = ["w-4/12", "w-5/12", "w-6/12", "w-7/12", "w-8/12"];
 
 type Props = {

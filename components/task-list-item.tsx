@@ -29,7 +29,7 @@ export function TaskListItem(props: Props) {
   return (
     <button
       key={props.task.id}
-      className="w-full flex flex-row items-center gap-2 border-b-[1px] border-gray-200 p-2 transition-all hover:cursor-pointer hover:rounded-md hover:bg-gray-200 active:bg-gray-300"
+      className="flex w-full flex-row items-center gap-2 border-b-[1px] border-gray-200 p-2 transition-all hover:cursor-pointer hover:rounded-md hover:bg-gray-200 active:bg-gray-300"
     >
       <input
         type="checkbox"

@@ -1,8 +1,8 @@
-import { authOptions } from "./api/auth/[...nextauth]/route";
 import { IconCoffee } from "@taskbrew/components/icons";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { authOptions } from "./api/auth/[...nextauth]/route";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
