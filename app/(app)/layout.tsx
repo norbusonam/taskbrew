@@ -13,7 +13,7 @@ import { SidebarButton } from "@taskbrew/components/sidebar-button";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { redirect, usePathname, useRouter } from "next/navigation";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -21,7 +21,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
   if (session.status === "unauthenticated") {
-    router.replace("/auth");
+    redirect("/auth");
   }
 
   return (
