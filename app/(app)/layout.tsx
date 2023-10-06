@@ -2,11 +2,11 @@
 
 import {
   IconCalendar,
-  IconClockCircle,
   IconCoffee,
   IconHome,
-  IconRocket,
+  IconProject,
   IconSetting,
+  IconUnorderedList,
   IconUser,
 } from "@taskbrew/components/icons";
 import { SidebarButton } from "@taskbrew/components/sidebar-button";
@@ -43,19 +43,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 onClick={() => router.push("/home")}
               />
             </div>
-            <h4 className="text-xs font-bold">TASKS</h4>
+            <h4 className="text-xs font-bold">VIEWS</h4>
             <div className="font-light">
               <SidebarButton
-                text="Today"
-                icon={<IconRocket className="h-6 w-6" />}
-                active={pathname === "/today"}
-                onClick={() => router.push("/today")}
+                text="List"
+                icon={<IconUnorderedList className="h-6 w-6" />}
+                active={pathname === "/list"}
+                onClick={() => router.push("/list")}
               />
               <SidebarButton
-                text="Upcoming"
-                icon={<IconClockCircle className="h-6 w-6" />}
-                active={pathname === "/upcoming"}
-                onClick={() => router.push("/upcoming")}
+                text="Board"
+                icon={<IconProject className="h-6 w-6" />}
+                active={pathname === "/board"}
+                onClick={() => router.push("/board")}
               />
               <SidebarButton
                 text="Calendar"

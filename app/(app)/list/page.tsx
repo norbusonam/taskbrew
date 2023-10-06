@@ -15,11 +15,6 @@ export default async function Page() {
   const tasks = await prisma.task.findMany({
     where: {
       userId: session.user.id,
-      // beginning of day to end of day
-      targetDate: {
-        gte: new Date().toISOString().split("T")[0] + "T00:00:00.000Z",
-        lte: new Date().toISOString().split("T")[0] + "T23:59:59.999Z",
-      },
     },
   });
 
