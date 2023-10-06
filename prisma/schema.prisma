@@ -73,15 +73,21 @@ model User {
 
 model Task {
   // properties
-  id         String   @id @default(cuid())
+  id         String     @id @default(cuid())
   title      String
-  completed  Boolean  @default(false)
+  status     TaskStatus @default(NOT_STARTED)
   targetDate DateTime
   duration   Int
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
 
   // relations
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
+}
+
+enum TaskStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
 }
