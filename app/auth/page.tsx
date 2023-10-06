@@ -43,7 +43,7 @@ export default function Page() {
           </p>
           <Link
             className="flex w-64 items-center justify-center gap-2 rounded-md bg-gray-300 px-4 py-2 transition-colors hover:bg-gray-400 active:bg-gray-500"
-            href="/today"
+            href="/home"
           >
             <IconCoffee className="h-6 w-6" />
             <p className="font-light">Continue to Taskbrew</p>
@@ -64,14 +64,14 @@ export default function Page() {
           <h1 className="text-lg font-medium">Welcome to Taskbrew</h1>
           <button
             className="flex w-64 items-center justify-center gap-2 rounded-md bg-gray-300 px-4 py-2 transition-colors hover:bg-gray-400 active:bg-gray-500"
-            onClick={() => signIn("google", { callbackUrl: "/today" })}
+            onClick={() => signIn("google", { callbackUrl: "/home" })}
           >
             <IconGoogle className="h-6 w-6" />
             <p className="font-light">Continue with Google</p>
           </button>
           <button
             className="flex w-64 items-center justify-center gap-2 rounded-md bg-gray-300 px-4 py-2 transition-colors hover:bg-gray-400 active:bg-gray-500"
-            onClick={() => signIn("github", { callbackUrl: "/today" })}
+            onClick={() => signIn("github", { callbackUrl: "/home" })}
           >
             <IconGithub className="h-6 w-6" />
             <p className="font-light">Continue with GitHub</p>
