@@ -1,5 +1,4 @@
 import { authOptions } from "@taskbrew/app/api/auth/[...nextauth]/route";
-import { IconPlus } from "@taskbrew/components/icons";
 import { TaskList } from "@taskbrew/components/task-list";
 import prisma from "@taskbrew/prisma/db";
 import { getServerSession } from "next-auth";
@@ -21,13 +20,7 @@ export default async function Page() {
   return (
     <div>
       {/* task list */}
-      <TaskList tasks={tasks} />
-
-      {/* add new task */}
-      <div className="mr-4 flex flex-row items-center gap-2 border-b-[1px] border-gray-200 p-2 text-gray-500 transition-all hover:cursor-pointer hover:rounded-md hover:bg-gray-200 active:bg-gray-300">
-        <IconPlus className="h-4 w-4" />
-        <span>New task</span>
-      </div>
+      <TaskList tasks={tasks} canCreateNewTask />
     </div>
   );
 }
