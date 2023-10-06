@@ -11,7 +11,7 @@ type Props = {
 
 export function TaskList(props: Props) {
   return (
-    <div className="mr-4">
+    <div>
       {/* tasks */}
       {props.tasks.map((task) => (
         <TaskListItem key={task.id} task={task} />

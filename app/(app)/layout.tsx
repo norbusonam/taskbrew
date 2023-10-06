@@ -27,7 +27,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex">
       {/* sidebar */}
-      <div className="h-screen p-4">
+      <div className="h-screen py-4 pl-4">
         <div className="flex h-full flex-col justify-between rounded-2xl bg-gray-200 p-4 md:w-64">
           <div className="space-y-2 overflow-scroll text-center md:text-left">
             <Link
@@ -101,7 +101,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* page */}
-      <div className="h-screen w-full overflow-scroll py-4">{children}</div>
+      <div className="h-screen w-full overflow-scroll p-4">{children}</div>
     </div>
   );
 }
