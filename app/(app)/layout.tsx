@@ -8,33 +8,16 @@ import {
   IconSetting,
   IconUser,
 } from "@taskbrew/components/icons";
-import { SignOutButton } from "@taskbrew/components/sign-out-button";
-import { useSession } from "next-auth/react";
+import { SidebarButton } from "@taskbrew/components/sidebar-button";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-
-const ROUTES = [
-  {
-    name: "Today",
-    path: "/today",
-    icon: <IconRocket className="h-6 w-6" />,
-  },
-  {
-    name: "Upcoming",
-    path: "/upcoming",
-    icon: <IconClockCircle className="h-6 w-6" />,
-  },
-  {
-    name: "Calendar",
-    path: "/calendar",
-    icon: <IconCalendar className="h-6 w-6" />,
-  },
-];
+import { usePathname, useRouter } from "next/navigation";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const session = useSession();
+  const router = useRouter();
 
   return (
     <div className="flex">
@@ -52,26 +35,32 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               </h2>
             </Link>
             <h4 className="text-xs font-bold">TASKS</h4>
-            <ul className="font-light">
-              {ROUTES.map((route) => (
-                <li key={route.path}>
-                  <Link
-                    className={`flex flex-row items-center justify-center gap-2 rounded-md p-2 transition-colors hover:bg-gray-300 active:bg-gray-400 md:justify-start ${
-                      pathname === route.path && "bg-gray-300"
-                    }`}
-                    href={route.path}
-                  >
-                    {route.icon}
-                    <p className="hidden md:block">{route.name}</p>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <div className="font-light">
+              <SidebarButton
+                text="Today"
+                icon={<IconRocket className="h-6 w-6" />}
+                active={pathname === "/today"}
+                onClick={() => router.push("/today")}
+              />
+              <SidebarButton
+                text="Upcoming"
+                icon={<IconClockCircle className="h-6 w-6" />}
+                active={pathname === "/upcoming"}
+                onClick={() => router.push("/upcoming")}
+              />
+              <SidebarButton
+                text="Calendar"
+                icon={<IconCalendar className="h-6 w-6" />}
+                active={pathname === "/calendar"}
+                onClick={() => router.push("/calendar")}
+              />
+            </div>
           </div>
           <div className="border-t-[1px] border-gray-300 pt-2">
-            {session.status === "authenticated" && session.data.user && (
-              <button className="flex w-full flex-row items-center justify-center gap-2 rounded-md p-2 font-light transition-colors hover:bg-gray-300 active:bg-gray-400 md:justify-start">
-                {session.data.user.image ? (
+            <SidebarButton
+              text="Account"
+              icon={
+                session.data?.user?.image ? (
                   <Image
                     className="h-6 w-6 rounded-full"
                     width={24}
@@ -81,15 +70,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   />
                 ) : (
                   <IconUser className="h-6 w-6" />
-                )}
-                <p className="hidden md:block">Account</p>
-              </button>
-            )}
-            <button className="flex w-full flex-row items-center justify-center gap-2 rounded-md p-2 font-light transition-colors hover:bg-gray-300 active:bg-gray-400 md:justify-start">
-              <IconSetting className="h-6 w-6" />
-              <p className="hidden md:block">Settings</p>
-            </button>
-            <SignOutButton />
+                )
+              }
+            />
+            <SidebarButton
+              text="Settings"
+              icon={<IconSetting className="h-6 w-6" />}
+            />
+            <SidebarButton
+              text="Sign out"
+              icon={<IconUser className="h-6 w-6" />}
+              className="hover:bg-red-300 active:bg-red-400"
+              onClick={signOut}
+            />
           </div>
         </div>
       </div>
