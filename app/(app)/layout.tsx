@@ -4,6 +4,7 @@ import {
   IconCalendar,
   IconCoffee,
   IconHome,
+  IconLogout,
   IconProject,
   IconSetting,
   IconUnorderedList,
@@ -92,7 +93,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             />
             <SidebarButton
               text="Sign out"
-              icon={<IconUser className="h-6 w-6" />}
+              icon={<IconLogout className="h-6 w-6" />}
               className="hover:bg-red-300 active:bg-red-400"
               onClick={signOut}
             />
