@@ -20,6 +20,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const session = useSession();
   const router = useRouter();
 
+  if (session.status === "unauthenticated") {
+    router.replace("/auth");
+  }
+
   return (
     <div className="flex">
       {/* sidebar */}
