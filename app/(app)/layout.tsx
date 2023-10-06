@@ -4,6 +4,7 @@ import {
   IconCalendar,
   IconClockCircle,
   IconCoffee,
+  IconHome,
   IconRocket,
   IconSetting,
   IconUser,
@@ -26,14 +27,22 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className="flex h-full flex-col justify-between rounded-2xl bg-gray-200 p-4 md:w-64">
           <div className="space-y-2 overflow-scroll text-center md:text-left">
             <Link
-              href="/today"
-              className="inline-block space-x-2 transition-opacity hover:opacity-50"
+              href="/home"
+              className="mb-4 inline-block space-x-2 transition-opacity hover:opacity-50"
             >
               <IconCoffee className="inline h-6 w-6" />
               <h2 className="hidden align-bottom text-xl font-medium leading-none md:inline">
                 Taskbrew
               </h2>
             </Link>
+            <div>
+              <SidebarButton
+                text="Home"
+                icon={<IconHome className="h-6 w-6" />}
+                active={pathname === "/home"}
+                onClick={() => router.push("/home")}
+              />
+            </div>
             <h4 className="text-xs font-bold">TASKS</h4>
             <div className="font-light">
               <SidebarButton
