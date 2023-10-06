@@ -21,8 +21,8 @@ export async function PATCH(
     },
     data: {
       title: body.title,
-      completed: body.completed,
-      targetDate: body.targetDate,
+      status: body.status,
+      dueDate: body.dueDate,
       duration: body.duration,
     },
   });

@@ -17,7 +17,7 @@ export function TaskListItem(props: Props) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        completed: e.target.checked,
+        status: e.target.checked ? "COMPLETED" : "NOT_STARTED",
       }),
     }).then((res) => {
       if (res.ok) {
@@ -33,7 +33,7 @@ export function TaskListItem(props: Props) {
     >
       <input
         type="checkbox"
-        checked={props.task.completed}
+        checked={props.task.status === "COMPLETED"}
         onChange={onToggleComplete}
       />
       <span>{props.task.title}</span>
