@@ -1,5 +1,4 @@
 // Ant Design Icons https://ant.design/components/icon/ | Ant Design
-
 import * as React from "react";
 
 export function IconCoffee(props: React.SVGProps<SVGSVGElement>) {

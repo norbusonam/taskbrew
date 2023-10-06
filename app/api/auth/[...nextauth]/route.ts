@@ -1,8 +1,8 @@
-import NextAuth, { AuthOptions } from "next-auth";
-import prisma from "@taskbrew/prisma/db";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import GoogleProvider from "next-auth/providers/google";
+import prisma from "@taskbrew/prisma/db";
+import NextAuth, { AuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
 
 // validate auth env vars
 if (

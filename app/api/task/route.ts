@@ -1,6 +1,6 @@
-import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
 import prisma from "@taskbrew/prisma/db";
+import { getServerSession } from "next-auth";
 
 export async function POST(req: Request) {
   // check session

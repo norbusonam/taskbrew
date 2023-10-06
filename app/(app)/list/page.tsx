@@ -1,8 +1,8 @@
-import prisma from "@taskbrew/prisma/db";
-import { TaskList } from "@taskbrew/components/task-list";
-import { getServerSession } from "next-auth";
 import { authOptions } from "@taskbrew/app/api/auth/[...nextauth]/route";
 import { IconPlus } from "@taskbrew/components/icons";
+import { TaskList } from "@taskbrew/components/task-list";
+import prisma from "@taskbrew/prisma/db";
+import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
 export default async function Page() {

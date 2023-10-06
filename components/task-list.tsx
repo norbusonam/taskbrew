@@ -1,7 +1,7 @@
 "use client";
 
-import { Task } from "@taskbrew/prisma/db";
 import { TaskListItem } from "./task-list-item";
+import { Task } from "@taskbrew/prisma/db";
 
 type Props = {
   tasks: Task[];
