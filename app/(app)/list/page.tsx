@@ -15,6 +15,9 @@ export default async function Page() {
     where: {
       userId: session.user.id,
     },
+    orderBy: {
+      createdAt: "asc",
+    },
   });
 
   return (
