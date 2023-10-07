@@ -2,6 +2,7 @@
 
 import { Task } from "@taskbrew/prisma/db";
 import { useRouter } from "next/navigation";
+import { IconCheckSquare, IconMinusSquare, IconSquare } from "./icons";
 
 type Props = {
   task: Task;
@@ -10,14 +11,20 @@ type Props = {
 export function TaskListItem(props: Props) {
   const router = useRouter();
 
-  const onToggleComplete = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const updateStatus = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     fetch(`/api/task/${props.task.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        status: e.target.checked ? "COMPLETED" : "NOT_STARTED",
+        status:
+          props.task.status === "NOT_STARTED"
+            ? "IN_PROGRESS"
+            : props.task.status === "IN_PROGRESS"
+            ? "COMPLETED"
+            : "NOT_STARTED",
       }),
     }).then((res) => {
       if (res.ok) {
@@ -27,17 +34,22 @@ export function TaskListItem(props: Props) {
   };
 
   return (
-    <button
-      key={props.task.id}
-      className="flex w-full flex-row items-center gap-2 border-b-[1px] border-gray-200 p-2 transition-all hover:cursor-pointer hover:rounded-md hover:bg-gray-200 active:bg-gray-300"
-    >
-      <input
-        type="checkbox"
-        onClick={(e) => e.stopPropagation()}
-        checked={props.task.status === "COMPLETED"}
-        onChange={onToggleComplete}
-      />
-      <span>{props.task.title}</span>
-    </button>
+    <div className="flex items-center gap-2 border-b-[1px] border-gray-200 p-2 transition-colors hover:cursor-pointer hover:rounded-md hover:bg-gray-200 active:bg-gray-300">
+      <button
+        onClick={updateStatus}
+        className="transition-opacity hover:opacity-75"
+      >
+        <div>
+          {props.task.status === "COMPLETED" ? (
+            <IconCheckSquare className="h-5 w-5 text-green-500" />
+          ) : props.task.status === "IN_PROGRESS" ? (
+            <IconMinusSquare className="h-5 w-5 text-yellow-500" />
+          ) : (
+            <IconSquare className="h-5 w-5 text-gray-500" />
+          )}
+        </div>
+      </button>
+      <p>{props.task.title}</p>
+    </div>
   );
 }
