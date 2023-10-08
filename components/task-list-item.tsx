@@ -3,6 +3,7 @@
 import { Task } from "@taskbrew/prisma/db";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
+import Markdown from "react-markdown";
 import {
   IconCalendar,
   IconCheckSquare,
@@ -119,7 +120,7 @@ export function TaskListItem(props: Props) {
             className="overflow-clip rounded-md px-1 text-left transition-colors hover:bg-gray-200 active:bg-gray-300"
             onClick={() => setIsEditingTitle(true)}
           >
-            <p>{props.task.title}</p>
+            <Markdown>{props.task.title}</Markdown>
           </button>
         )}
         <div className="flex gap-1">
