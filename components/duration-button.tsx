@@ -47,7 +47,7 @@ export function DurationButton(props: Props) {
               <DurationButtonMenuItem
                 key={duration}
                 duration={duration}
-                isActive={props.duration === duration}
+                isCurrentDuration={props.duration === duration}
                 onClick={() => props.onDurationClicked(duration)}
               />
             ))}
@@ -59,23 +59,25 @@ export function DurationButton(props: Props) {
 
 type DurationButtonMenuItemProps = {
   duration: Task["duration"];
-  isActive: boolean;
+  isCurrentDuration: boolean;
   onClick: () => void;
 };
 
 function DurationButtonMenuItem(props: DurationButtonMenuItemProps) {
   return (
     <Menu.Item>
-      <button
-        className={`${
-          props.isActive && "font-bold"
-        } w-full rounded-md py-1 text-center text-sm text-gray-800 transition-colors hover:bg-gray-300 active:bg-gray-400`}
-        onClick={props.onClick}
-      >
-        {props.duration && DURATION_TO_TITLE[props.duration]
-          ? DURATION_TO_TITLE[props.duration]
-          : "No duration"}
-      </button>
+      {({ active }) => (
+        <button
+          className={`${props.isCurrentDuration && "font-bold"} ${
+            active && "bg-gray-300"
+          } w-full rounded-md py-1 text-center text-sm text-gray-800 transition-colors active:bg-gray-400`}
+          onClick={props.onClick}
+        >
+          {props.duration && DURATION_TO_TITLE[props.duration]
+            ? DURATION_TO_TITLE[props.duration]
+            : "No duration"}
+        </button>
+      )}
     </Menu.Item>
   );
 }
