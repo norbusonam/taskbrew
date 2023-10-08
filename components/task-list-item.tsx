@@ -7,6 +7,8 @@ import {
   IconCalendar,
   IconCheckSquare,
   IconClockCircle,
+  IconDelete,
+  IconLoading,
   IconMinusSquare,
   IconSquare,
 } from "./icons";
@@ -17,6 +19,8 @@ type Props = {
 
 export function TaskListItem(props: Props) {
   const router = useRouter();
+  const [isHovering, setIsHovering] = useState(false);
+  const [isLoadingDelete, setIsLoadingDelete] = useState(false);
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const titleInputRef = useRef<HTMLInputElement>(null);
 
@@ -37,6 +41,21 @@ export function TaskListItem(props: Props) {
         router.refresh();
       }
     });
+  };
+
+  const deleteTask = () => {
+    setIsLoadingDelete(true);
+    fetch(`/api/task/${props.task.id}`, {
+      method: "DELETE",
+    })
+      .then((res) => {
+        if (res.ok) {
+          router.refresh();
+        }
+      })
+      .finally(() => {
+        setIsLoadingDelete(false);
+      });
   };
 
   const updateStatus = () => {
@@ -64,7 +83,11 @@ export function TaskListItem(props: Props) {
   };
 
   return (
-    <div className="flex items-center gap-2 border-b-[1px] border-gray-200 p-2">
+    <div
+      className="flex items-center gap-2 border-b-[1px] border-gray-200 p-2"
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+    >
       <button
         onClick={updateStatus}
         className="transition-opacity hover:opacity-75"
@@ -120,6 +143,21 @@ export function TaskListItem(props: Props) {
           </button>
         </div>
       </div>
+      {!isEditingTitle && (
+        <button
+          onClick={deleteTask}
+          disabled={isLoadingDelete}
+          className={`rounded-md p-1 ${
+            isHovering ? "opacity-100" : "md:opacity-0"
+          } transition-all`}
+        >
+          {isLoadingDelete ? (
+            <IconLoading className="h-5 w-5 animate-spin text-red-600" />
+          ) : (
+            <IconDelete className="h-5 w-5 text-red-400 transition-colors hover:text-red-500 active:text-red-600" />
+          )}
+        </button>
+      )}
     </div>
   );
 }
