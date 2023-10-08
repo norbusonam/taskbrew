@@ -1,5 +1,6 @@
 "use client";
 
+import { AccountModalContent } from "@taskbrew/components/account-modal-content";
 import {
   IconCalendar,
   IconCoffee,
@@ -10,16 +11,19 @@ import {
   IconUnorderedList,
   IconUser,
 } from "@taskbrew/components/icons";
+import { Modal } from "@taskbrew/components/modal";
 import { SidebarButton } from "@taskbrew/components/sidebar-button";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect, usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const session = useSession();
   const router = useRouter();
+  const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
 
   if (session.status === "unauthenticated") {
     redirect("/auth");
@@ -29,7 +33,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div className="flex">
       {/* sidebar */}
       <div className="h-screen py-4 pl-4">
-        <div className="flex h-full flex-col justify-between rounded-2xl bg-gray-200 p-4 md:w-64">
+        <div className="flex h-full flex-col justify-between rounded-lg bg-gray-200 p-4 md:w-64">
           <div className="space-y-2 overflow-scroll text-center md:text-left">
             <Link
               href="/home"
@@ -86,6 +90,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   <IconUser className="h-6 w-6" />
                 )
               }
+              onClick={() => setIsAccountModalOpen(true)}
             />
             <SidebarButton
               text="Settings"
@@ -100,6 +105,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </div>
       </div>
+
+      {/* modals */}
+      <Modal
+        isOpen={isAccountModalOpen}
+        closeModal={() => setIsAccountModalOpen(false)}
+        title="Account"
+        description="Your account details"
+        hasCloseButton
+      >
+        <AccountModalContent />
+      </Modal>
 
       {/* page */}
       <div className="h-screen w-full overflow-scroll p-4">{children}</div>
