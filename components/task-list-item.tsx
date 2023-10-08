@@ -113,7 +113,7 @@ export function TaskListItem(props: Props) {
           <button className="flex items-center gap-1 rounded-md px-1 transition-colors hover:bg-gray-200 active:bg-gray-300">
             <IconClockCircle className="h-4 w-4 text-gray-400" />
             <span className="text-sm text-gray-400">
-              {props.task.duration > 0
+              {props.task.duration && props.task.duration > 0
                 ? `${props.task.duration} min`
                 : "No duration"}
             </span>
