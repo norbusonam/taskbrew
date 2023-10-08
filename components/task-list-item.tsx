@@ -20,7 +20,7 @@ type Props = {
 
 export function TaskListItem(props: Props) {
   const router = useRouter();
-  const [isHovering, setIsHovering] = useState(false);
+  const [showDeleteButton, setShowDeleteButton] = useState(false);
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const titleInputRef = useRef<HTMLInputElement>(null);
@@ -90,8 +90,10 @@ export function TaskListItem(props: Props) {
   return (
     <div
       className="flex items-center gap-2 border-b-[1px] border-gray-200 p-2"
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
+      onMouseEnter={() => setShowDeleteButton(true)}
+      onMouseLeave={() => setShowDeleteButton(false)}
+      onFocus={() => setShowDeleteButton(true)}
+      onBlur={() => setShowDeleteButton(false)}
     >
       <button
         onClick={updateStatus}
@@ -147,9 +149,9 @@ export function TaskListItem(props: Props) {
       {!isEditingTitle && (
         <button
           onClick={deleteTask}
-          disabled={isLoadingDelete}
+          disabled={isLoadingDelete || !showDeleteButton}
           className={`rounded-md p-1 ${
-            isHovering ? "opacity-100" : "md:opacity-0"
+            showDeleteButton ? "opacity-100" : "md:opacity-0"
           } transition-all`}
         >
           {isLoadingDelete ? (
