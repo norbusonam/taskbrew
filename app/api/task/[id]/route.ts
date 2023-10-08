@@ -20,7 +20,7 @@ export async function PATCH(
       userId: session.user.id,
     },
     data: {
-      title: body.title ? body.title : undefined,
+      title: body.title ? body.title.trim() : undefined,
       status: body.status,
       dueDate: body.dueDate,
       duration: body.duration,
