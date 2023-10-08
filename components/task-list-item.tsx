@@ -4,10 +4,10 @@ import { Task } from "@taskbrew/prisma/db";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import Markdown from "react-markdown";
+import { DurationButton } from "./duration-button";
 import {
   IconCalendar,
   IconCheckSquare,
-  IconClockCircle,
   IconDelete,
   IconLoading,
   IconMinusSquare,
@@ -77,6 +77,10 @@ export function TaskListItem(props: Props) {
     }
   };
 
+  const updateDuration = (duration: Task["duration"]) => {
+    updateTask({ duration });
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       titleInputRef.current?.blur();
@@ -134,14 +138,10 @@ export function TaskListItem(props: Props) {
             </span>
           </button>
           {/* duration */}
-          <button className="flex items-center gap-1 rounded-md px-1 transition-colors hover:bg-gray-200 active:bg-gray-300">
-            <IconClockCircle className="h-4 w-4 text-gray-400" />
-            <span className="text-sm text-gray-400">
-              {props.task.duration && props.task.duration > 0
-                ? `${props.task.duration} min`
-                : "No duration"}
-            </span>
-          </button>
+          <DurationButton
+            duration={props.task.duration}
+            onDurationClicked={updateDuration}
+          />
         </div>
       </div>
       {!isEditingTitle && (
