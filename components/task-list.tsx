@@ -1,5 +1,3 @@
-"use client";
-
 import { Task } from "@taskbrew/prisma/db";
 import { IconPlus } from "./icons";
 import { TaskListItem } from "./task-list-item";

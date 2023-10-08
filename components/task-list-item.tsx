@@ -1,3 +1,5 @@
+"use client";
+
 import { Task } from "@taskbrew/prisma/db";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
