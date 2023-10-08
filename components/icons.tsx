@@ -1,4 +1,5 @@
 // Ant Design Icons https://ant.design/components/icon/ | Ant Design
+// Sourced using https://reactsvgicons.com/ | React SVG Icons
 
 export function IconCoffee(props: React.SVGProps<SVGSVGElement>) {
   return (
