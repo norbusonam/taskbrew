@@ -4,9 +4,9 @@ import { Task } from "@taskbrew/prisma/db";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import Markdown from "react-markdown";
+import { DueDateButton } from "./due-date-button";
 import { DurationButton } from "./duration-button";
 import {
-  IconCalendar,
   IconCheckSquare,
   IconDelete,
   IconLoading,
@@ -81,6 +81,10 @@ export function TaskListItem(props: Props) {
     updateTask({ duration });
   };
 
+  const updateDueDate = (dueDate: Task["dueDate"]) => {
+    updateTask({ dueDate });
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       titleInputRef.current?.blur();
@@ -136,14 +140,10 @@ export function TaskListItem(props: Props) {
         )}
         <div className="flex gap-1">
           {/* due date */}
-          <button className="flex items-center gap-1 rounded-md px-1 transition-colors hover:bg-gray-200 active:bg-gray-300">
-            <IconCalendar className="h-4 w-4 text-gray-500" />
-            <span className="text-sm text-gray-500">
-              {props.task.dueDate
-                ? new Date(props.task.dueDate).toLocaleDateString()
-                : "No due date"}
-            </span>
-          </button>
+          <DueDateButton
+            dueDate={props.task.dueDate}
+            onDueDateClicked={updateDueDate}
+          />
           {/* duration */}
           <DurationButton
             duration={props.task.duration}
@@ -154,7 +154,7 @@ export function TaskListItem(props: Props) {
       {!isEditingTitle && (
         <button
           onClick={deleteTask}
-          disabled={isLoadingDelete || !showDeleteButton}
+          disabled={isLoadingDelete}
           aria-label="Delete task"
           className={`rounded-md p-1 ${
             showDeleteButton ? "opacity-100" : "md:opacity-0"
