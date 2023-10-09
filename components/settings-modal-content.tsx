@@ -15,7 +15,7 @@ export function SettingsModalContent() {
     <div className="mt-4 flex items-center justify-between gap-8">
       <div>
         <h3 className="text-sm font-medium">Dark mode (coming soon)</h3>
-        <p className="text-sm text-gray-400">
+        <p className="text-sm text-gray-500">
           Dark mode is easier on your eyes and helps you focus on your work.
         </p>
       </div>

@@ -58,7 +58,11 @@ export default function Page() {
         </>
       ) : (
         <>
-          <Link className="transition-opacity hover:opacity-50" href="/">
+          <Link
+            className="transition-opacity hover:opacity-50"
+            href="/"
+            aria-label="Taskbrew home page"
+          >
             <IconCoffee className="h-12 w-12" />
           </Link>
           <h1 className="text-lg font-medium">Welcome to Taskbrew</h1>
@@ -77,7 +81,7 @@ export default function Page() {
             <p className="font-light">Continue with GitHub</p>
           </button>
           {searchParams.has("error") && (
-            <p className="w-96 px-6 text-center text-red-500">
+            <p className="w-96 px-6 text-center text-red-600">
               {getHumanReadableError(
                 searchParams.get("error") as "OAuthAccountNotLinked",
               )}

@@ -26,7 +26,7 @@ export function AccountModalContent() {
       <h3 className="text-lg font-medium text-gray-800">
         {session.data?.user?.name}
       </h3>
-      <span className="text-sm text-gray-400">{session.data?.user?.email}</span>
+      <span className="text-sm text-gray-500">{session.data?.user?.email}</span>
     </div>
   );
 }

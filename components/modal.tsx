@@ -55,7 +55,7 @@ export function Modal(props: Props) {
                   )}
                 </div>
                 {props.description && (
-                  <Dialog.Description className="text-left text-sm text-gray-400">
+                  <Dialog.Description className="text-left text-sm text-gray-500">
                     {props.description}
                   </Dialog.Description>
                 )}
