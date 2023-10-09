@@ -1,4 +1,4 @@
-import prisma from "@taskbrew/prisma/db";
+import prisma, { TaskStatus } from "@taskbrew/prisma/db";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/route";
 
@@ -22,6 +22,7 @@ export async function PATCH(
     data: {
       title: body.title ? body.title.trim() : undefined,
       status: body.status,
+      completedAt: body.status === TaskStatus.COMPLETED ? new Date() : null,
       dueDate: body.dueDate,
       duration: body.duration,
     },
