@@ -24,8 +24,8 @@ export function DurationButton(props: Props) {
   return (
     <Menu as="div" className="relative">
       <Menu.Button className="flex items-center gap-1 rounded-md px-1 transition-colors hover:bg-gray-200 active:bg-gray-300">
-        <IconClockCircle className="h-4 w-4 text-gray-400" />
-        <span className="text-sm text-gray-400">
+        <IconClockCircle className="h-4 w-4 text-gray-500" />
+        <span className="text-sm text-gray-500">
           {props.duration && DURATION_TO_TITLE[props.duration]
             ? DURATION_TO_TITLE[props.duration]
             : "Set duration"}

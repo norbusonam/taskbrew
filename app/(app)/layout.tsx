@@ -60,7 +60,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 onClick={() => router.push("/home")}
               />
             </div>
-            <h4 className="text-xs font-bold">VIEWS</h4>
+            <h3 className="text-xs font-bold">VIEWS</h3>
             <div className="font-light">
               <SidebarButton
                 text="List"

@@ -97,17 +97,22 @@ export function TaskListItem(props: Props) {
     >
       <button
         onClick={updateStatus}
+        aria-label={`Mark task as ${
+          props.task.status === "NOT_STARTED"
+            ? "in progress"
+            : props.task.status === "IN_PROGRESS"
+            ? "completed"
+            : "not started"
+        }`}
         className="transition-opacity hover:opacity-75"
       >
-        <div>
-          {props.task.status === "COMPLETED" ? (
-            <IconCheckSquare className="h-5 w-5 text-green-500" />
-          ) : props.task.status === "IN_PROGRESS" ? (
-            <IconMinusSquare className="h-5 w-5 text-yellow-500" />
-          ) : (
-            <IconSquare className="h-5 w-5 text-gray-500" />
-          )}
-        </div>
+        {props.task.status === "COMPLETED" ? (
+          <IconCheckSquare className="h-5 w-5 text-green-500" />
+        ) : props.task.status === "IN_PROGRESS" ? (
+          <IconMinusSquare className="h-5 w-5 text-yellow-500" />
+        ) : (
+          <IconSquare className="h-5 w-5 text-gray-500" />
+        )}
       </button>
       <div className="w-full space-y-1">
         {isEditingTitle ? (
@@ -132,8 +137,8 @@ export function TaskListItem(props: Props) {
         <div className="flex gap-1">
           {/* due date */}
           <button className="flex items-center gap-1 rounded-md px-1 transition-colors hover:bg-gray-200 active:bg-gray-300">
-            <IconCalendar className="h-4 w-4 text-gray-400" />
-            <span className="text-sm text-gray-400">
+            <IconCalendar className="h-4 w-4 text-gray-500" />
+            <span className="text-sm text-gray-500">
               {props.task.dueDate
                 ? new Date(props.task.dueDate).toLocaleDateString()
                 : "No due date"}
@@ -150,6 +155,7 @@ export function TaskListItem(props: Props) {
         <button
           onClick={deleteTask}
           disabled={isLoadingDelete || !showDeleteButton}
+          aria-label="Delete task"
           className={`rounded-md p-1 ${
             showDeleteButton ? "opacity-100" : "md:opacity-0"
           } transition-all`}
