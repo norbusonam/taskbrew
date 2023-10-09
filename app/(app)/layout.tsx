@@ -12,18 +12,26 @@ import {
   IconUser,
 } from "@taskbrew/components/icons";
 import { Modal } from "@taskbrew/components/modal";
+import { SettingsModalContent } from "@taskbrew/components/settings-modal-content";
 import { SidebarButton } from "@taskbrew/components/sidebar-button";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect, usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const session = useSession();
   const router = useRouter();
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
+
+  useEffect(() => {
+    localStorage.getItem("theme") === "dark"
+      ? document.documentElement.classList.add("dark")
+      : document.documentElement.classList.remove("dark");
+  }, []);
 
   if (session.status === "unauthenticated") {
     redirect("/auth");
@@ -95,6 +103,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <SidebarButton
               text="Settings"
               icon={<IconSetting className="h-6 w-6" />}
+              onClick={() => setIsSettingsModalOpen(true)}
             />
             <SidebarButton
               text="Sign out"
@@ -106,7 +115,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </div>
       </div>
 
-      {/* modals */}
+      {/* account modal */}
       <Modal
         isOpen={isAccountModalOpen}
         closeModal={() => setIsAccountModalOpen(false)}
@@ -115,6 +124,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         hasCloseButton
       >
         <AccountModalContent />
+      </Modal>
+
+      {/* settings modal */}
+      <Modal
+        isOpen={isSettingsModalOpen}
+        closeModal={() => setIsSettingsModalOpen(false)}
+        title="Settings"
+        hasCloseButton
+      >
+        <SettingsModalContent />
       </Modal>
 
       {/* page */}
