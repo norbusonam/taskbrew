@@ -60,7 +60,8 @@ model User {
   updatedAt DateTime @updatedAt
 
   // relations
-  tasks Task[]
+  tasks     Task[]
+  feedbacks Feedback[]
 
   // next auth stuff
   name          String?
@@ -90,8 +91,31 @@ model Task {
   @@index([userId])
 }
 
+model Feedback {
+  // properties
+  id        String       @id @default(cuid())
+  type      FeedbackType
+  message   String?
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  // relations
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+}
+
+// ***************************
+// ********** Enums **********
+// ***************************
+
 enum TaskStatus {
   NOT_STARTED
   IN_PROGRESS
   COMPLETED
+}
+
+enum FeedbackType {
+  POSITIVE
+  NEGATIVE
+  IDEA
 }

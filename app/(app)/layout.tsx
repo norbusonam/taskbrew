@@ -1,9 +1,11 @@
 "use client";
 
 import { AccountModalContent } from "@taskbrew/components/account-modal-content";
+import { FeedbackModalContent } from "@taskbrew/components/feedback-modal-content";
 import {
   IconCalendar,
   IconCoffee,
+  IconComment,
   IconHome,
   IconLogout,
   IconProject,
@@ -26,6 +28,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
+  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
 
   useEffect(() => {
     localStorage.getItem("theme") === "dark"
@@ -106,6 +109,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               onClick={() => setIsSettingsModalOpen(true)}
             />
             <SidebarButton
+              text="Feedback"
+              icon={<IconComment className="h-6 w-6" />}
+              onClick={() => setIsFeedbackModalOpen(true)}
+            />
+            <SidebarButton
               text="Sign out"
               icon={<IconLogout className="h-6 w-6" />}
               className="hover:bg-red-300 active:bg-red-400"
@@ -134,6 +142,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         hasCloseButton
       >
         <SettingsModalContent />
+      </Modal>
+
+      {/* feedback modal */}
+      <Modal
+        isOpen={isFeedbackModalOpen}
+        closeModal={() => setIsFeedbackModalOpen(false)}
+        title="Feedback"
+        description="Tell us about your experience"
+        hasCloseButton
+      >
+        <FeedbackModalContent
+          closeModal={() => setIsFeedbackModalOpen(false)}
+        />
       </Modal>
 
       {/* page */}
