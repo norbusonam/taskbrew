@@ -85,7 +85,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               />
             </div>
           </div>
-          <div className="border-t-[1px] border-neutral-300 pt-2">
+          <div className="border-t-[1px] border-neutral-200 pt-2">
             <SidebarButton
               text="Account"
               icon={
