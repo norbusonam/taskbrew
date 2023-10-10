@@ -68,7 +68,7 @@ function DurationButtonMenuItem(props: DurationButtonMenuItemProps) {
     <Menu.Item>
       {({ active }) => (
         <button
-          className={`${props.isCurrentDuration && "font-bold"} ${
+          className={`${props.isCurrentDuration && "font-semibold"} ${
             active && "bg-gray-300"
           } w-full rounded-md py-1 text-center text-sm text-gray-800 transition-colors active:bg-gray-400`}
           onClick={props.onClick}
