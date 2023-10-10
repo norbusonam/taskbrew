@@ -41,21 +41,21 @@ export function Modal(props: Props) {
                 <div className="flex items-center justify-between">
                   <Dialog.Title
                     as="h3"
-                    className="text-lg font-medium text-gray-800"
+                    className="text-lg font-medium text-neutral-800"
                   >
                     {props.title}
                   </Dialog.Title>
                   {props.hasCloseButton && (
                     <button
                       onClick={props.closeModal}
-                      className="rounded-md p-1 transition-colors hover:bg-gray-200 active:bg-gray-300"
+                      className="rounded-md p-1 transition-colors hover:bg-neutral-200 active:bg-neutral-300"
                     >
                       <IconClose className="h-5 w-5" />
                     </button>
                   )}
                 </div>
                 {props.description && (
-                  <Dialog.Description className="text-left text-sm text-gray-500">
+                  <Dialog.Description className="text-left text-sm text-neutral-500">
                     {props.description}
                   </Dialog.Description>
                 )}

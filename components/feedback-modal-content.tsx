@@ -16,7 +16,7 @@ type Props = {
 };
 
 const sharedButtonClasses =
-  "flex aspect-square flex-col items-center justify-center gap-1 rounded-md text-green-600 transition-colors hover:bg-gray-200 active:bg-gray-300";
+  "flex aspect-square flex-col items-center justify-center gap-1 rounded-md text-green-600 transition-colors hover:bg-neutral-200 active:bg-neutral-300";
 
 export function FeedbackModalContent(props: Props) {
   const [feedbackType, setFeedbackType] = useState<FeedbackType | null>(null);
@@ -84,7 +84,7 @@ export function FeedbackModalContent(props: Props) {
         </button>
       </div>
       <textarea
-        className="h-24 w-full resize-none rounded-md bg-gray-100 p-2 outline-none transition-colors focus:bg-gray-200"
+        className="h-24 w-full resize-none rounded-md bg-neutral-100 p-2 outline-none transition-colors focus:bg-neutral-200"
         placeholder={
           feedbackType === "POSITIVE"
             ? "What did you like?"
@@ -99,7 +99,7 @@ export function FeedbackModalContent(props: Props) {
       <button
         disabled={!feedbackType || isFeedbackLoading}
         onClick={submitFeedback}
-        className="flex items-center justify-center gap-2 rounded-md bg-gray-200 p-2 text-gray-800 transition-all hover:bg-gray-300 active:bg-gray-400 disabled:cursor-not-allowed disabled:opacity-40"
+        className="flex items-center justify-center gap-2 rounded-md bg-neutral-200 p-2 text-neutral-800 transition-all hover:bg-neutral-300 active:bg-neutral-400 disabled:cursor-not-allowed disabled:opacity-40"
       >
         Send feedback
         {isFeedbackLoading ? (

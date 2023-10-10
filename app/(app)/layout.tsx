@@ -44,7 +44,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div className="flex">
       {/* sidebar */}
       <div className="h-screen py-4 pl-4">
-        <div className="flex h-full flex-col justify-between rounded-lg bg-gray-200 p-4 md:w-64">
+        <div className="flex h-full flex-col justify-between rounded-lg bg-neutral-200 p-4 md:w-64">
           <div className="space-y-2 overflow-scroll text-center md:text-left">
             <Link
               href="/home"
@@ -85,7 +85,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               />
             </div>
           </div>
-          <div className="border-t-[1px] border-gray-300 pt-2">
+          <div className="border-t-[1px] border-neutral-300 pt-2">
             <SidebarButton
               text="Account"
               icon={

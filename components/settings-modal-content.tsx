@@ -15,7 +15,7 @@ export function SettingsModalContent() {
     <div className="mt-4 flex items-center justify-between gap-8">
       <div>
         <h3 className="text-sm font-medium">Dark mode (coming soon)</h3>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-neutral-500">
           Dark mode is easier on your eyes and helps you focus on your work.
         </p>
       </div>
@@ -24,7 +24,7 @@ export function SettingsModalContent() {
         onChange={setDarkMode}
         disabled
         className={`${
-          darkMode ? "bg-gray-800" : "bg-gray-200"
+          darkMode ? "bg-neutral-800" : "bg-neutral-200"
         } inline-flex h-6 w-12 shrink-0 items-center rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out disabled:cursor-not-allowed disabled:opacity-50`}
       >
         <span className="sr-only">Enable dark mode</span>
