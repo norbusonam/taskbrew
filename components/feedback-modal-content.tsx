@@ -1,6 +1,15 @@
 import { FeedbackType } from "@prisma/client";
 import { useRef, useState } from "react";
-import { IconBulb, IconFrown, IconLoading, IconSend, IconSmile } from "./icons";
+import {
+  IconBulb,
+  IconBulbFilled,
+  IconFrown,
+  IconFrownFilled,
+  IconLoading,
+  IconSend,
+  IconSmile,
+  IconSmileFilled,
+} from "./icons";
 
 type Props = {
   closeModal: () => void;
@@ -35,36 +44,42 @@ export function FeedbackModalContent(props: Props) {
     <div className="mt-4 flex flex-col gap-4">
       <div className="flex gap-4">
         <button
-          className={`${
-            feedbackType === "POSITIVE" && "bg-gray-200"
-          } ${sharedButtonClasses} text-green-600`}
+          className={`${sharedButtonClasses} text-green-600`}
           onClick={() =>
             setFeedbackType((prev) => (prev === "POSITIVE" ? null : "POSITIVE"))
           }
         >
-          <IconSmile className="w-1/3 text-green-600" />
+          {feedbackType === "POSITIVE" ? (
+            <IconSmileFilled className="w-1/3" />
+          ) : (
+            <IconSmile className="w-1/3" />
+          )}
           Good
         </button>
         <button
-          className={`${
-            feedbackType === "NEGATIVE" && "bg-gray-200"
-          } ${sharedButtonClasses} text-red-600`}
+          className={`${sharedButtonClasses} text-red-600`}
           onClick={() =>
             setFeedbackType((prev) => (prev === "NEGATIVE" ? null : "NEGATIVE"))
           }
         >
-          <IconFrown className="w-1/3 text-red-600" />
+          {feedbackType === "NEGATIVE" ? (
+            <IconFrownFilled className="w-1/3" />
+          ) : (
+            <IconFrown className="w-1/3" />
+          )}
           Bad
         </button>
         <button
-          className={`${
-            feedbackType === "IDEA" && "bg-gray-200"
-          } ${sharedButtonClasses} text-yellow-600`}
+          className={`${sharedButtonClasses} text-yellow-600`}
           onClick={() =>
             setFeedbackType((prev) => (prev === "IDEA" ? null : "IDEA"))
           }
         >
-          <IconBulb className="w-1/3" />
+          {feedbackType === "IDEA" ? (
+            <IconBulbFilled className="w-1/3" />
+          ) : (
+            <IconBulb className="w-1/3" />
+          )}
           Idea
         </button>
       </div>
