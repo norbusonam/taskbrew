@@ -88,8 +88,11 @@ export function TaskListItem(props: Props) {
 
   const updateTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsEditingTitle(false);
-    if (e.target.value && e.target.value !== props.task.title) {
-      updateTask({ title: e.target.value });
+    if (e.target.value) {
+      const title = e.target.value.trim();
+      if (title !== props.task.title) {
+        updateTask({ title });
+      }
     }
   };
 
