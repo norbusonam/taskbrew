@@ -21,6 +21,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect, usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -159,6 +160,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
       {/* page */}
       <div className="h-screen w-full overflow-scroll p-4">{children}</div>
+
+      {/* toast setup */}
+      <Toaster
+        position="bottom-center"
+        toastOptions={{
+          className: "dark:bg-neutral-800 dark:text-white min-w-[250px]",
+        }}
+      />
     </div>
   );
 }
