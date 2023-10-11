@@ -82,8 +82,8 @@ export function DueDateButton(props: Props) {
   };
 
   return (
-    <Popover className="relative">
-      <Popover.Button className="flex items-center gap-1 rounded-md px-1 outline-none transition-colors hover:bg-neutral-200 active:bg-neutral-300">
+    <Popover className="relative" as="div">
+      <Popover.Button className="flex items-center gap-1 rounded-md px-1 transition-colors hover:bg-neutral-200 active:bg-neutral-300 dark:hover:bg-neutral-800 dark:active:bg-neutral-700">
         <IconCalendar className="h-4 w-4 text-neutral-500" />
         <span className="text-sm text-neutral-500">
           {props.dueDate
@@ -104,13 +104,13 @@ export function DueDateButton(props: Props) {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Popover.Panel className="absolute z-10 mt-1 w-48 origin-top-left overflow-scroll rounded-md bg-neutral-200 p-2 shadow-xl">
+        <Popover.Panel className="absolute z-10 mt-1 w-48 origin-top-left overflow-scroll rounded-md bg-neutral-200 p-2 shadow-xl dark:bg-neutral-800">
           <div className="space-y-1">
             {/* current month and year with next and previous buttons */}
             <div className="flex items-center justify-between">
               <button
                 onClick={prevMonth}
-                className="rounded-md p-1 transition-colors hover:bg-neutral-300 active:bg-neutral-400"
+                className="rounded-md p-1 transition-colors hover:bg-neutral-300 active:bg-neutral-400 dark:hover:bg-neutral-700 dark:active:bg-neutral-600"
                 aria-label="Previous month"
               >
                 <IconLeft className="h-4 w-4" />
@@ -120,7 +120,7 @@ export function DueDateButton(props: Props) {
               </p>
               <button
                 onClick={nextMonth}
-                className="rounded-md p-1 transition-colors hover:bg-neutral-300 active:bg-neutral-400"
+                className="rounded-md p-1 transition-colors hover:bg-neutral-300 active:bg-neutral-400 dark:hover:bg-neutral-700 dark:active:bg-neutral-600"
                 aria-label="Next month"
               >
                 <IconRight className="h-4 w-4" />
@@ -146,7 +146,7 @@ export function DueDateButton(props: Props) {
               {Array(getNumberOfDaysInMonth(currentMonth + 1, currentYear))
                 .fill(0)
                 .map((_, i) => (
-                  <Popover.Button
+                  <button
                     key={i}
                     onClick={() =>
                       onDateSelected(new Date(currentYear, currentMonth, i + 1))
@@ -157,29 +157,29 @@ export function DueDateButton(props: Props) {
                       selectedDate.getDate() === i + 1 &&
                       selectedDate.getMonth() === currentMonth &&
                       selectedDate.getFullYear() === currentYear &&
-                      "bg-neutral-300 font-semibold"
+                      "bg-neutral-300 font-bold dark:bg-neutral-700"
                     } ${
                       // today styles
                       today.getDate() === i + 1 &&
                       today.getMonth() === currentMonth &&
                       today.getFullYear() === currentYear &&
                       "bg-red-400 text-white"
-                    } aspect-square rounded-md p-1 text-center text-xs transition-colors hover:bg-neutral-300 hover:text-black active:bg-neutral-400`}
+                    } aspect-square rounded-md p-1 text-center text-xs transition-colors hover:bg-neutral-300 hover:text-black active:bg-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-white dark:active:bg-neutral-600`}
                   >
                     {i + 1}
-                  </Popover.Button>
+                  </button>
                 ))}
             </div>
             {/* today and clear buttons */}
             <div className="flex justify-between">
               <button
-                className="rounded-md p-1  text-center text-xs transition-colors hover:bg-neutral-300 active:bg-neutral-400"
+                className="rounded-md p-1  text-center text-xs transition-colors hover:bg-neutral-300 active:bg-neutral-400 dark:hover:bg-neutral-700 dark:active:bg-neutral-600"
                 onClick={onToday}
               >
                 Go to today
               </button>
               <Popover.Button
-                className="rounded-md p-1 text-center text-xs transition-colors hover:bg-neutral-300 active:bg-neutral-400"
+                className="rounded-md p-1 text-center text-xs transition-colors hover:bg-neutral-300 active:bg-neutral-400 dark:hover:bg-neutral-700 dark:active:bg-neutral-600"
                 onClick={onClear}
               >
                 Clear

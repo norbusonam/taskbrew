@@ -44,7 +44,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div className="flex">
       {/* sidebar */}
       <div className="h-screen py-4 pl-4">
-        <div className="flex h-full flex-col justify-between rounded-lg bg-neutral-200 p-4 md:w-64">
+        <div className="flex h-full flex-col justify-between rounded-lg bg-neutral-100 p-4 dark:bg-neutral-900 md:w-64">
           <div className="space-y-2 overflow-scroll text-center md:text-left">
             <Link
               href="/home"
@@ -85,7 +85,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               />
             </div>
           </div>
-          <div className="border-t-[1px] border-neutral-200 pt-2">
+          <div className="border-t-[1px] border-neutral-200 pt-2 dark:border-neutral-800">
             <SidebarButton
               text="Account"
               icon={
@@ -116,7 +116,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <SidebarButton
               text="Sign out"
               icon={<IconLogout className="h-6 w-6" />}
-              className="hover:bg-red-300 active:bg-red-400"
+              className="hover:bg-red-300 active:bg-red-400 dark:hover:bg-red-500 dark:active:bg-red-600"
               onClick={signOut}
             />
           </div>

@@ -23,9 +23,7 @@ export function AccountModalContent() {
       ) : (
         <IconUser className="m-2 h-16 w-16" />
       )}
-      <h3 className="text-lg font-medium text-neutral-800">
-        {session.data?.user?.name}
-      </h3>
+      <h3 className="text-lg font-medium">{session.data?.user?.name}</h3>
       <span className="text-sm text-neutral-500">
         {session.data?.user?.email}
       </span>

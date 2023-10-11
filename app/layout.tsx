@@ -18,7 +18,7 @@ export default async function RootLayout({
   const session = await getServerSession(authOptions);
   return (
     <html lang="en">
-      <body>
+      <body className="bg-neutral-50 dark:bg-neutral-950 dark:text-white">
         <TaskbrewSessionProvider session={session}>
           {children}
         </TaskbrewSessionProvider>

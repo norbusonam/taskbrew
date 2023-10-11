@@ -93,7 +93,7 @@ export function TaskListItem(props: Props) {
 
   return (
     <div
-      className="flex items-center gap-2 border-b-[1px] border-neutral-200 p-2"
+      className="flex items-center gap-2 border-b-[1px] border-neutral-200 p-2 dark:border-neutral-800"
       onMouseEnter={() => setShowDeleteButton(true)}
       onMouseLeave={() => setShowDeleteButton(false)}
       onFocus={() => setShowDeleteButton(true)}
@@ -124,7 +124,7 @@ export function TaskListItem(props: Props) {
             autoFocus
             ref={titleInputRef}
             type="text"
-            className="w-full rounded-md bg-neutral-200 px-1 outline-none"
+            className="w-full rounded-md bg-transparent px-1 outline-none"
             onKeyDown={handleKeyDown}
             defaultValue={props.task.title}
             onBlur={updateTitle}
@@ -132,7 +132,7 @@ export function TaskListItem(props: Props) {
         ) : (
           <button
             style={{ whiteSpace: "pre" }}
-            className="overflow-clip rounded-md px-1 text-left transition-colors hover:bg-neutral-200 active:bg-neutral-300"
+            className="overflow-clip rounded-md px-1 text-left transition-colors hover:bg-neutral-200 active:bg-neutral-300 dark:hover:bg-neutral-800 dark:active:bg-neutral-700"
             onClick={() => setIsEditingTitle(true)}
           >
             <Markdown>{props.task.title}</Markdown>

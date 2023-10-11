@@ -23,7 +23,7 @@ type Props = {
 export function DurationButton(props: Props) {
   return (
     <Menu as="div" className="relative">
-      <Menu.Button className="flex items-center gap-1 rounded-md px-1 transition-colors hover:bg-neutral-200 active:bg-neutral-300">
+      <Menu.Button className="flex items-center gap-1 rounded-md px-1 transition-colors hover:bg-neutral-200 active:bg-neutral-300  dark:hover:bg-neutral-800 dark:active:bg-neutral-700">
         <IconClockCircle className="h-4 w-4 text-neutral-500" />
         <span className="text-sm text-neutral-500">
           {props.duration && DURATION_TO_TITLE[props.duration]
@@ -40,7 +40,7 @@ export function DurationButton(props: Props) {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute left-1/2 z-10 mt-1 h-44 w-32 origin-top -translate-x-1/2 overflow-scroll rounded-md bg-neutral-200 p-1 shadow-xl">
+        <Menu.Items className="absolute left-1/2 z-10 mt-1 h-44 w-32 origin-top -translate-x-1/2 overflow-scroll rounded-md bg-neutral-200 p-1 shadow-xl dark:bg-neutral-800">
           {Object.keys(DURATION_TO_TITLE)
             .map(Number)
             .map((duration) => (
@@ -68,9 +68,9 @@ function DurationButtonMenuItem(props: DurationButtonMenuItemProps) {
     <Menu.Item>
       {({ active }) => (
         <button
-          className={`${props.isCurrentDuration && "font-semibold"} ${
-            active && "bg-neutral-300"
-          } w-full rounded-md py-1 text-center text-sm text-neutral-800 transition-colors active:bg-neutral-400`}
+          className={`${props.isCurrentDuration && "font-bold"} ${
+            active && "bg-neutral-300 dark:bg-neutral-700"
+          } w-full rounded-md py-1 text-center text-sm transition-colors active:bg-neutral-400 dark:active:bg-neutral-600`}
           onClick={props.onClick}
         >
           {props.duration && DURATION_TO_TITLE[props.duration]
