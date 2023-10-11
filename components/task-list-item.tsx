@@ -88,17 +88,21 @@ export function TaskListItem(props: Props) {
 
   const updateTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsEditingTitle(false);
-    if (e.target.value) {
+    if (e.target.value && e.target.value !== props.task.title) {
       updateTask({ title: e.target.value });
     }
   };
 
   const updateDuration = (duration: Task["duration"]) => {
-    updateTask({ duration });
+    if (duration !== props.task.duration) {
+      updateTask({ duration });
+    }
   };
 
   const updateDueDate = (dueDate: Task["dueDate"]) => {
-    updateTask({ dueDate });
+    if (dueDate?.getTime() !== props.task.dueDate?.getTime()) {
+      updateTask({ dueDate });
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
