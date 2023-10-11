@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import Markdown from "react-markdown";
-import { DueDateButton } from "./due-date-button";
-import { DurationButton } from "./duration-button";
+import { DueDatePopover } from "./due-date-popover";
+import { DurationMenu } from "./duration-menu";
 import {
   IconCheckSquare,
   IconDelete,
@@ -163,12 +163,12 @@ export function TaskListItem(props: Props) {
         )}
         <div className="flex gap-1">
           {/* due date */}
-          <DueDateButton
+          <DueDatePopover
             dueDate={props.task.dueDate}
             onDueDateClicked={updateDueDate}
           />
           {/* duration */}
-          <DurationButton
+          <DurationMenu
             duration={props.task.duration}
             onDurationClicked={updateDuration}
           />

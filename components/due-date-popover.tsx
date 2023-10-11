@@ -44,7 +44,7 @@ const isTomorrow = (date: Date) => {
   return date.toLocaleDateString() === tomorrow.toLocaleDateString();
 };
 
-export function DueDateButton(props: Props) {
+export function DueDatePopover(props: Props) {
   const [selectedDate, setSelectedDate] = useState(props.dueDate);
   const [currentMonth, setCurrentMonth] = useState(
     props.dueDate ? props.dueDate.getMonth() : new Date().getMonth(),
