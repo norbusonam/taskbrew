@@ -28,6 +28,12 @@ const getNumberOfDaysInMonth = (month: number, year: number) => {
   return new Date(year, month, 0).getDate();
 };
 
+const isYesterday = (date: Date) => {
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  return date.toLocaleDateString() === yesterday.toLocaleDateString();
+};
+
 const isToday = (date: Date) => {
   return date.toLocaleDateString() === new Date().toLocaleDateString();
 };
@@ -87,7 +93,9 @@ export function DueDateButton(props: Props) {
         <IconCalendar className="h-4 w-4 text-neutral-500" />
         <span className="text-sm text-neutral-500">
           {props.dueDate
-            ? isToday(props.dueDate)
+            ? isYesterday(props.dueDate)
+              ? "Yesterday"
+              : isToday(props.dueDate)
               ? "Today"
               : isTomorrow(props.dueDate)
               ? "Tomorrow"
