@@ -167,22 +167,20 @@ export function TaskListItem(props: Props) {
           />
         </div>
       </div>
-      {!isEditingTitle && (
-        <button
-          onClick={deleteTask}
-          disabled={isLoadingDelete}
-          aria-label="Delete task"
-          className={`rounded-md p-1 ${
-            showDeleteButton ? "opacity-100" : "md:opacity-0"
-          } transition-all`}
-        >
-          {isLoadingDelete ? (
-            <IconLoading className="h-5 w-5 animate-spin text-red-600" />
-          ) : (
+      {!isEditingTitle &&
+        (isLoadingDelete ? (
+          <IconLoading className="h-5 w-5 animate-spin text-red-600" />
+        ) : (
+          <button
+            onClick={deleteTask}
+            aria-label="Delete task"
+            className={`rounded-md p-1 ${
+              showDeleteButton ? "opacity-100" : "md:opacity-0"
+            } transition-all`}
+          >
             <IconDelete className="h-5 w-5 text-red-400 transition-colors hover:text-red-500 active:text-red-600" />
-          )}
-        </button>
-      )}
+          </button>
+        ))}
     </div>
   );
 }
