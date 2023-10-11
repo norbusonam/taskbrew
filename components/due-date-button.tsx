@@ -110,20 +110,20 @@ export function DueDateButton(props: Props) {
             <div className="flex items-center justify-between">
               <button
                 onClick={prevMonth}
-                className="rounded-md p-1 transition-colors hover:bg-neutral-300 active:bg-neutral-400 dark:hover:bg-neutral-700 dark:active:bg-neutral-600"
+                className="rounded-md p-2 transition-colors hover:bg-neutral-300 active:bg-neutral-400 dark:hover:bg-neutral-700 dark:active:bg-neutral-600"
                 aria-label="Previous month"
               >
-                <IconLeft className="h-4 w-4" />
+                <IconLeft className="h-3 w-3" />
               </button>
               <p className="text-sm">
                 {MONTHS[currentMonth]} {currentYear}
               </p>
               <button
                 onClick={nextMonth}
-                className="rounded-md p-1 transition-colors hover:bg-neutral-300 active:bg-neutral-400 dark:hover:bg-neutral-700 dark:active:bg-neutral-600"
+                className="rounded-md p-2 transition-colors hover:bg-neutral-300 active:bg-neutral-400 dark:hover:bg-neutral-700 dark:active:bg-neutral-600"
                 aria-label="Next month"
               >
-                <IconRight className="h-4 w-4" />
+                <IconRight className="h-3 w-3" />
               </button>
             </div>
             {/* days of the week (header) */}
