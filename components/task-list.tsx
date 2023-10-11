@@ -48,7 +48,7 @@ export function TaskList(props: Props) {
       {props.canCreateNewTask && (
         <button
           onClick={createTask}
-          className="flex w-full flex-row items-center gap-3 border-b-[1px] border-neutral-200 p-2 text-neutral-500 transition-all hover:cursor-pointer hover:rounded-md hover:bg-neutral-100 active:bg-neutral-200 dark:border-neutral-800 dark:hover:bg-neutral-800 dark:active:bg-neutral-700"
+          className="flex w-full flex-row items-center gap-3 border-b-[1px] border-neutral-200 p-2 text-neutral-500 transition-colors hover:cursor-pointer hover:rounded-md hover:bg-neutral-100 active:bg-neutral-200 dark:border-neutral-800 dark:hover:bg-neutral-800 dark:active:bg-neutral-700"
         >
           <IconPlus className="h-5 w-5" />
           <span>New task</span>
