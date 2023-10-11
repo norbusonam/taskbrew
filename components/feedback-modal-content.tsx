@@ -1,5 +1,6 @@
 import { FeedbackType } from "@prisma/client";
 import { useRef, useState } from "react";
+import toast from "react-hot-toast";
 import {
   IconBulb,
   IconBulbFilled,
@@ -35,19 +36,27 @@ export function FeedbackModalContent(props: Props) {
 
   const submitFeedback = () => {
     setIsFeedbackLoading(true);
-    fetch("/api/feedback", {
-      method: "POST",
-      body: JSON.stringify({
-        type: feedbackType,
-        message: messageRef.current?.value,
-      }),
-    })
-      .then((res) => {
+    toast.promise(
+      fetch("/api/feedback", {
+        method: "POST",
+        body: JSON.stringify({
+          type: feedbackType,
+          message: messageRef.current?.value,
+        }),
+      }).then((res) => {
         if (res.ok) {
           props.closeModal();
+        } else {
+          setIsFeedbackLoading(false);
+          throw new Error();
         }
-      })
-      .catch(() => setIsFeedbackLoading(false));
+      }),
+      {
+        loading: "Sending feedback...",
+        success: "Feedback sent!",
+        error: "Failed to send feedback",
+      },
+    );
   };
 
   return (

@@ -2,6 +2,7 @@
 
 import { Task } from "@taskbrew/prisma/db";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 import { IconPlus } from "./icons";
 import { TaskListItem } from "./task-list-item";
 
@@ -14,17 +15,26 @@ export function TaskList(props: Props) {
   const router = useRouter();
 
   const createTask = () => {
-    fetch(`/api/task`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    toast.promise(
+      fetch(`/api/task`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({}),
+      }).then((res) => {
+        if (res.ok) {
+          router.refresh();
+        } else {
+          throw new Error();
+        }
+      }),
+      {
+        loading: "Creating task...",
+        success: "Task created!",
+        error: "Failed to create task",
       },
-      body: JSON.stringify({}),
-    }).then((res) => {
-      if (res.ok) {
-        router.refresh();
-      }
-    });
+    );
   };
 
   return (

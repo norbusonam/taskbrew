@@ -3,6 +3,7 @@
 import { Task } from "@taskbrew/prisma/db";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
+import toast from "react-hot-toast";
 import Markdown from "react-markdown";
 import { DueDateButton } from "./due-date-button";
 import { DurationButton } from "./duration-button";
@@ -31,32 +32,47 @@ export function TaskListItem(props: Props) {
     dueDate?: Task["dueDate"];
     duration?: Task["duration"];
   }) => {
-    fetch(`/api/task/${props.task.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
+    toast.promise(
+      fetch(`/api/task/${props.task.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      }).then((res) => {
+        if (res.ok) {
+          router.refresh();
+        } else {
+          throw new Error();
+        }
+      }),
+      {
+        loading: "Updating task...",
+        success: "Task updated!",
+        error: "Failed to update task",
       },
-      body: JSON.stringify(body),
-    }).then((res) => {
-      if (res.ok) {
-        router.refresh();
-      }
-    });
+    );
   };
 
   const deleteTask = () => {
     setIsLoadingDelete(true);
-    fetch(`/api/task/${props.task.id}`, {
-      method: "DELETE",
-    })
-      .then((res) => {
+    toast.promise(
+      fetch(`/api/task/${props.task.id}`, {
+        method: "DELETE",
+      }).then((res) => {
         if (res.ok) {
           router.refresh();
+        } else {
+          setIsLoadingDelete(false);
+          throw new Error();
         }
-      })
-      .finally(() => {
-        setIsLoadingDelete(false);
-      });
+      }),
+      {
+        loading: "Deleting task...",
+        success: "Task deleted!",
+        error: "Failed to delete task",
+      },
+    );
   };
 
   const updateStatus = () => {
