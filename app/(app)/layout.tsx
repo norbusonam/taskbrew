@@ -16,11 +16,12 @@ import {
 import { Modal } from "@taskbrew/components/modal";
 import { SettingsModalContent } from "@taskbrew/components/settings-modal-content";
 import { SidebarButton } from "@taskbrew/components/sidebar-button";
+import { Theming } from "@taskbrew/components/theming";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect, usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Toaster } from "react-hot-toast";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -30,12 +31,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
-
-  useEffect(() => {
-    localStorage.getItem("theme") === "dark"
-      ? document.documentElement.classList.add("dark")
-      : document.documentElement.classList.remove("dark");
-  }, []);
 
   if (session.status === "unauthenticated") {
     redirect("/auth");
@@ -168,6 +163,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           className: "dark:bg-neutral-800 dark:text-white min-w-[250px]",
         }}
       />
+
+      {/* theme setup */}
+      <Theming />
     </div>
   );
 }
