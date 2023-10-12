@@ -6,6 +6,7 @@ import {
   IconGoogle,
   IconLogout,
 } from "@taskbrew/components/icons";
+import { ThemeMenu } from "@taskbrew/components/theme-menu";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -42,14 +43,14 @@ export default function Page() {
             <strong className="font-bold">{data.user?.email}</strong>
           </p>
           <Link
-            className="flex w-64 items-center justify-center gap-2 rounded-md bg-neutral-300 px-4 py-2 transition-colors hover:bg-neutral-400 active:bg-neutral-500"
+            className="flex w-64 items-center justify-center gap-2 rounded-md bg-neutral-300 px-4 py-2 transition-colors hover:bg-neutral-400 active:bg-neutral-500 dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:active:bg-neutral-500"
             href="/home"
           >
             <IconCoffee className="h-6 w-6" />
             <p className="font-light">Continue to Taskbrew</p>
           </Link>
           <button
-            className="flex w-64 items-center justify-center gap-2 rounded-md bg-neutral-300 px-4 py-2 transition-colors hover:bg-red-300 active:bg-red-400"
+            className="flex w-64 items-center justify-center gap-2 rounded-md bg-neutral-300 px-4 py-2 transition-colors hover:bg-red-300 active:bg-red-400 dark:bg-neutral-700 dark:hover:bg-red-500 dark:active:bg-red-600"
             onClick={() => signOut()}
           >
             <IconLogout className="h-6 w-6" />
@@ -67,14 +68,14 @@ export default function Page() {
           </Link>
           <h1 className="text-lg font-medium">Welcome to Taskbrew</h1>
           <button
-            className="flex w-64 items-center justify-center gap-2 rounded-md bg-neutral-300 px-4 py-2 transition-colors hover:bg-neutral-400 active:bg-neutral-500"
+            className="flex w-64 items-center justify-center gap-2 rounded-md bg-neutral-300 px-4 py-2 transition-colors hover:bg-neutral-400 active:bg-neutral-500 dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:active:bg-neutral-500"
             onClick={() => signIn("google", { callbackUrl: "/home" })}
           >
             <IconGoogle className="h-6 w-6" />
             <p className="font-light">Continue with Google</p>
           </button>
           <button
-            className="flex w-64 items-center justify-center gap-2 rounded-md bg-neutral-300 px-4 py-2 transition-colors hover:bg-neutral-400 active:bg-neutral-500"
+            className="flex w-64 items-center justify-center gap-2 rounded-md bg-neutral-300 px-4 py-2 transition-colors hover:bg-neutral-400 active:bg-neutral-500 dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:active:bg-neutral-500"
             onClick={() => signIn("github", { callbackUrl: "/home" })}
           >
             <IconGithub className="h-6 w-6" />
@@ -89,6 +90,7 @@ export default function Page() {
           )}
         </>
       )}
+      <ThemeMenu />
     </div>
   );
 }

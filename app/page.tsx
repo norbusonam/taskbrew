@@ -1,4 +1,5 @@
 import { IconCoffee } from "@taskbrew/components/icons";
+import { ThemeMenu } from "@taskbrew/components/theme-menu";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -22,11 +23,12 @@ export default async function Home() {
       </Link>
       <h1 className="text-lg font-medium">Welcome to Taskbrew</h1>
       <Link
-        className="flex w-64 items-center justify-center gap-2 rounded-md bg-neutral-300 px-4 py-2 font-light transition-colors hover:bg-neutral-400 active:bg-neutral-500"
+        className="flex w-64 items-center justify-center gap-2 rounded-md bg-neutral-300 px-4 py-2 font-light transition-colors hover:bg-neutral-400 active:bg-neutral-500 dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:active:bg-neutral-500"
         href="/auth"
       >
         Get Started
       </Link>
+      <ThemeMenu />
     </div>
   );
 }
