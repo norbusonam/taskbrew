@@ -183,27 +183,28 @@ export function TaskListItem(props: Props) {
           />
         </div>
       </div>
-      {!isEditingTitle &&
-        (isLoadingDelete ? (
-          <IconLoading className="h-5 w-5 animate-spin text-red-600" />
-        ) : (
-          <div className="flex gap-1">
-            <button
-              {...listeners}
-              aria-label="Reorder task"
-              className="rounded-md p-1 transition-all"
-            >
-              <IconMenu className="h-5 w-5 text-neutral-500 transition-colors hover:text-neutral-600 active:text-neutral-700 dark:hover:text-neutral-400 dark:active:text-neutral-300" />
-            </button>
-            <button
-              onClick={deleteTask}
-              aria-label="Delete task"
-              className="rounded-md p-1"
-            >
-              <IconDelete className="h-5 w-5 text-red-400 transition-colors hover:text-red-500 active:text-red-600" />
-            </button>
+      <div className="flex gap-1">
+        <button
+          {...listeners}
+          aria-label="Reorder task"
+          className="rounded-md p-1 transition-all"
+        >
+          <IconMenu className="h-5 w-5 text-neutral-500 transition-colors hover:text-neutral-600 active:text-neutral-700 dark:hover:text-neutral-400 dark:active:text-neutral-300" />
+        </button>
+        {isLoadingDelete ? (
+          <div className="p-1">
+            <IconLoading className="h-5 w-5 animate-spin text-red-600" />
           </div>
-        ))}
+        ) : (
+          <button
+            onClick={deleteTask}
+            aria-label="Delete task"
+            className="rounded-md p-1"
+          >
+            <IconDelete className="h-5 w-5 text-red-400 transition-colors hover:text-red-500 active:text-red-600" />
+          </button>
+        )}
+      </div>
     </div>
   );
 }
