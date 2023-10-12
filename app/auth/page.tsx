@@ -50,7 +50,7 @@ export default function Page() {
             <p className="font-light">Continue to Taskbrew</p>
           </Link>
           <button
-            className="flex w-64 items-center justify-center gap-2 rounded-md bg-neutral-300 px-4 py-2 transition-colors hover:bg-red-300 active:bg-red-400 dark:bg-neutral-700 dark:hover:bg-red-500 dark:active:bg-red-600"
+            className="flex w-64 items-center justify-center gap-2 rounded-md bg-neutral-200 px-4 py-2 transition-colors hover:bg-red-300 active:bg-red-400 dark:bg-neutral-800 dark:hover:bg-red-500 dark:active:bg-red-600"
             onClick={() => signOut()}
           >
             <IconLogout className="h-6 w-6" />
