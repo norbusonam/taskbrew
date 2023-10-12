@@ -1,5 +1,7 @@
 "use client";
 
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import { Task } from "@taskbrew/prisma/db";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
@@ -11,6 +13,7 @@ import {
   IconCheckSquare,
   IconDelete,
   IconLoading,
+  IconMenu,
   IconMinusSquare,
   IconSquare,
 } from "./icons";
@@ -21,10 +24,15 @@ type Props = {
 
 export function TaskListItem(props: Props) {
   const router = useRouter();
-  const [showDeleteButton, setShowDeleteButton] = useState(false);
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const titleInputRef = useRef<HTMLInputElement>(null);
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: props.task.id });
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
 
   const updateTask = (body: {
     title?: Task["title"];
@@ -116,11 +124,11 @@ export function TaskListItem(props: Props) {
 
   return (
     <div
-      className="flex items-center gap-2 border-b-[1px] border-neutral-200 p-2 dark:border-neutral-800"
-      onMouseEnter={() => setShowDeleteButton(true)}
-      onMouseLeave={() => setShowDeleteButton(false)}
-      onFocus={() => setShowDeleteButton(true)}
-      onBlur={() => setShowDeleteButton(false)}
+      id={props.task.id}
+      className="flex cursor-default items-center gap-2 border-b-[1px] border-neutral-200 p-2 dark:border-neutral-800"
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
     >
       <button
         onClick={updateStatus}
@@ -178,15 +186,22 @@ export function TaskListItem(props: Props) {
         (isLoadingDelete ? (
           <IconLoading className="h-5 w-5 animate-spin text-red-600" />
         ) : (
-          <button
-            onClick={deleteTask}
-            aria-label="Delete task"
-            className={`rounded-md p-1 ${
-              showDeleteButton ? "opacity-100" : "md:opacity-0"
-            } transition-all`}
-          >
-            <IconDelete className="h-5 w-5 text-red-400 transition-colors hover:text-red-500 active:text-red-600" />
-          </button>
+          <div className="flex gap-1">
+            <button
+              {...listeners}
+              aria-label="Reorder task"
+              className="rounded-md p-1 transition-all"
+            >
+              <IconMenu className="h-5 w-5 text-neutral-500 transition-colors hover:text-neutral-600 active:text-neutral-700 dark:hover:text-neutral-400 dark:active:text-neutral-300" />
+            </button>
+            <button
+              onClick={deleteTask}
+              aria-label="Delete task"
+              className="rounded-md p-1"
+            >
+              <IconDelete className="h-5 w-5 text-red-400 transition-colors hover:text-red-500 active:text-red-600" />
+            </button>
+          </div>
         ))}
     </div>
   );
