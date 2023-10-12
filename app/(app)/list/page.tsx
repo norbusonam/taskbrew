@@ -16,7 +16,7 @@ export default async function Page() {
       userId: session.user.id,
     },
     orderBy: {
-      createdAt: "asc",
+      listOrder: "asc",
     },
   });
 
