@@ -1,4 +1,5 @@
 import { TaskbrewSessionProvider } from "@taskbrew/components/session-provider";
+import { Theming } from "@taskbrew/components/theming";
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
@@ -23,6 +24,7 @@ export default async function RootLayout({
           {children}
         </TaskbrewSessionProvider>
         <Analytics />
+        <Theming />
       </body>
     </html>
   );

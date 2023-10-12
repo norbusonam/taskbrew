@@ -16,7 +16,6 @@ import {
 import { Modal } from "@taskbrew/components/modal";
 import { SettingsModalContent } from "@taskbrew/components/settings-modal-content";
 import { SidebarButton } from "@taskbrew/components/sidebar-button";
-import { Theming } from "@taskbrew/components/theming";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -163,9 +162,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           className: "dark:bg-neutral-800 dark:text-white min-w-[250px]",
         }}
       />
-
-      {/* theme setup */}
-      <Theming />
     </div>
   );
 }
