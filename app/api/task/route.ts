@@ -9,6 +9,16 @@ export async function POST(req: Request) {
     return Response.redirect("/auth");
   }
 
+  // find highest list order
+  const highestOrder = await prisma.task.findFirst({
+    where: {
+      userId: session.user.id,
+    },
+    orderBy: {
+      listOrder: "desc",
+    },
+  });
+
   // create task
   const body = await req.json();
   const createdTask = await prisma.task.create({
@@ -17,7 +27,7 @@ export async function POST(req: Request) {
       userId: session.user.id,
       duration: body.duration,
       dueDate: body.dueDate,
-      listOrder: body.listOrder,
+      listOrder: highestOrder ? highestOrder.listOrder + 1 : 0,
     },
   });
 

@@ -37,9 +37,7 @@ export function TaskList(props: Props) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          listOrder: tasks.length,
-        }),
+        body: JSON.stringify({}),
       }).then((res) => {
         if (res.ok) {
           router.refresh();
@@ -64,9 +62,9 @@ export function TaskList(props: Props) {
     const { active, over } = e;
     if (over && over.id !== active.id) {
       // figure out new order
-      const activeIdx = tasks.findIndex((task) => task.id === active.id);
-      const endIdx = tasks.findIndex((task) => task.id === over.id);
-      const reorderedTasks = arrayMove(tasks, activeIdx, endIdx);
+      const fromIdx = tasks.findIndex((task) => task.id === active.id);
+      const toIdx = tasks.findIndex((task) => task.id === over.id);
+      const reorderedTasks = arrayMove(tasks, fromIdx, toIdx);
 
       // optimistically update state
       reorderedTasks.forEach((task, i) => {
