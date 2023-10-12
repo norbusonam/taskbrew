@@ -1,6 +1,11 @@
 "use client";
 
-import { DndContext, DragEndEvent } from "@dnd-kit/core";
+import {
+  DndContext,
+  DragEndEvent,
+  DragOverlay,
+  DragStartEvent,
+} from "@dnd-kit/core";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { Task } from "@taskbrew/prisma/db";
@@ -17,6 +22,7 @@ type Props = {
 
 export function TaskList(props: Props) {
   const [tasks, setTasks] = useState(props.tasks);
+  const [activeTask, setActiveTask] = useState<Task | undefined>(undefined);
   const id = useId();
   const router = useRouter();
 
@@ -49,7 +55,12 @@ export function TaskList(props: Props) {
     );
   };
 
+  const onDragStart = (e: DragStartEvent) => {
+    setActiveTask(tasks.find((task) => task.id === e.active.id));
+  };
+
   const onDragEnd = (e: DragEndEvent) => {
+    setActiveTask(undefined);
     const { active, over } = e;
     if (over && over.id !== active.id) {
       // figure out new order
@@ -97,13 +108,21 @@ export function TaskList(props: Props) {
       {/* tasks */}
       <DndContext
         modifiers={[restrictToVerticalAxis]}
+        onDragStart={onDragStart}
         onDragEnd={onDragEnd}
         id={id}
       >
         <SortableContext items={tasks.map((task) => task.id)}>
           {tasks.map((task) => (
-            <TaskListItem key={task.id} task={task} />
+            <TaskListItem
+              key={task.id}
+              task={task}
+              className={`${task.id === activeTask?.id ? "opacity-0" : ""}`}
+            />
           ))}
+          <DragOverlay>
+            {activeTask && <TaskListItem task={activeTask} />}
+          </DragOverlay>
         </SortableContext>
       </DndContext>
 

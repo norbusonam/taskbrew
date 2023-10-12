@@ -20,6 +20,7 @@ import {
 
 type Props = {
   task: Task;
+  className?: string;
 };
 
 export function TaskListItem(props: Props) {
@@ -125,7 +126,7 @@ export function TaskListItem(props: Props) {
   return (
     <div
       id={props.task.id}
-      className="flex cursor-default items-center gap-2 border-b-[1px] border-neutral-200 p-2 dark:border-neutral-800"
+      className={`flex cursor-default items-center gap-2 border-b-[1px] border-neutral-200 p-2 dark:border-neutral-800 ${props.className}`}
       ref={setNodeRef}
       style={style}
       {...attributes}
