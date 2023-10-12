@@ -121,7 +121,12 @@ export function TaskList(props: Props) {
             />
           ))}
           <DragOverlay>
-            {activeTask && <TaskListItem task={activeTask} />}
+            {activeTask && (
+              <TaskListItem
+                task={activeTask}
+                className="bg-neutral-100 dark:bg-neutral-900"
+              />
+            )}
           </DragOverlay>
         </SortableContext>
       </DndContext>
