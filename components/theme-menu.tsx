@@ -1,3 +1,5 @@
+"use client";
+
 import { Menu, Transition } from "@headlessui/react";
 import { useTheme } from "@taskbrew/hooks/use-theme";
 import { Fragment } from "react";
@@ -8,7 +10,7 @@ export function ThemeMenu() {
 
   return (
     <Menu as="div" className="relative">
-      <Menu.Button className="flex items-center gap-1 rounded-md p-2 text-sm transition-colors hover:bg-neutral-200 active:bg-neutral-300  dark:hover:bg-neutral-800 dark:active:bg-neutral-700">
+      <Menu.Button className="flex w-20 items-center justify-center gap-1 rounded-md py-2 text-sm transition-colors hover:bg-neutral-200 active:bg-neutral-300  dark:hover:bg-neutral-800 dark:active:bg-neutral-700">
         {theme === "dark" ? "Dark" : theme === "light" ? "Light" : "System"}
         <IconDown className="h-3 w-3" />
       </Menu.Button>
@@ -21,7 +23,7 @@ export function ThemeMenu() {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-1 w-32 origin-top-right overflow-scroll rounded-md bg-neutral-200 p-1 shadow-xl dark:bg-neutral-800">
+        <Menu.Items className="absolute left-1/2 right-0 z-10 mt-1 w-32 origin-top -translate-x-1/2 overflow-scroll rounded-md bg-neutral-200 p-1 shadow-xl dark:bg-neutral-800">
           <Menu.Item>
             {({ active }) => (
               <button
