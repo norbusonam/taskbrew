@@ -5,7 +5,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div>
       {/* header */}
       <div className="pb-4">
-        <h1 className="text-4xl font-bold">Task List</h1>
+        <h1 className="text-4xl font-bold">List</h1>
       </div>
 
       {children}
