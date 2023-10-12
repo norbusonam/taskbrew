@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "Task" ADD COLUMN     "listOrder" INTEGER NOT NULL DEFAULT 0;
