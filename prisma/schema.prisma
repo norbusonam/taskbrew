@@ -80,7 +80,7 @@ model Task {
   completedAt DateTime?
   dueDate     DateTime?
   duration    Int?
-  listOrder   Int        @default(0)
+  listOrder   Int
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 
