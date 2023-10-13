@@ -1,6 +1,10 @@
 "use client";
 
-import { useSortable } from "@dnd-kit/sortable";
+import {
+  AnimateLayoutChanges,
+  defaultAnimateLayoutChanges,
+  useSortable,
+} from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Task } from "@taskbrew/prisma/db";
 import { useRouter } from "next/navigation";
@@ -18,6 +22,14 @@ import {
   IconSquare,
 } from "./icons";
 
+const animateLayoutChanges: AnimateLayoutChanges = (args) => {
+  const { isSorting, wasDragging } = args;
+  if (isSorting || wasDragging) {
+    return defaultAnimateLayoutChanges(args);
+  }
+  return true;
+};
+
 type Props = {
   task: Task;
   className?: string;
@@ -29,7 +41,10 @@ export function TaskListItem(props: Props) {
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const titleInputRef = useRef<HTMLInputElement>(null);
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: props.task.id });
+    useSortable({
+      id: props.task.id,
+      animateLayoutChanges,
+    });
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
