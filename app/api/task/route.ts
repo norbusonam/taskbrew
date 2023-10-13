@@ -10,7 +10,17 @@ export async function POST(req: Request) {
   }
 
   // find highest list order
-  const highestOrder = await prisma.task.findFirst({
+  const highestListOrder = await prisma.task.findFirst({
+    where: {
+      userId: session.user.id,
+    },
+    orderBy: {
+      listOrder: "desc",
+    },
+  });
+
+  // find highest board order
+  const highestBoardOrder = await prisma.task.findFirst({
     where: {
       userId: session.user.id,
     },
@@ -27,7 +37,8 @@ export async function POST(req: Request) {
       userId: session.user.id,
       duration: body.duration,
       dueDate: body.dueDate,
-      listOrder: highestOrder ? highestOrder.listOrder + 1 : 0,
+      listOrder: highestListOrder ? highestListOrder.listOrder + 1 : 0,
+      boardOrder: highestBoardOrder ? highestBoardOrder.boardOrder + 1 : 0,
     },
   });
 
