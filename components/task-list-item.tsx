@@ -202,9 +202,9 @@ export function TaskListItem(props: Props) {
         <button
           {...listeners}
           aria-label="Reorder task"
-          className="rounded-md p-1 transition-all"
+          className="rounded-md p-1 text-neutral-500 transition-colors hover:text-neutral-600 active:text-neutral-700 dark:hover:text-neutral-400 dark:active:text-neutral-300"
         >
-          <IconMenu className="h-5 w-5 text-neutral-500 transition-colors hover:text-neutral-600 active:text-neutral-700 dark:hover:text-neutral-400 dark:active:text-neutral-300" />
+          <IconMenu className="h-5 w-5" />
         </button>
         {isLoadingDelete ? (
           <div className="p-1">
@@ -214,9 +214,9 @@ export function TaskListItem(props: Props) {
           <button
             onClick={deleteTask}
             aria-label="Delete task"
-            className="rounded-md p-1"
+            className="rounded-md p-1 text-red-400 transition-colors  hover:text-red-500 active:text-red-600"
           >
-            <IconDelete className="h-5 w-5 text-red-400 transition-colors hover:text-red-500 active:text-red-600" />
+            <IconDelete className="h-5 w-5" />
           </button>
         )}
       </div>
