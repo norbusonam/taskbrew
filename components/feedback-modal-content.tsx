@@ -1,4 +1,4 @@
-import { FeedbackType } from "@prisma/client";
+import { FeedbackType } from "@taskbrew/prisma/db";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import {
