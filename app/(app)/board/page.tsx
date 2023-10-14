@@ -1,4 +1,6 @@
 import { authOptions } from "@taskbrew/app/api/auth/[...nextauth]/route";
+import { TaskBoard } from "@taskbrew/components/task-board";
+import prisma from "@taskbrew/prisma/db";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
@@ -9,5 +11,11 @@ export default async function Page() {
     redirect("/auth");
   }
 
-  return <div>Board is coming soon!</div>;
+  const tasks = await prisma.task.findMany({
+    where: {
+      userId: session.user.id,
+    },
+  });
+
+  return <TaskBoard tasks={tasks} />;
 }
