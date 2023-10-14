@@ -22,7 +22,8 @@ export async function PATCH(
     data: {
       title: body.title ? body.title.trim() : undefined,
       status: body.status,
-      completedAt: body.status === TaskStatus.COMPLETED ? new Date() : null,
+      completedAt:
+        body.status === TaskStatus.COMPLETED ? new Date() : undefined,
       dueDate: body.dueDate,
       duration: body.duration,
     },
