@@ -17,7 +17,7 @@ export default async function Page() {
       status: "COMPLETED",
     },
     orderBy: {
-      listOrder: "asc",
+      completedAt: "desc",
     },
   });
 
