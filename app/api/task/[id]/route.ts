@@ -23,7 +23,15 @@ export async function PATCH(
       title: body.title ? body.title.trim() : undefined,
       status: body.status,
       completedAt:
-        body.status === TaskStatus.COMPLETED ? new Date() : undefined,
+        // if status is not changed, do not update completedAt
+        // if status is changed to COMPLETED, set completedAt to now
+        // otherwise, status was changed to NOT_STARTED, or IN_PROGRESS,
+        // so set completedAt to null
+        body.status === undefined
+          ? undefined
+          : body.status === TaskStatus.COMPLETED
+          ? new Date()
+          : null,
       dueDate: body.dueDate,
       duration: body.duration,
     },
