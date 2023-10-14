@@ -4,6 +4,7 @@ import { AccountModalContent } from "@taskbrew/components/account-modal-content"
 import { FeedbackModalContent } from "@taskbrew/components/feedback-modal-content";
 import {
   IconCalendar,
+  IconCheckSquare,
   IconCoffee,
   IconComment,
   IconHome,
@@ -59,7 +60,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               />
             </div>
             <h3 className="text-xs font-bold">VIEWS</h3>
-            <div className="font-light">
+            <div>
               <SidebarButton
                 text="List"
                 icon={<IconUnorderedList className="h-6 w-6" />}
@@ -77,6 +78,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 icon={<IconCalendar className="h-6 w-6" />}
                 active={pathname === "/calendar"}
                 onClick={() => router.push("/calendar")}
+              />
+            </div>
+            <h3 className="text-xs font-bold">OTHER</h3>
+            <div>
+              <SidebarButton
+                text="Completed"
+                icon={<IconCheckSquare className="h-6 w-6" />}
+                active={pathname === "/completed"}
+                onClick={() => router.push("/completed")}
               />
             </div>
           </div>
