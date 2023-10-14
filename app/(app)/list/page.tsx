@@ -26,7 +26,7 @@ export default async function Page() {
   return (
     <div>
       {/* task list */}
-      <TaskList tasks={tasks} canCreateNewTask canReorderTasks />
+      <TaskList tasks={tasks} canCreateNewTask />
     </div>
   );
 }

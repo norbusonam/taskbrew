@@ -14,6 +14,7 @@ import Markdown from "react-markdown";
 import { DueDatePopover } from "./due-date-popover";
 import { DurationMenu } from "./duration-menu";
 import {
+  IconCheckSquare,
   IconCheckSquareFilled,
   IconDelete,
   IconLoading,
@@ -32,7 +33,6 @@ const animateLayoutChanges: AnimateLayoutChanges = (args) => {
 
 type Props = {
   task: Task;
-  canReorderTasks?: boolean;
   className?: string;
 };
 
@@ -209,10 +209,19 @@ export function TaskListItem(props: Props) {
             duration={props.task.duration}
             onDurationClicked={updateDuration}
           />
+          {/* completed at */}
+          {props.task.completedAt && (
+            <div className="flex items-center gap-1 px-1 text-sm text-neutral-500">
+              <IconCheckSquare className="h-4 w-4" />
+              <p>
+                Completed at {new Date(props.task.completedAt).toLocaleString()}
+              </p>
+            </div>
+          )}
         </div>
       </div>
       <div className="flex gap-1">
-        {props.canReorderTasks && (
+        {props.task.status !== "COMPLETED" && (
           <button
             {...listeners}
             aria-label="Reorder task"
