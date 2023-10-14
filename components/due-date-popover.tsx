@@ -17,7 +17,36 @@ const MONTHS = [
   "Nov",
   "Dec",
 ];
-const DAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+const DAYS = [
+  {
+    short: "Su",
+    long: "Sunday",
+  },
+  {
+    short: "Mo",
+    long: "Monday",
+  },
+  {
+    short: "Tu",
+    long: "Tuesday",
+  },
+  {
+    short: "We",
+    long: "Wednesday",
+  },
+  {
+    short: "Th",
+    long: "Thursday",
+  },
+  {
+    short: "Fr",
+    long: "Friday",
+  },
+  {
+    short: "Sa",
+    long: "Saturday",
+  },
+];
 
 type Props = {
   dueDate: Task["dueDate"];
@@ -26,6 +55,10 @@ type Props = {
 
 const getNumberOfDaysInMonth = (month: number, year: number) => {
   return new Date(year, month, 0).getDate();
+};
+
+const isPastDue = (date: Date) => {
+  return date < new Date();
 };
 
 const isYesterday = (date: Date) => {
@@ -42,6 +75,18 @@ const isTomorrow = (date: Date) => {
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
   return date.toLocaleDateString() === tomorrow.toLocaleDateString();
+};
+
+const isLaterThisWeek = (date: Date) => {
+  const today = new Date();
+  const nextWeek = new Date();
+  nextWeek.setDate(today.getDate() + 7);
+  nextWeek.setHours(23, 59, 59);
+  return date > today && date < nextWeek;
+};
+
+const isThisYear = (date: Date) => {
+  return date.getFullYear() === new Date().getFullYear();
 };
 
 export function DueDatePopover(props: Props) {
@@ -89,9 +134,19 @@ export function DueDatePopover(props: Props) {
 
   return (
     <Popover className="relative" as="div">
-      <Popover.Button className="flex items-center gap-1 rounded-md px-1 transition-colors hover:bg-neutral-200 active:bg-neutral-300 dark:hover:bg-neutral-800 dark:active:bg-neutral-700">
-        <IconCalendar className="h-4 w-4 text-neutral-500" />
-        <span className="text-sm text-neutral-500">
+      <Popover.Button
+        className={`flex items-center gap-1 rounded-md px-1 transition-colors hover:bg-neutral-200 active:bg-neutral-300 dark:hover:bg-neutral-800 dark:active:bg-neutral-700 ${
+          props.dueDate && isPastDue(props.dueDate)
+            ? "text-red-500"
+            : props.dueDate && isToday(props.dueDate)
+            ? "text-orange-500"
+            : props.dueDate && isLaterThisWeek(props.dueDate)
+            ? "text-blue-500"
+            : "text-neutral-500"
+        }`}
+      >
+        <IconCalendar className="h-4 w-4" />
+        <span className="text-sm">
           {props.dueDate
             ? isYesterday(props.dueDate)
               ? "Yesterday"
@@ -99,7 +154,13 @@ export function DueDatePopover(props: Props) {
               ? "Today"
               : isTomorrow(props.dueDate)
               ? "Tomorrow"
-              : props.dueDate.toLocaleDateString()
+              : isLaterThisWeek(props.dueDate)
+              ? DAYS[props.dueDate.getDay()].long
+              : isThisYear(props.dueDate)
+              ? `${MONTHS[props.dueDate.getMonth()]} ${props.dueDate.getDate()}`
+              : `${
+                  MONTHS[props.dueDate.getMonth()]
+                } ${props.dueDate.getDate()} ${props.dueDate.getFullYear()}`
             : "No due date"}
         </span>
       </Popover.Button>
@@ -137,8 +198,11 @@ export function DueDatePopover(props: Props) {
             {/* days of the week (header) */}
             <div className="grid grid-cols-7">
               {DAYS.map((day) => (
-                <p key={day} className="text-center text-xs text-neutral-500">
-                  {day}
+                <p
+                  key={day.short}
+                  className="text-center text-xs text-neutral-500"
+                >
+                  {day.short}
                 </p>
               ))}
             </div>
@@ -157,7 +221,9 @@ export function DueDatePopover(props: Props) {
                   <button
                     key={i}
                     onClick={() =>
-                      onDateSelected(new Date(currentYear, currentMonth, i + 1))
+                      onDateSelected(
+                        new Date(currentYear, currentMonth, i + 1, 23, 59, 59),
+                      )
                     }
                     className={`${
                       // selected date styles
