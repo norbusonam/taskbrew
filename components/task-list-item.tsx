@@ -14,7 +14,7 @@ import Markdown from "react-markdown";
 import { DueDatePopover } from "./due-date-popover";
 import { DurationMenu } from "./duration-menu";
 import {
-  IconCheckSquare,
+  IconCheckSquareFilled,
   IconDelete,
   IconLoading,
   IconMenu,
@@ -32,6 +32,7 @@ const animateLayoutChanges: AnimateLayoutChanges = (args) => {
 
 type Props = {
   task: Task;
+  canReorderTasks?: boolean;
   className?: string;
 };
 
@@ -39,6 +40,8 @@ export function TaskListItem(props: Props) {
   const router = useRouter();
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
   const [isEditingTitle, setIsEditingTitle] = useState(false);
+  const [status, setStatus] = useState<Task["status"]>(props.task.status);
+  const [title, setTitle] = useState<Task["title"]>(props.task.title);
   const titleInputRef = useRef<HTMLInputElement>(null);
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({
@@ -65,8 +68,17 @@ export function TaskListItem(props: Props) {
         body: JSON.stringify(body),
       }).then((res) => {
         if (res.ok) {
-          router.refresh();
+          if (body.status === "COMPLETED") {
+            setTimeout(() => {
+              router.refresh();
+            }, 3000);
+          } else {
+            router.refresh();
+          }
         } else {
+          // revert changes
+          setStatus(props.task.status);
+          setTitle(props.task.title);
           throw new Error();
         }
       }),
@@ -100,22 +112,22 @@ export function TaskListItem(props: Props) {
   };
 
   const updateStatus = () => {
-    updateTask({
-      status:
-        props.task.status === "NOT_STARTED"
-          ? "IN_PROGRESS"
-          : props.task.status === "IN_PROGRESS"
-          ? "COMPLETED"
-          : "NOT_STARTED",
-    });
+    const newStatus =
+      status === "NOT_STARTED"
+        ? "IN_PROGRESS"
+        : status === "IN_PROGRESS"
+        ? "COMPLETED"
+        : "NOT_STARTED";
+    setStatus(newStatus);
+    updateTask({ status: newStatus });
   };
 
   const updateTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsEditingTitle(false);
     if (e.target.value) {
-      const title = e.target.value.trim();
-      if (title !== props.task.title) {
-        updateTask({ title });
+      const newTitle = e.target.value.trim();
+      if (newTitle !== props.task.title) {
+        updateTask({ title: newTitle });
       }
     }
   };
@@ -149,17 +161,17 @@ export function TaskListItem(props: Props) {
       <button
         onClick={updateStatus}
         aria-label={`Mark task as ${
-          props.task.status === "NOT_STARTED"
+          status === "NOT_STARTED"
             ? "in progress"
-            : props.task.status === "IN_PROGRESS"
+            : status === "IN_PROGRESS"
             ? "completed"
             : "not started"
         }`}
         className="transition-opacity hover:opacity-75"
       >
-        {props.task.status === "COMPLETED" ? (
-          <IconCheckSquare className="h-5 w-5 text-green-500" />
-        ) : props.task.status === "IN_PROGRESS" ? (
+        {status === "COMPLETED" ? (
+          <IconCheckSquareFilled className="h-5 w-5 text-green-500" />
+        ) : status === "IN_PROGRESS" ? (
           <IconMinusSquare className="h-5 w-5 text-yellow-500" />
         ) : (
           <IconSquare className="h-5 w-5 text-neutral-500" />
@@ -173,7 +185,8 @@ export function TaskListItem(props: Props) {
             type="text"
             className="w-full rounded-md bg-transparent px-1 outline-none"
             onKeyDown={handleKeyDown}
-            defaultValue={props.task.title}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             onBlur={updateTitle}
           />
         ) : (
@@ -182,7 +195,7 @@ export function TaskListItem(props: Props) {
             className="overflow-clip rounded-md px-1 text-left transition-colors hover:bg-neutral-200 active:bg-neutral-300 dark:hover:bg-neutral-800 dark:active:bg-neutral-700"
             onClick={() => setIsEditingTitle(true)}
           >
-            <Markdown>{props.task.title}</Markdown>
+            <Markdown>{title}</Markdown>
           </button>
         )}
         <div className="flex gap-1">
@@ -199,13 +212,15 @@ export function TaskListItem(props: Props) {
         </div>
       </div>
       <div className="flex gap-1">
-        <button
-          {...listeners}
-          aria-label="Reorder task"
-          className="rounded-md p-1 text-neutral-500 transition-colors hover:text-neutral-600 active:text-neutral-700 dark:hover:text-neutral-400 dark:active:text-neutral-300"
-        >
-          <IconMenu className="h-5 w-5" />
-        </button>
+        {props.canReorderTasks && (
+          <button
+            {...listeners}
+            aria-label="Reorder task"
+            className="rounded-md p-1 text-neutral-500 transition-colors hover:text-neutral-600 active:text-neutral-700 dark:hover:text-neutral-400 dark:active:text-neutral-300"
+          >
+            <IconMenu className="h-5 w-5" />
+          </button>
+        )}
         {isLoadingDelete ? (
           <div className="p-1">
             <IconLoading className="h-5 w-5 animate-spin text-red-600" />

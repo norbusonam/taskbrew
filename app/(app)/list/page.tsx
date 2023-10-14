@@ -14,6 +14,9 @@ export default async function Page() {
   const tasks = await prisma.task.findMany({
     where: {
       userId: session.user.id,
+      status: {
+        not: "COMPLETED",
+      },
     },
     orderBy: {
       listOrder: "asc",
@@ -23,7 +26,7 @@ export default async function Page() {
   return (
     <div>
       {/* task list */}
-      <TaskList tasks={tasks} canCreateNewTask />
+      <TaskList tasks={tasks} canCreateNewTask canReorderTasks />
     </div>
   );
 }

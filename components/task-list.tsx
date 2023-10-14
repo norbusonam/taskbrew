@@ -25,6 +25,7 @@ const measuringConfig = {
 type Props = {
   tasks: Task[];
   canCreateNewTask?: boolean;
+  canReorderTasks?: boolean;
 };
 
 export function TaskList(props: Props) {
@@ -132,6 +133,7 @@ export function TaskList(props: Props) {
               <TaskListItem
                 task={activeTask}
                 className="bg-neutral-100 dark:bg-neutral-900"
+                canReorderTasks={props.canReorderTasks}
               />
             )}
           </DragOverlay>
