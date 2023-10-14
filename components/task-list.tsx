@@ -87,6 +87,7 @@ export function TaskList(props: Props) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
+            type: "LIST",
             tasks: reorderedTasks.map((task, i) => ({
               id: task.id,
               listOrder: i,
