@@ -23,10 +23,5 @@ export default async function Page() {
     },
   });
 
-  return (
-    <div>
-      {/* task list */}
-      <TaskList tasks={tasks} canCreateNewTask />
-    </div>
-  );
+  return <TaskList tasks={tasks} canCreateNewTask />;
 }

@@ -3,6 +3,7 @@ import { TaskBoardColumn } from "./task-board-column";
 
 type Props = {
   tasks: Task[];
+  className?: string;
 };
 
 export function TaskBoard(props: Props) {
@@ -17,7 +18,7 @@ export function TaskBoard(props: Props) {
   );
 
   return (
-    <div className="flex gap-4 overflow-x-scroll">
+    <div className={`flex gap-4 overflow-x-scroll ${props.className}`}>
       <TaskBoardColumn
         type="NOT_STARTED"
         tasks={notStartedTasks}

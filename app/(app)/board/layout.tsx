@@ -1,8 +1,8 @@
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div>
+    <div className="h-screen w-full overflow-y-scroll">
       {/* header */}
-      <div className="pb-4">
+      <div className="p-4">
         <h1 className="text-4xl font-bold">Board</h1>
       </div>
 

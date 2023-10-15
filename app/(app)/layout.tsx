@@ -163,7 +163,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </Modal>
 
       {/* page */}
-      <div className="h-screen w-full overflow-scroll p-4">{children}</div>
+      {children}
 
       {/* toast setup */}
       <Toaster

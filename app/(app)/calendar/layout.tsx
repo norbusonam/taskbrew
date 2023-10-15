@@ -1,6 +1,6 @@
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div>
+    <div className="p-4">
       {/* header */}
       <div className="pb-4">
         <h1 className="text-4xl font-bold">Calendar</h1>

@@ -17,5 +17,5 @@ export default async function Page() {
     },
   });
 
-  return <TaskBoard tasks={tasks} />;
+  return <TaskBoard tasks={tasks} className="px-4 pb-4" />;
 }
