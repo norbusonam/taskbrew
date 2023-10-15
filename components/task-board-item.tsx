@@ -72,7 +72,7 @@ export function TaskBoardItem(props: Props) {
 
   return (
     <div
-      className={`cursor-default space-y-1 rounded-md bg-neutral-50 p-2 dark:bg-neutral-950 ${props.className}`}
+      className={`cursor-default space-y-1 rounded-md bg-neutral-50 p-2 shadow-md dark:bg-neutral-950 ${props.className}`}
       style={style}
       ref={setNodeRef}
       {...attributes}
