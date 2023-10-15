@@ -42,7 +42,7 @@ export function TaskBoard(props: Props) {
     );
   }, [props.tasks]);
 
-  const findContainer = (id: UniqueIdentifier) => {
+  const findColumn = (id: UniqueIdentifier) => {
     if (
       notStartedTasks.find((task) => task.id === id) ||
       id === "NOT_STARTED"
@@ -72,30 +72,33 @@ export function TaskBoard(props: Props) {
   };
 
   const onDragOver = (e: DragOverEvent) => {
-    const activeList = findContainer(e.active.id);
-    const overList = e.over ? findContainer(e.over.id) : undefined;
+    const activeColumn = findColumn(e.active.id);
+    const overColumn = e.over ? findColumn(e.over.id) : undefined;
 
-    if (activeList && overList && activeList !== overList) {
-      // Remove the task from the old container
-      if (activeList === "NOT_STARTED") {
+    if (!activeColumn || !overColumn) return;
+
+    if (activeColumn !== overColumn) {
+      // Moved from one column to another
+      // Remove the task from the old column
+      if (activeColumn === "NOT_STARTED") {
         setNotStartedTasks((tasks) =>
           tasks.filter((task) => task.id !== e.active.id),
         );
-      } else if (activeList === "IN_PROGRESS") {
+      } else if (activeColumn === "IN_PROGRESS") {
         setInProgressTasks((tasks) =>
           tasks.filter((task) => task.id !== e.active.id),
         );
-      } else if (activeList === "COMPLETED") {
+      } else if (activeColumn === "COMPLETED") {
         setCompletedTasks((tasks) =>
           tasks.filter((task) => task.id !== e.active.id),
         );
       }
-      // Add the task to the new container
-      if (overList === "NOT_STARTED") {
+      // Add the task to the new column
+      if (overColumn === "NOT_STARTED") {
         setNotStartedTasks((tasks) => [...tasks, activeTask!]);
-      } else if (overList === "IN_PROGRESS") {
+      } else if (overColumn === "IN_PROGRESS") {
         setInProgressTasks((tasks) => [...tasks, activeTask!]);
-      } else if (overList === "COMPLETED") {
+      } else if (overColumn === "COMPLETED") {
         setCompletedTasks((tasks) => [...tasks, activeTask!]);
       }
     }
