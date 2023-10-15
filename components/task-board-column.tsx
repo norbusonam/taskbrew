@@ -1,5 +1,6 @@
 "use client";
 
+import { useDroppable } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
 import { Task } from "@taskbrew/prisma/db";
 import { useRouter } from "next/navigation";
@@ -16,6 +17,9 @@ type Props = {
 
 export function TaskBoardColumn(props: Props) {
   const router = useRouter();
+  const { setNodeRef } = useDroppable({
+    id: props.type,
+  });
 
   const createTask = () => {
     toast.promise(
@@ -54,13 +58,17 @@ export function TaskBoardColumn(props: Props) {
           id={props.type}
           items={props.tasks.map((task) => task.id)}
         >
-          {props.tasks.map((task) => (
-            <TaskBoardItem
-              key={task.id}
-              task={task}
-              className={props.activeTask?.id === task.id ? "opacity-0" : ""}
-            />
-          ))}
+          {props.tasks.length > 0 ? (
+            props.tasks.map((task) => (
+              <TaskBoardItem
+                key={task.id}
+                task={task}
+                className={props.activeTask?.id === task.id ? "opacity-40" : ""}
+              />
+            ))
+          ) : (
+            <div ref={setNodeRef} className="h-16 w-full bg-transparent" />
+          )}
         </SortableContext>
       </div>
       {props.canCreateNewTask && (

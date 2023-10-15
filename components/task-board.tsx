@@ -43,11 +43,20 @@ export function TaskBoard(props: Props) {
   }, [props.tasks]);
 
   const findContainer = (id: UniqueIdentifier) => {
-    if (notStartedTasks.find((task) => task.id === id)) {
+    if (
+      notStartedTasks.find((task) => task.id === id) ||
+      id === "NOT_STARTED"
+    ) {
       return "NOT_STARTED";
-    } else if (inProgressTasks.find((task) => task.id === id)) {
+    } else if (
+      inProgressTasks.find((task) => task.id === id) ||
+      id === "IN_PROGRESS"
+    ) {
       return "IN_PROGRESS";
-    } else if (completedTasks.find((task) => task.id === id)) {
+    } else if (
+      completedTasks.find((task) => task.id === id) ||
+      id === "COMPLETED"
+    ) {
       return "COMPLETED";
     } else {
       return undefined;
