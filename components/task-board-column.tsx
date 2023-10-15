@@ -1,5 +1,6 @@
 "use client";
 
+import { SortableContext } from "@dnd-kit/sortable";
 import { Task } from "@taskbrew/prisma/db";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
@@ -9,6 +10,7 @@ import { TaskBoardItem } from "./task-board-item";
 type Props = {
   type: Task["status"];
   tasks: Task[];
+  activeTask?: Task;
   canCreateNewTask?: boolean;
 };
 
@@ -39,7 +41,7 @@ export function TaskBoardColumn(props: Props) {
   };
 
   return (
-    <div className="max-w flex h-fit min-w-[18rem] max-w-[25rem] flex-1 flex-col justify-between gap-2 rounded-md bg-neutral-100 p-4 dark:bg-neutral-900">
+    <div className="max-w flex h-fit min-w-[18rem] max-w-[24rem] flex-1 flex-col justify-between gap-2 rounded-md bg-neutral-100 p-4 dark:bg-neutral-900">
       <div className="flex flex-col gap-2">
         <h2 className="text-lg font-medium">
           {props.type === "NOT_STARTED"
@@ -48,9 +50,18 @@ export function TaskBoardColumn(props: Props) {
             ? "In progress"
             : "Completed"}
         </h2>
-        {props.tasks.map((task) => (
-          <TaskBoardItem key={task.id} task={task} />
-        ))}
+        <SortableContext
+          id={props.type}
+          items={props.tasks.map((task) => task.id)}
+        >
+          {props.tasks.map((task) => (
+            <TaskBoardItem
+              key={task.id}
+              task={task}
+              className={props.activeTask?.id === task.id ? "opacity-0" : ""}
+            />
+          ))}
+        </SortableContext>
       </div>
       {props.canCreateNewTask && (
         <button
