@@ -15,6 +15,9 @@ export default async function Page() {
     where: {
       userId: session.user.id,
     },
+    orderBy: {
+      boardOrder: "asc",
+    },
   });
 
   return <TaskBoard tasks={tasks} className="px-4 pb-4" />;
