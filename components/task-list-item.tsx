@@ -10,9 +10,9 @@ import { Task } from "@taskbrew/prisma/db";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
-import Markdown from "react-markdown";
 import { DueDatePopover } from "./due-date-popover";
 import { DurationMenu } from "./duration-menu";
+import { EditableTitle } from "./editable-title";
 import {
   IconCheckSquare,
   IconCheckSquareFilled,
@@ -122,17 +122,6 @@ export function TaskListItem(props: Props) {
     updateTask({ status: newStatus });
   };
 
-  const updateTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setIsEditingTitle(false);
-    const newTitle = e.target.value.trim();
-    if (newTitle && newTitle !== props.task.title) {
-      updateTask({ title: newTitle });
-    } else {
-      // revert changes
-      setTitle(props.task.title);
-    }
-  };
-
   const updateDuration = (duration: Task["duration"]) => {
     if (duration !== props.task.duration) {
       updateTask({ duration });
@@ -142,12 +131,6 @@ export function TaskListItem(props: Props) {
   const updateDueDate = (dueDate: Task["dueDate"]) => {
     if (dueDate?.getTime() !== props.task.dueDate?.getTime()) {
       updateTask({ dueDate });
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      titleInputRef.current?.blur();
     }
   };
 
@@ -179,25 +162,11 @@ export function TaskListItem(props: Props) {
         )}
       </button>
       <div className="w-full space-y-1">
-        {isEditingTitle ? (
-          <input
-            autoFocus
-            ref={titleInputRef}
-            type="text"
-            className="w-full rounded-md bg-transparent px-1 outline-none"
-            onKeyDown={handleKeyDown}
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            onBlur={updateTitle}
-          />
-        ) : (
-          <button
-            className="overflow-clip whitespace-pre rounded-md px-1 text-left transition-colors hover:bg-neutral-200 active:bg-neutral-300 dark:hover:bg-neutral-800 dark:active:bg-neutral-700"
-            onClick={() => setIsEditingTitle(true)}
-          >
-            <Markdown>{title}</Markdown>
-          </button>
-        )}
+        {/* editable title */}
+        <EditableTitle
+          title={props.task.title}
+          onTitleChanged={(title) => updateTask({ title })}
+        />
         <div className="flex gap-1">
           {/* due date */}
           <DueDatePopover
