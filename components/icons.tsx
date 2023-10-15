@@ -262,3 +262,11 @@ export function IconCheckSquare(props: React.SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+export function IconHolder(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 1024 1024" fill="currentColor" {...props}>
+      <path d="M300 276.497a56 56 0 1056-96.994 56 56 0 00-56 96.994zm0 284a56 56 0 1056-96.994 56 56 0 00-56 96.994zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.497a56 56 0 1056-96.994 56 56 0 00-56 96.994zM640 796a56 56 0 10112 0 56 56 0 00-112 0z" />
+    </svg>
+  );
+}
