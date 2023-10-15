@@ -1,92 +1,22 @@
 import { Popover, Transition } from "@headlessui/react";
 import { Task } from "@taskbrew/prisma/db";
+import {
+  DAYS,
+  MONTHS,
+  getNumberOfDaysInMonth,
+  isLaterThisWeek,
+  isPastDue,
+  isThisYear,
+  isToday,
+  isTomorrow,
+  isYesterday,
+} from "@taskbrew/utils/date";
 import { Fragment, useState } from "react";
 import { IconCalendar, IconLeft, IconRight } from "./icons";
-
-const MONTHS = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
-const DAYS = [
-  {
-    short: "Su",
-    long: "Sunday",
-  },
-  {
-    short: "Mo",
-    long: "Monday",
-  },
-  {
-    short: "Tu",
-    long: "Tuesday",
-  },
-  {
-    short: "We",
-    long: "Wednesday",
-  },
-  {
-    short: "Th",
-    long: "Thursday",
-  },
-  {
-    short: "Fr",
-    long: "Friday",
-  },
-  {
-    short: "Sa",
-    long: "Saturday",
-  },
-];
 
 type Props = {
   dueDate: Task["dueDate"];
   onDueDateClicked: (dueDate: Task["dueDate"]) => void;
-};
-
-const getNumberOfDaysInMonth = (month: number, year: number) => {
-  return new Date(year, month, 0).getDate();
-};
-
-const isPastDue = (date: Date) => {
-  return date < new Date();
-};
-
-const isYesterday = (date: Date) => {
-  const yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
-  return date.toLocaleDateString() === yesterday.toLocaleDateString();
-};
-
-const isToday = (date: Date) => {
-  return date.toLocaleDateString() === new Date().toLocaleDateString();
-};
-
-const isTomorrow = (date: Date) => {
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  return date.toLocaleDateString() === tomorrow.toLocaleDateString();
-};
-
-const isLaterThisWeek = (date: Date) => {
-  const today = new Date();
-  const nextWeek = new Date();
-  nextWeek.setDate(today.getDate() + 7);
-  nextWeek.setHours(23, 59, 59);
-  return date > today && date < nextWeek;
-};
-
-const isThisYear = (date: Date) => {
-  return date.getFullYear() === new Date().getFullYear();
 };
 
 export function DueDatePopover(props: Props) {
