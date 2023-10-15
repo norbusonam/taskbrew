@@ -124,11 +124,12 @@ export function TaskListItem(props: Props) {
 
   const updateTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsEditingTitle(false);
-    if (e.target.value) {
-      const newTitle = e.target.value.trim();
-      if (newTitle !== props.task.title) {
-        updateTask({ title: newTitle });
-      }
+    const newTitle = e.target.value.trim();
+    if (newTitle && newTitle !== props.task.title) {
+      updateTask({ title: newTitle });
+    } else {
+      // revert changes
+      setTitle(props.task.title);
     }
   };
 
@@ -191,8 +192,7 @@ export function TaskListItem(props: Props) {
           />
         ) : (
           <button
-            style={{ whiteSpace: "pre" }}
-            className="overflow-clip rounded-md px-1 text-left transition-colors hover:bg-neutral-200 active:bg-neutral-300 dark:hover:bg-neutral-800 dark:active:bg-neutral-700"
+            className="overflow-clip whitespace-pre rounded-md px-1 text-left transition-colors hover:bg-neutral-200 active:bg-neutral-300 dark:hover:bg-neutral-800 dark:active:bg-neutral-700"
             onClick={() => setIsEditingTitle(true)}
           >
             <Markdown>{title}</Markdown>
