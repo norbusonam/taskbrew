@@ -20,7 +20,6 @@ type Props = {
 };
 
 export function DueDatePopover(props: Props) {
-  const [selectedDate, setSelectedDate] = useState(props.dueDate);
   const [currentMonth, setCurrentMonth] = useState(
     props.dueDate ? props.dueDate.getMonth() : new Date().getMonth(),
   );
@@ -48,12 +47,10 @@ export function DueDatePopover(props: Props) {
   };
 
   const onDateSelected = (date: Date) => {
-    setSelectedDate(date);
     props.onDueDateClicked(date);
   };
 
   const onClear = () => {
-    setSelectedDate(null);
     props.onDueDateClicked(null);
   };
 
@@ -148,7 +145,7 @@ export function DueDatePopover(props: Props) {
               {Array(getNumberOfDaysInMonth(currentMonth + 1, currentYear))
                 .fill(0)
                 .map((_, i) => (
-                  <button
+                  <Popover.Button
                     key={i}
                     onClick={() =>
                       onDateSelected(
@@ -157,10 +154,10 @@ export function DueDatePopover(props: Props) {
                     }
                     className={`${
                       // selected date styles
-                      selectedDate &&
-                      selectedDate.getDate() === i + 1 &&
-                      selectedDate.getMonth() === currentMonth &&
-                      selectedDate.getFullYear() === currentYear &&
+                      props.dueDate &&
+                      props.dueDate.getDate() === i + 1 &&
+                      props.dueDate.getMonth() === currentMonth &&
+                      props.dueDate.getFullYear() === currentYear &&
                       "bg-neutral-300 font-bold dark:bg-neutral-700"
                     } ${
                       // today styles
@@ -171,7 +168,7 @@ export function DueDatePopover(props: Props) {
                     } aspect-square rounded-md p-1 text-center text-xs transition-colors hover:bg-neutral-300 hover:text-black active:bg-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-white dark:active:bg-neutral-600`}
                   >
                     {i + 1}
-                  </button>
+                  </Popover.Button>
                 ))}
             </div>
             {/* today and clear buttons */}
