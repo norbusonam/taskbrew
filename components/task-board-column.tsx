@@ -49,7 +49,7 @@ export function TaskBoardColumn(props: Props) {
   };
 
   return (
-    <div className="flex h-fit min-w-[18rem] max-w-[24rem] flex-1 flex-col justify-between gap-2 rounded-md bg-neutral-100 p-4 shadow-md dark:bg-neutral-900">
+    <div className="flex h-fit min-w-[18rem] max-w-[24rem] flex-1 flex-col justify-between gap-2 rounded-md bg-neutral-100 p-2 shadow-md dark:bg-neutral-900">
       <div className="flex flex-col gap-2">
         <div>
           <h2 className="text-lg font-medium">
