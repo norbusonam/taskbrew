@@ -194,7 +194,6 @@ export function TaskBoard(props: Props) {
           type="NOT_STARTED"
           tasks={notStartedTasks}
           activeTask={activeTask}
-          canCreateNewTask
         />
         <TaskBoardColumn
           type="IN_PROGRESS"
