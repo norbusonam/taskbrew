@@ -49,8 +49,8 @@ export function TaskBoardColumn(props: Props) {
   };
 
   return (
-    <div className="flex h-fit max-h-full min-w-[18rem] max-w-[24rem] flex-1 flex-col justify-between gap-2 rounded-md bg-neutral-100 p-2 shadow-md dark:bg-neutral-900">
-      <div>
+    <div className="flex h-fit max-h-full min-w-[18rem] max-w-[24rem] flex-1 flex-col justify-between rounded-md bg-neutral-100 shadow-md dark:bg-neutral-900">
+      <div className="p-2">
         <h2 className="text-lg font-medium">
           {props.type === "NOT_STARTED"
             ? "Not started"
@@ -62,7 +62,7 @@ export function TaskBoardColumn(props: Props) {
           {props.tasks.length} tasks
         </span>
       </div>
-      <div className="space-y-2 overflow-y-scroll">
+      <div className="space-y-2 overflow-y-scroll p-2">
         <SortableContext items={taskIds}>
           {props.tasks.length > 0 ? (
             props.tasks.map((task) => (
@@ -78,13 +78,15 @@ export function TaskBoardColumn(props: Props) {
         </SortableContext>
       </div>
       {props.type === "NOT_STARTED" && (
-        <button
-          onClick={createTask}
-          className="flex w-full flex-row items-center gap-2 rounded-md p-2 text-neutral-500 transition-colors hover:bg-neutral-200 active:bg-neutral-300 dark:border-neutral-800 dark:hover:bg-neutral-800 dark:active:bg-neutral-700"
-        >
-          <IconPlus className="h-5 w-5" />
-          <span>New task</span>
-        </button>
+        <div className="p-2">
+          <button
+            onClick={createTask}
+            className="flex w-full flex-row items-center gap-2 rounded-md p-2 text-neutral-500 transition-colors hover:bg-neutral-200 active:bg-neutral-300 dark:border-neutral-800 dark:hover:bg-neutral-800 dark:active:bg-neutral-700"
+          >
+            <IconPlus className="h-5 w-5" />
+            <span>New task</span>
+          </button>
+        </div>
       )}
     </div>
   );
