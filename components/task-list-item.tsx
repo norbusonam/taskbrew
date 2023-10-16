@@ -8,7 +8,7 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { Task } from "@taskbrew/prisma/db";
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { DueDatePopover } from "./due-date-popover";
 import { DurationMenu } from "./duration-menu";
@@ -39,10 +39,7 @@ type Props = {
 export function TaskListItem(props: Props) {
   const router = useRouter();
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
-  const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [status, setStatus] = useState<Task["status"]>(props.task.status);
-  const [title, setTitle] = useState<Task["title"]>(props.task.title);
-  const titleInputRef = useRef<HTMLInputElement>(null);
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({
       id: props.task.id,
@@ -78,7 +75,6 @@ export function TaskListItem(props: Props) {
         } else {
           // revert changes
           setStatus(props.task.status);
-          setTitle(props.task.title);
           throw new Error();
         }
       }),
