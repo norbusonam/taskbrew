@@ -49,7 +49,7 @@ export function TaskBoardColumn(props: Props) {
   };
 
   return (
-    <div className="flex h-fit min-w-[18rem] max-w-[24rem] flex-1 flex-col justify-between gap-2 rounded-md bg-neutral-100 p-2 shadow-md dark:bg-neutral-900">
+    <div className="flex h-fit max-h-full min-w-[18rem] max-w-[24rem] flex-1 flex-col justify-between gap-2 rounded-md bg-neutral-100 p-2 shadow-md dark:bg-neutral-900">
       <div>
         <h2 className="text-lg font-medium">
           {props.type === "NOT_STARTED"
@@ -62,19 +62,21 @@ export function TaskBoardColumn(props: Props) {
           {props.tasks.length} tasks
         </span>
       </div>
-      <SortableContext items={taskIds}>
-        {props.tasks.length > 0 ? (
-          props.tasks.map((task) => (
-            <TaskBoardItem
-              key={task.id}
-              task={task}
-              className={props.activeTask?.id === task.id ? "opacity-40" : ""}
-            />
-          ))
-        ) : (
-          <div ref={setNodeRef} className="h-16 w-full bg-transparent" />
-        )}
-      </SortableContext>
+      <div className="space-y-2 overflow-y-scroll">
+        <SortableContext items={taskIds}>
+          {props.tasks.length > 0 ? (
+            props.tasks.map((task) => (
+              <TaskBoardItem
+                key={task.id}
+                task={task}
+                className={props.activeTask?.id === task.id ? "opacity-40" : ""}
+              />
+            ))
+          ) : (
+            <div ref={setNodeRef} className="h-16 w-full bg-transparent" />
+          )}
+        </SortableContext>
+      </div>
       {props.type === "NOT_STARTED" && (
         <button
           onClick={createTask}
