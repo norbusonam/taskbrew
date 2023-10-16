@@ -90,7 +90,7 @@ export function TaskList(props: Props) {
             type: "LIST",
             tasks: reorderedTasks.map((task, i) => ({
               id: task.id,
-              listOrder: i,
+              order: i,
             })),
           }),
         }).then((res) => {

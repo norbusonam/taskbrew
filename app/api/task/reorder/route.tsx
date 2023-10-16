@@ -9,26 +9,25 @@ export async function PATCH(req: Request) {
     return Response.redirect("/auth");
   }
 
-  // update tasks
+  // validate type
   const body = await req.json();
-  if (body.type === "LIST") {
-    await Promise.all(
-      body.tasks.map((task: { id: string; listOrder: number }) =>
-        prisma.task.update({
-          where: {
-            id: task.id,
-          },
-          data: {
-            listOrder: task.listOrder,
-          },
-        }),
-      ),
-    );
-  } else if (body.type === "BOARD") {
-    throw new Error("Not implemented");
-  } else {
-    throw new Error("Unknown order type");
+  if (body.type !== "LIST" && body.type !== "BOARD") {
+    return new Response(null, { status: 400 });
   }
+
+  // update order
+  await Promise.all(
+    body.tasks.map((task: { id: string; order: number }) =>
+      prisma.task.update({
+        where: {
+          id: task.id,
+        },
+        data: {
+          [body.type === "LIST" ? "listOrder" : "boardOrder"]: task.order,
+        },
+      }),
+    ),
+  );
 
   return new Response(null, {
     status: 204,
