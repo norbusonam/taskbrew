@@ -4,6 +4,7 @@ import { useDroppable } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
 import { Task } from "@taskbrew/prisma/db";
 import { useRouter } from "next/navigation";
+import { useMemo } from "react";
 import toast from "react-hot-toast";
 import { IconPlus } from "./icons";
 import { TaskBoardItem } from "./task-board-item";
@@ -20,6 +21,10 @@ export function TaskBoardColumn(props: Props) {
   const { setNodeRef } = useDroppable({
     id: props.type,
   });
+  const taskIds = useMemo(
+    () => props.tasks.map((task) => task.id),
+    [props.tasks],
+  );
 
   const createTask = () => {
     toast.promise(
@@ -54,10 +59,7 @@ export function TaskBoardColumn(props: Props) {
             ? "In progress"
             : "Completed"}
         </h2>
-        <SortableContext
-          id={props.type}
-          items={props.tasks.map((task) => task.id)}
-        >
+        <SortableContext items={taskIds}>
           {props.tasks.length > 0 ? (
             props.tasks.map((task) => (
               <TaskBoardItem
