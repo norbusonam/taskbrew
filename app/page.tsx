@@ -9,7 +9,7 @@ export default async function Home() {
   const session = await getServerSession(authOptions);
 
   if (session && session.user && session.user.id) {
-    redirect("/home");
+    redirect("/list");
   }
 
   return (

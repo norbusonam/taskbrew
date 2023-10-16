@@ -7,7 +7,6 @@ import {
   IconCheckSquare,
   IconCoffee,
   IconComment,
-  IconHome,
   IconLogout,
   IconProject,
   IconSetting,
@@ -43,7 +42,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className="flex h-full flex-col justify-between rounded-lg bg-neutral-100 p-4 shadow-md dark:bg-neutral-900 md:w-64">
           <div className="space-y-2 overflow-scroll text-center md:text-left">
             <Link
-              href="/home"
+              href="/list"
               className="mb-4 inline-block space-x-2 transition-opacity hover:opacity-50"
             >
               <IconCoffee className="inline h-6 w-6" />
@@ -51,14 +50,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 Taskbrew
               </h2>
             </Link>
-            <div>
-              <SidebarButton
-                text="Home"
-                icon={<IconHome className="h-6 w-6" />}
-                active={pathname === "/home"}
-                onClick={() => router.push("/home")}
-              />
-            </div>
             <h3 className="text-xs font-bold">VIEWS</h3>
             <div>
               <SidebarButton

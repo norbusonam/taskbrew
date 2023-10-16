@@ -44,7 +44,7 @@ export default function Page() {
           </p>
           <Link
             className="flex w-64 items-center justify-center gap-2 rounded-md bg-neutral-200 px-4 py-2 transition-colors hover:bg-neutral-300 active:bg-neutral-400 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:active:bg-neutral-600"
-            href="/home"
+            href="/list"
           >
             <IconCoffee className="h-6 w-6" />
             <p className="font-light">Continue to Taskbrew</p>
@@ -69,14 +69,14 @@ export default function Page() {
           <h1 className="text-lg font-medium">Welcome to Taskbrew</h1>
           <button
             className="flex w-64 items-center justify-center gap-2 rounded-md bg-neutral-200 px-4 py-2 transition-colors hover:bg-neutral-300 active:bg-neutral-400 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:active:bg-neutral-600"
-            onClick={() => signIn("google", { callbackUrl: "/home" })}
+            onClick={() => signIn("google", { callbackUrl: "/list" })}
           >
             <IconGoogle className="h-6 w-6" />
             <p className="font-light">Continue with Google</p>
           </button>
           <button
             className="flex w-64 items-center justify-center gap-2 rounded-md bg-neutral-200 px-4 py-2 transition-colors hover:bg-neutral-300 active:bg-neutral-400 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:active:bg-neutral-600"
-            onClick={() => signIn("github", { callbackUrl: "/home" })}
+            onClick={() => signIn("github", { callbackUrl: "/list" })}
           >
             <IconGithub className="h-6 w-6" />
             <p className="font-light">Continue with GitHub</p>
