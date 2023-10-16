@@ -156,7 +156,7 @@ export function TaskListItem(props: Props) {
         {status === "COMPLETED" ? (
           <IconCheckSquareFilled className="h-5 w-5 text-green-500" />
         ) : status === "IN_PROGRESS" ? (
-          <IconMinusSquare className="h-5 w-5 text-yellow-500" />
+          <IconMinusSquare className="h-5 w-5 text-blue-500" />
         ) : (
           <IconSquare className="h-5 w-5 text-neutral-500" />
         )}
