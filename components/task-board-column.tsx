@@ -50,33 +50,31 @@ export function TaskBoardColumn(props: Props) {
 
   return (
     <div className="flex h-fit min-w-[18rem] max-w-[24rem] flex-1 flex-col justify-between gap-2 rounded-md bg-neutral-100 p-2 shadow-md dark:bg-neutral-900">
-      <div className="flex flex-col gap-2">
-        <div>
-          <h2 className="text-lg font-medium">
-            {props.type === "NOT_STARTED"
-              ? "Not started"
-              : props.type === "IN_PROGRESS"
-              ? "In progress"
-              : "Completed"}
-          </h2>
-          <span className="text-sm text-neutral-500">
-            {props.tasks.length} tasks
-          </span>
-        </div>
-        <SortableContext items={taskIds}>
-          {props.tasks.length > 0 ? (
-            props.tasks.map((task) => (
-              <TaskBoardItem
-                key={task.id}
-                task={task}
-                className={props.activeTask?.id === task.id ? "opacity-40" : ""}
-              />
-            ))
-          ) : (
-            <div ref={setNodeRef} className="h-16 w-full bg-transparent" />
-          )}
-        </SortableContext>
+      <div>
+        <h2 className="text-lg font-medium">
+          {props.type === "NOT_STARTED"
+            ? "Not started"
+            : props.type === "IN_PROGRESS"
+            ? "In progress"
+            : "Completed"}
+        </h2>
+        <span className="text-sm text-neutral-500">
+          {props.tasks.length} tasks
+        </span>
       </div>
+      <SortableContext items={taskIds}>
+        {props.tasks.length > 0 ? (
+          props.tasks.map((task) => (
+            <TaskBoardItem
+              key={task.id}
+              task={task}
+              className={props.activeTask?.id === task.id ? "opacity-40" : ""}
+            />
+          ))
+        ) : (
+          <div ref={setNodeRef} className="h-16 w-full bg-transparent" />
+        )}
+      </SortableContext>
       {props.type === "NOT_STARTED" && (
         <button
           onClick={createTask}
