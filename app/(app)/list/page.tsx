@@ -23,5 +23,11 @@ export default async function Page() {
     },
   });
 
-  return <TaskList tasks={tasks} canCreateNewTask />;
+  return (
+    <TaskList
+      tasks={tasks}
+      canCreateNewTask
+      className="overflow-y-scroll px-4 pb-4"
+    />
+  );
 }
