@@ -21,10 +21,5 @@ export default async function Page() {
     },
   });
 
-  return (
-    <div>
-      {/* task list */}
-      <TaskList tasks={tasks} />
-    </div>
-  );
+  return <TaskList tasks={tasks} className="overflow-y-scroll px-4 pb-4" />;
 }
