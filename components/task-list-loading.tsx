@@ -9,7 +9,7 @@ const widths = [
 
 export function TaskListLoading() {
   return (
-    <div>
+    <div className="px-4">
       {widths.map((width, i) => (
         <div
           key={i}
