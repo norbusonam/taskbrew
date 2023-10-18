@@ -25,6 +25,7 @@ const measuringConfig = {
 type Props = {
   tasks: Task[];
   canCreateNewTask?: boolean;
+  className?: string;
 };
 
 export function TaskList(props: Props) {
@@ -110,7 +111,7 @@ export function TaskList(props: Props) {
   };
 
   return (
-    <div>
+    <div className={props.className}>
       {/* tasks */}
       <DndContext
         measuring={measuringConfig}
