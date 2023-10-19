@@ -40,7 +40,7 @@ export function DurationMenu(props: Props) {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute left-1/2 z-10 mt-1 h-44 w-32 origin-top -translate-x-1/2 overflow-scroll rounded-md bg-neutral-200 p-1 shadow-xl dark:bg-neutral-800">
+        <Menu.Items className="absolute left-1/2 z-10 mt-1 h-40 w-32 origin-top -translate-x-1/2 overflow-scroll rounded-md bg-neutral-200 p-1 shadow-xl dark:bg-neutral-800">
           {Object.keys(DURATION_TO_TITLE)
             .map(Number)
             .map((duration) => (
