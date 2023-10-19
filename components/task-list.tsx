@@ -149,6 +149,9 @@ export function TaskList(props: Props) {
           <span>New task</span>
         </button>
       )}
+
+      {/* whitespace to account for popover and menu */}
+      <div className="h-64" />
     </div>
   );
 }
