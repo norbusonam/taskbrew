@@ -65,13 +65,7 @@ export function TaskListItem(props: Props) {
         body: JSON.stringify(body),
       }).then((res) => {
         if (res.ok) {
-          if (body.status === "COMPLETED") {
-            setTimeout(() => {
-              router.refresh();
-            }, 3000);
-          } else {
-            router.refresh();
-          }
+          router.refresh();
         } else {
           // revert changes
           setStatus(props.task.status);
