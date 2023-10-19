@@ -84,7 +84,7 @@ export function TaskBoardItem(props: Props) {
         />
         <button
           {...listeners}
-          className="rounded-md p-1 transition-colors hover:bg-neutral-300 dark:hover:bg-neutral-700"
+          className="cursor-move rounded-md p-1 transition-colors hover:bg-neutral-300 dark:hover:bg-neutral-700"
         >
           <IconHolder className="h-3 w-3" />
         </button>
