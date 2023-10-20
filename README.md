@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Taskbrew ☕️
 
-## Getting Started
+## Getting Started 🏁
 
-First, run the development server:
+1. Clone this repo 📁
+2. Database setup 💾: Follow instructions on [Postgres.app](https://postgresapp.com/):
+3. Setup environment variables 🌎
+   1. Copy and paste the contents of [`.env.example`](./.env.example) into a new `.env` file
+   2. For auth provider (GitHub and Google) client IDs and secrets, ask me for them if you're working with me, or just make your own
+4. Install project dependencies 📦: `npm install`
+5. Setup database migration 🐦‍: `npx prisma migrate dev`
+6. Start development server 🍽️: `npm run dev`
+7. [Optional] Start Prisma studio 🎨: `npx prisma studio`
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Your development server will be running on [3000](http://localhost:3000) and Prisma Studio will be running on [5555](http://localhost:5555)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Best Practices
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Folder Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Generally, just follow [Next.js's app router folder structure](https://nextjs.org/docs/app/building-your-application/routing)
+- If it makes sense to pull out a component, put it in [the components folder](./components/)
+- Put all hooks in [the hooks folder](./hooks/)
 
-## Learn More
+### Styling
 
-To learn more about Next.js, take a look at the following resources:
+- Always use [tailwindcss](https://tailwindcss.com/)
+- When it makes sense, opt to use [headlessui](https://headlessui.com/)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Add a New Icon
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. Go [here](https://reactsvgicons.com/ant-design-icons)
+2. Find the icon you want, and copy the TypeScript code for it
+3. Open [the icons file](./components/icons.tsx)
+4. Paste it in
+5. Remove the import, export and comment, height, and width lines
+6. Add `export` in front of the function definition
+7. Import your icon from `@taskbrew/components/icons` in your usage
 
-## Deploy on Vercel
+### Other
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Use [ChatGPT](https://chat.openai.com/)? 🤷‍♂️
