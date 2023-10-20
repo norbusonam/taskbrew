@@ -38,8 +38,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex">
       {/* sidebar */}
-      <div className="h-screen py-4 pl-4">
-        <div className="flex h-full flex-col justify-between rounded-lg bg-neutral-100 p-4 shadow-md dark:bg-neutral-900 md:w-64">
+      <div className="h-screen">
+        <div className="flex h-full flex-col justify-between bg-neutral-100 p-4 shadow-md dark:bg-neutral-900 md:w-72">
           <div className="space-y-2 overflow-scroll text-center md:text-left">
             <Link
               href="/list"
