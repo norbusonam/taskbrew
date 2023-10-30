@@ -25,7 +25,7 @@ export async function POST(req: Request) {
       userId: session.user.id,
     },
     orderBy: {
-      listOrder: "desc",
+      boardOrder: "desc",
     },
   });
 
