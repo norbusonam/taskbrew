@@ -2,9 +2,9 @@
 
 import prisma, { Task, TaskStatus } from "@taskbrew/prisma/db";
 import { getServerSession } from "next-auth";
-import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { authOptions } from "../app/api/auth/[...nextauth]/route";
+import { revalidateTaskRoutes } from "./utils/revalidate-task-routes";
 
 export type UpdateTaskBody = {
   title?: Task["title"];
@@ -44,8 +44,5 @@ export async function updateTask(id: string, body: UpdateTaskBody) {
     },
   });
 
-  // revalidate cache
-  revalidatePath("/list");
-  revalidatePath("/board");
-  revalidatePath("/calendar");
+  revalidateTaskRoutes();
 }

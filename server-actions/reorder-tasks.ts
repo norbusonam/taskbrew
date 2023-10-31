@@ -2,9 +2,9 @@
 
 import prisma from "@taskbrew/prisma/db";
 import { getServerSession } from "next-auth";
-import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { authOptions } from "../app/api/auth/[...nextauth]/route";
+import { revalidateTaskRoutes } from "./utils/revalidate-task-routes";
 
 export async function reorderTasks(
   type: "LIST" | "BOARD",
@@ -35,8 +35,5 @@ export async function reorderTasks(
     ),
   );
 
-  // revalidate cache
-  revalidatePath("/list");
-  revalidatePath("/board");
-  revalidatePath("/calendar");
+  revalidateTaskRoutes();
 }
