@@ -10,6 +10,7 @@ import {
 } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 import { Task } from "@taskbrew/prisma/db";
+import { reorderTasks } from "@taskbrew/server-actions/reorder-tasks";
 import { updateTask } from "@taskbrew/server-actions/update-task";
 import { useRouter } from "next/navigation";
 import { useEffect, useId, useState } from "react";
@@ -110,23 +111,14 @@ export function TaskBoard(props: Props) {
                 status: overColumn,
               })
             : Promise.resolve(),
-          fetch(`/api/task/reorder`, {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              type: "BOARD",
-              tasks: reorderedTasks.map((task, i) => ({
-                id: task.id,
-                order: i,
-              })),
-            }),
-          }).then((res) => {
-            if (!res.ok) {
-              throw new Error();
-            }
-          }),
+
+          reorderTasks(
+            "BOARD",
+            reorderedTasks.map((task, i) => ({
+              id: task.id,
+              order: i,
+            })),
+          ),
         ]),
         {
           loading: "Updating task...",

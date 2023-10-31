@@ -11,6 +11,7 @@ import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { Task } from "@taskbrew/prisma/db";
 import { createTask } from "@taskbrew/server-actions/create-task";
+import { reorderTasks } from "@taskbrew/server-actions/reorder-tasks";
 import { useRouter } from "next/navigation";
 import { useEffect, useId, useState } from "react";
 import toast from "react-hot-toast";
@@ -68,25 +69,13 @@ export function TaskList(props: Props) {
 
       // make update request w/ new order
       toast.promise(
-        fetch(`/api/task/reorder`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            type: "LIST",
-            tasks: reorderedTasks.map((task, i) => ({
-              id: task.id,
-              order: i,
-            })),
-          }),
-        }).then((res) => {
-          if (!res.ok) {
-            // revert to old order on failure
-            setTasks(props.tasks);
-            throw new Error();
-          }
-        }),
+        reorderTasks(
+          "LIST",
+          reorderedTasks.map((task, i) => ({
+            id: task.id,
+            order: i,
+          })),
+        ),
         {
           loading: "Updating task order...",
           success: "Task order updated!",
