@@ -7,6 +7,7 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Task } from "@taskbrew/prisma/db";
+import { deleteTask } from "@taskbrew/server-actions/delete-task";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -80,25 +81,15 @@ export function TaskListItem(props: Props) {
     );
   };
 
-  const deleteTask = () => {
+  const onDeleteTask = () => {
     setIsLoadingDelete(true);
-    toast.promise(
-      fetch(`/api/task/${props.task.id}`, {
-        method: "DELETE",
-      }).then((res) => {
-        if (res.ok) {
-          router.refresh();
-        } else {
-          setIsLoadingDelete(false);
-          throw new Error();
-        }
-      }),
-      {
+    toast
+      .promise(deleteTask(props.task.id), {
         loading: "Deleting task...",
         success: "Task deleted!",
         error: "Failed to delete task",
-      },
-    );
+      })
+      .catch(() => setIsLoadingDelete(false));
   };
 
   const updateStatus = () => {
@@ -195,7 +186,7 @@ export function TaskListItem(props: Props) {
           </div>
         ) : (
           <button
-            onClick={deleteTask}
+            onClick={onDeleteTask}
             aria-label="Delete task"
             className="rounded-md p-1 text-red-400 transition-colors  hover:text-red-500 active:text-red-600"
           >
