@@ -8,7 +8,10 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { Task } from "@taskbrew/prisma/db";
 import { deleteTask } from "@taskbrew/server-actions/delete-task";
-import { useRouter } from "next/navigation";
+import {
+  UpdateTaskBody,
+  updateTask,
+} from "@taskbrew/server-actions/update-task";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { DueDatePopover } from "./due-date-popover";
@@ -38,7 +41,6 @@ type Props = {
 };
 
 export function TaskListItem(props: Props) {
-  const router = useRouter();
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
   const [status, setStatus] = useState<Task["status"]>(props.task.status);
   const { attributes, listeners, setNodeRef, transform, transition } =
@@ -51,34 +53,12 @@ export function TaskListItem(props: Props) {
     transition,
   };
 
-  const updateTask = (body: {
-    title?: Task["title"];
-    status?: Task["status"];
-    dueDate?: Task["dueDate"];
-    duration?: Task["duration"];
-  }) => {
-    toast.promise(
-      fetch(`/api/task/${props.task.id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      }).then((res) => {
-        if (res.ok) {
-          router.refresh();
-        } else {
-          // revert changes
-          setStatus(props.task.status);
-          throw new Error();
-        }
-      }),
-      {
-        loading: "Updating task...",
-        success: "Task updated!",
-        error: "Failed to update task",
-      },
-    );
+  const onUpdateTask = (body: UpdateTaskBody) => {
+    toast.promise(updateTask(props.task.id, body), {
+      loading: "Updating task...",
+      success: "Task updated!",
+      error: "Failed to update task",
+    });
   };
 
   const onDeleteTask = () => {
@@ -92,7 +72,7 @@ export function TaskListItem(props: Props) {
       .catch(() => setIsLoadingDelete(false));
   };
 
-  const updateStatus = () => {
+  const onUpdateStatus = () => {
     const newStatus =
       status === "NOT_STARTED"
         ? "IN_PROGRESS"
@@ -100,18 +80,18 @@ export function TaskListItem(props: Props) {
         ? "COMPLETED"
         : "NOT_STARTED";
     setStatus(newStatus);
-    updateTask({ status: newStatus });
+    onUpdateTask({ status: newStatus });
   };
 
-  const updateDuration = (duration: Task["duration"]) => {
+  const onUpdateDuration = (duration: Task["duration"]) => {
     if (duration !== props.task.duration) {
-      updateTask({ duration });
+      onUpdateTask({ duration });
     }
   };
 
-  const updateDueDate = (dueDate: Task["dueDate"]) => {
+  const onUpdateDueDate = (dueDate: Task["dueDate"]) => {
     if (dueDate?.getTime() !== props.task.dueDate?.getTime()) {
-      updateTask({ dueDate });
+      onUpdateTask({ dueDate });
     }
   };
 
@@ -124,7 +104,7 @@ export function TaskListItem(props: Props) {
       {...attributes}
     >
       <button
-        onClick={updateStatus}
+        onClick={onUpdateStatus}
         aria-label={`Mark task as ${
           status === "NOT_STARTED"
             ? "in progress"
@@ -146,18 +126,18 @@ export function TaskListItem(props: Props) {
         {/* editable title */}
         <EditableTitle
           title={props.task.title}
-          onTitleChanged={(title) => updateTask({ title })}
+          onTitleChanged={(title) => onUpdateTask({ title })}
         />
         <div className="flex gap-1">
           {/* due date */}
           <DueDatePopover
             dueDate={props.task.dueDate}
-            onDueDateClicked={updateDueDate}
+            onDueDateClicked={onUpdateDueDate}
           />
           {/* duration */}
           <DurationMenu
             duration={props.task.duration}
-            onDurationClicked={updateDuration}
+            onDurationClicked={onUpdateDuration}
           />
           {/* completed at */}
           {props.task.completedAt && (

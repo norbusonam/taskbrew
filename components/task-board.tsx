@@ -10,6 +10,7 @@ import {
 } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 import { Task } from "@taskbrew/prisma/db";
+import { updateTask } from "@taskbrew/server-actions/update-task";
 import { useRouter } from "next/navigation";
 import { useEffect, useId, useState } from "react";
 import toast from "react-hot-toast";
@@ -105,18 +106,8 @@ export function TaskBoard(props: Props) {
       .promise(
         Promise.all([
           originalTask.status !== overColumn
-            ? fetch(`/api/task/${e.active.id}`, {
-                method: "PATCH",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  status: overColumn,
-                }),
-              }).then((res) => {
-                if (!res.ok) {
-                  throw new Error();
-                }
+            ? updateTask(originalTask.id, {
+                status: overColumn,
               })
             : Promise.resolve(),
           fetch(`/api/task/reorder`, {

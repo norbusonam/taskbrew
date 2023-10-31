@@ -1,22 +1,29 @@
-import prisma, { TaskStatus } from "@taskbrew/prisma/db";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../../auth/[...nextauth]/route";
+"use server";
 
-export async function PATCH(
-  req: Request,
-  { params }: { params: { id: string } },
-) {
+import prisma, { Task, TaskStatus } from "@taskbrew/prisma/db";
+import { getServerSession } from "next-auth";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import { authOptions } from "../app/api/auth/[...nextauth]/route";
+
+export type UpdateTaskBody = {
+  title?: Task["title"];
+  status?: Task["status"];
+  dueDate?: Task["dueDate"];
+  duration?: Task["duration"];
+};
+
+export async function updateTask(id: string, body: UpdateTaskBody) {
   // check session
   const session = await getServerSession(authOptions);
   if (!session || !session.user || !session.user.id) {
-    return Response.redirect("/auth");
+    redirect("/auth");
   }
 
   // update task
-  const body = await req.json();
   const updatedTask = await prisma.task.update({
     where: {
-      id: params.id,
+      id,
       userId: session.user.id,
     },
     data: {
@@ -37,5 +44,8 @@ export async function PATCH(
     },
   });
 
-  return Response.json(updatedTask);
+  // revalidate cache
+  revalidatePath("/list");
+  revalidatePath("/board");
+  revalidatePath("/calendar");
 }

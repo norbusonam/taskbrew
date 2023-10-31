@@ -1,7 +1,10 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Task } from "@taskbrew/prisma/db";
-import { useRouter } from "next/navigation";
+import {
+  UpdateTaskBody,
+  updateTask,
+} from "@taskbrew/server-actions/update-task";
 import toast from "react-hot-toast";
 import { DueDatePopover } from "./due-date-popover";
 import { DurationMenu } from "./duration-menu";
@@ -14,7 +17,6 @@ type Props = {
 };
 
 export function TaskBoardItem(props: Props) {
-  const router = useRouter();
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({
       id: props.task.id,
@@ -24,49 +26,23 @@ export function TaskBoardItem(props: Props) {
     transition,
   };
 
-  const updateTask = (body: {
-    title?: Task["title"];
-    status?: Task["status"];
-    dueDate?: Task["dueDate"];
-    duration?: Task["duration"];
-  }) => {
-    toast.promise(
-      fetch(`/api/task/${props.task.id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      }).then((res) => {
-        if (res.ok) {
-          if (body.status === "COMPLETED") {
-            setTimeout(() => {
-              router.refresh();
-            }, 3000);
-          } else {
-            router.refresh();
-          }
-        } else {
-          throw new Error();
-        }
-      }),
-      {
-        loading: "Updating task...",
-        success: "Task updated!",
-        error: "Failed to update task",
-      },
-    );
+  const onUpdateTask = (body: UpdateTaskBody) => {
+    toast.promise(updateTask(props.task.id, body), {
+      loading: "Updating task...",
+      success: "Task updated!",
+      error: "Failed to update task",
+    });
   };
 
   const updateDuration = (duration: Task["duration"]) => {
     if (duration !== props.task.duration) {
-      updateTask({ duration });
+      onUpdateTask({ duration });
     }
   };
 
   const updateDueDate = (dueDate: Task["dueDate"]) => {
     if (dueDate?.getTime() !== props.task.dueDate?.getTime()) {
-      updateTask({ dueDate });
+      onUpdateTask({ dueDate });
     }
   };
 
@@ -80,7 +56,7 @@ export function TaskBoardItem(props: Props) {
       <div className="flex items-center justify-between">
         <EditableTitle
           title={props.task.title}
-          onTitleChanged={(title) => updateTask({ title })}
+          onTitleChanged={(title) => onUpdateTask({ title })}
         />
         <button
           {...listeners}
