@@ -1,12 +1,16 @@
+"use server";
+
 import prisma from "@taskbrew/prisma/db";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/route";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import { authOptions } from "../app/api/auth/[...nextauth]/route";
 
-export async function POST(req: Request) {
+export async function createTask() {
   // check session
   const session = await getServerSession(authOptions);
   if (!session || !session.user || !session.user.id) {
-    return Response.redirect("/auth");
+    redirect("/auth");
   }
 
   // find highest list order
@@ -30,17 +34,17 @@ export async function POST(req: Request) {
   });
 
   // create task
-  const body = await req.json();
-  const createdTask = await prisma.task.create({
+  await prisma.task.create({
     data: {
-      title: body.title ? body.title.trim() : "New task",
+      title: "New task",
       userId: session.user.id,
-      duration: body.duration,
-      dueDate: body.dueDate,
       listOrder: highestListOrder ? highestListOrder.listOrder + 1 : 0,
       boardOrder: highestBoardOrder ? highestBoardOrder.boardOrder + 1 : 0,
     },
   });
 
-  return Response.json(createdTask);
+  // revalidate cache
+  revalidatePath("/list");
+  revalidatePath("/board");
+  revalidatePath("/calendar");
 }

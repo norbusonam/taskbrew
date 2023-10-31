@@ -10,6 +10,7 @@ import {
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { Task } from "@taskbrew/prisma/db";
+import { createTask } from "@taskbrew/server-actions/create-task";
 import { useRouter } from "next/navigation";
 import { useEffect, useId, useState } from "react";
 import toast from "react-hot-toast";
@@ -38,27 +39,12 @@ export function TaskList(props: Props) {
     setTasks(props.tasks);
   }, [props.tasks]);
 
-  const createTask = () => {
-    toast.promise(
-      fetch(`/api/task`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({}),
-      }).then((res) => {
-        if (res.ok) {
-          router.refresh();
-        } else {
-          throw new Error();
-        }
-      }),
-      {
-        loading: "Creating task...",
-        success: "Task created!",
-        error: "Failed to create task",
-      },
-    );
+  const onCreateTask = () => {
+    toast.promise(createTask(), {
+      loading: "Creating task...",
+      success: "Task created!",
+      error: "Failed to create task",
+    });
   };
 
   const onDragStart = (e: DragStartEvent) => {
@@ -142,7 +128,7 @@ export function TaskList(props: Props) {
       {/* add new task */}
       {props.canCreateNewTask && (
         <button
-          onClick={createTask}
+          onClick={onCreateTask}
           className="flex w-full flex-row items-center gap-3 border-b-[1px] border-neutral-200 p-2 text-neutral-500 transition-colors hover:rounded-md hover:bg-neutral-100 active:rounded-md active:bg-neutral-200 dark:border-neutral-800 dark:hover:bg-neutral-800 dark:active:bg-neutral-700"
         >
           <IconPlus className="h-5 w-5" />
