@@ -83,18 +83,6 @@ export function TaskListItem(props: Props) {
     onUpdateTask({ status: newStatus });
   };
 
-  const onUpdateDuration = (duration: Task["duration"]) => {
-    if (duration !== props.task.duration) {
-      onUpdateTask({ duration });
-    }
-  };
-
-  const onUpdateDueDate = (dueDate: Task["dueDate"]) => {
-    if (dueDate?.getTime() !== props.task.dueDate?.getTime()) {
-      onUpdateTask({ dueDate });
-    }
-  };
-
   return (
     <div
       id={props.task.id}
@@ -132,12 +120,12 @@ export function TaskListItem(props: Props) {
           {/* due date */}
           <DueDatePopover
             dueDate={props.task.dueDate}
-            onDueDateClicked={onUpdateDueDate}
+            onDueDateChanged={(dueDate) => onUpdateTask({ dueDate })}
           />
           {/* duration */}
           <DurationMenu
             duration={props.task.duration}
-            onDurationClicked={onUpdateDuration}
+            onDurationChanged={(duration) => onUpdateTask({ duration })}
           />
           {/* completed at */}
           {props.task.completedAt && (

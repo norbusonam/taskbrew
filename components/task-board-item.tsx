@@ -34,18 +34,6 @@ export function TaskBoardItem(props: Props) {
     });
   };
 
-  const updateDuration = (duration: Task["duration"]) => {
-    if (duration !== props.task.duration) {
-      onUpdateTask({ duration });
-    }
-  };
-
-  const updateDueDate = (dueDate: Task["dueDate"]) => {
-    if (dueDate?.getTime() !== props.task.dueDate?.getTime()) {
-      onUpdateTask({ dueDate });
-    }
-  };
-
   return (
     <div
       className={`cursor-default space-y-1 rounded-md bg-neutral-50 p-2 shadow-md dark:bg-neutral-950 ${props.className}`}
@@ -68,11 +56,11 @@ export function TaskBoardItem(props: Props) {
       <div className="flex gap-1">
         <DueDatePopover
           dueDate={props.task.dueDate}
-          onDueDateClicked={updateDueDate}
+          onDueDateChanged={(dueDate) => onUpdateTask({ dueDate })}
         />
         <DurationMenu
           duration={props.task.duration}
-          onDurationClicked={updateDuration}
+          onDurationChanged={(duration) => onUpdateTask({ duration })}
         />
       </div>
     </div>

@@ -17,10 +17,16 @@ const DURATION_TO_TITLE: { [key: number]: string } = {
 
 type Props = {
   duration: Task["duration"];
-  onDurationClicked: (duration: Task["duration"]) => void;
+  onDurationChanged: (duration: Task["duration"]) => void;
 };
 
 export function DurationMenu(props: Props) {
+  const onDurationSelected = (duration: Task["duration"]) => {
+    if (props.duration !== duration) {
+      props.onDurationChanged(duration);
+    }
+  };
+
   return (
     <Menu as="div" className="relative">
       <Menu.Button className="flex items-center gap-1 rounded-md px-1 transition-colors hover:bg-neutral-200 active:bg-neutral-300  dark:hover:bg-neutral-800 dark:active:bg-neutral-700">
@@ -48,7 +54,7 @@ export function DurationMenu(props: Props) {
                 key={duration}
                 duration={duration}
                 isCurrentDuration={props.duration === duration}
-                onClick={() => props.onDurationClicked(duration)}
+                onClick={() => onDurationSelected(duration)}
               />
             ))}
         </Menu.Items>

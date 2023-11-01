@@ -16,7 +16,7 @@ import { IconCalendar, IconLeft, IconRight } from "./icons";
 
 type Props = {
   dueDate: Task["dueDate"];
-  onDueDateClicked: (dueDate: Task["dueDate"]) => void;
+  onDueDateChanged: (dueDate: Task["dueDate"]) => void;
 };
 
 export function DueDatePopover(props: Props) {
@@ -47,11 +47,15 @@ export function DueDatePopover(props: Props) {
   };
 
   const onDateSelected = (date: Date) => {
-    props.onDueDateClicked(date);
+    if (props.dueDate?.getTime() !== date.getTime()) {
+      props.onDueDateChanged(date);
+    }
   };
 
   const onClear = () => {
-    props.onDueDateClicked(null);
+    if (props.dueDate) {
+      props.onDueDateChanged(null);
+    }
   };
 
   const onToday = () => {
