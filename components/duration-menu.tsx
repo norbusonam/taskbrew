@@ -34,7 +34,7 @@ export function DurationMenu(props: Props) {
         <span className="text-sm text-neutral-500">
           {props.duration && DURATION_TO_TITLE[props.duration]
             ? DURATION_TO_TITLE[props.duration]
-            : "Set duration"}
+            : "Duration"}
         </span>
       </Menu.Button>
       <Transition

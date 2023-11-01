@@ -92,7 +92,7 @@ export function DueDatePopover(props: Props) {
               : `${
                   MONTHS[props.dueDate.getMonth()]
                 } ${props.dueDate.getDate()} ${props.dueDate.getFullYear()}`
-            : "No due date"}
+            : "Due date"}
         </span>
       </Popover.Button>
       <Transition
