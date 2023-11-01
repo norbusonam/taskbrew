@@ -51,7 +51,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               </h2>
             </Link>
             <h3 className="text-xs font-bold">VIEWS</h3>
-            <div>
+            <div className="space-y-1">
               <SidebarButton
                 text="List"
                 icon={<IconUnorderedList className="h-6 w-6" />}
@@ -72,7 +72,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               />
             </div>
             <h3 className="text-xs font-bold">OTHER</h3>
-            <div>
+            <div className="space-y-1">
               <SidebarButton
                 text="Completed"
                 icon={<IconCheckSquare className="h-6 w-6" />}
@@ -81,7 +81,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               />
             </div>
           </div>
-          <div className="border-t-[1px] border-neutral-200 pt-2 dark:border-neutral-800">
+          <div className="space-y-1 border-t-[1px] border-neutral-200 pt-2 dark:border-neutral-800">
             <SidebarButton
               text="Account"
               icon={
