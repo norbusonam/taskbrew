@@ -87,32 +87,40 @@ export function TaskList(props: Props) {
 
   return (
     <div className={props.className}>
-      {/* tasks */}
-      <DndContext
-        measuring={measuringConfig}
-        modifiers={[restrictToVerticalAxis]}
-        onDragStart={onDragStart}
-        onDragEnd={onDragEnd}
-        id={id}
-      >
-        <SortableContext items={tasks.map((task) => task.id)}>
-          {tasks.map((task) => (
-            <TaskListItem
-              key={task.id}
-              task={task}
-              className={`${task.id === activeTask?.id ? "opacity-0" : ""}`}
-            />
-          ))}
-          <DragOverlay>
-            {activeTask && (
-              <TaskListItem
-                task={activeTask}
-                className="bg-neutral-100 dark:bg-neutral-900"
-              />
-            )}
-          </DragOverlay>
-        </SortableContext>
-      </DndContext>
+      {props.tasks.length === 0 ? (
+        <div className="flex items-center justify-center p-5">
+          <p className="text-neutral-500">No tasks here yet 😢</p>
+        </div>
+      ) : (
+        <>
+          {/* tasks */}
+          <DndContext
+            measuring={measuringConfig}
+            modifiers={[restrictToVerticalAxis]}
+            onDragStart={onDragStart}
+            onDragEnd={onDragEnd}
+            id={id}
+          >
+            <SortableContext items={tasks.map((task) => task.id)}>
+              {tasks.map((task) => (
+                <TaskListItem
+                  key={task.id}
+                  task={task}
+                  className={`${task.id === activeTask?.id ? "opacity-0" : ""}`}
+                />
+              ))}
+              <DragOverlay>
+                {activeTask && (
+                  <TaskListItem
+                    task={activeTask}
+                    className="bg-neutral-100 dark:bg-neutral-900"
+                  />
+                )}
+              </DragOverlay>
+            </SortableContext>
+          </DndContext>
+        </>
+      )}
 
       {/* add new task */}
       {props.canCreateNewTask && (
