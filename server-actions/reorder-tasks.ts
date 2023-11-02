@@ -27,6 +27,9 @@ export async function reorderTasks(
       prisma.task.update({
         where: {
           id: task.id,
+          // we shouldn't need the optional chaining here, but typescript
+          // is complaining session.user is possibly undefined
+          userId: session.user?.id,
         },
         data: {
           [type === "LIST" ? "listOrder" : "boardOrder"]: task.order,
