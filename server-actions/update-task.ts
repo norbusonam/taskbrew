@@ -21,7 +21,7 @@ export async function updateTask(id: string, body: UpdateTaskBody) {
   }
 
   // update task
-  const updatedTask = await prisma.task.update({
+  await prisma.task.update({
     where: {
       id,
       userId: session.user.id,
