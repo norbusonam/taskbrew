@@ -4,7 +4,6 @@ import { useDroppable } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
 import { Task } from "@taskbrew/prisma/db";
 import { createTask } from "@taskbrew/server-actions/create-task";
-import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 import toast from "react-hot-toast";
 import { IconPlus } from "./icons";
@@ -17,7 +16,6 @@ type Props = {
 };
 
 export function TaskBoardColumn(props: Props) {
-  const router = useRouter();
   const { setNodeRef } = useDroppable({
     id: props.type,
   });
