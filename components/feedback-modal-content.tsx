@@ -1,4 +1,5 @@
 import { FeedbackType } from "@taskbrew/prisma/db";
+import { createFeedback } from "@taskbrew/server-actions/create-feedback";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import {
@@ -35,28 +36,27 @@ export function FeedbackModalContent(props: Props) {
   };
 
   const submitFeedback = () => {
-    setIsFeedbackLoading(true);
-    toast.promise(
-      fetch("/api/feedback", {
-        method: "POST",
-        body: JSON.stringify({
-          type: feedbackType,
-          message: messageRef.current?.value,
-        }),
-      }).then((res) => {
-        if (res.ok) {
+    if (feedbackType) {
+      setIsFeedbackLoading(true);
+      toast
+        .promise(
+          createFeedback({
+            type: feedbackType,
+            message: messageRef.current?.value,
+          }),
+          {
+            loading: "Sending feedback...",
+            success: "Feedback sent!",
+            error: "Failed to send feedback",
+          },
+        )
+        .then(() => {
           props.closeModal();
-        } else {
+        })
+        .catch(() => {
           setIsFeedbackLoading(false);
-          throw new Error();
-        }
-      }),
-      {
-        loading: "Sending feedback...",
-        success: "Feedback sent!",
-        error: "Failed to send feedback",
-      },
-    );
+        });
+    }
   };
 
   return (
