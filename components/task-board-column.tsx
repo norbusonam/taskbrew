@@ -45,7 +45,7 @@ export function TaskBoardColumn(props: Props) {
             : "Completed"}
         </h2>
         <span className="text-sm text-neutral-500">
-          {props.tasks.length} tasks
+          {props.tasks.length} {props.tasks.length === 1 ? "task" : "tasks"}
         </span>
       </div>
       <div className="space-y-2 overflow-y-scroll p-2">
