@@ -18,7 +18,7 @@ export async function reorderTasks(
 
   // validate type
   if (type !== "LIST" && type !== "BOARD") {
-    return new Response(null, { status: 400 });
+    redirect("/auth");
   }
 
   // update order
