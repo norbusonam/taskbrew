@@ -42,7 +42,9 @@ type Props = {
 
 export function TaskListItem(props: Props) {
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
-  const [status, setStatus] = useState<Task["status"]>(props.task.status);
+  const [optimisticStatus, setOptimisticStatus] = useState<Task["status"]>(
+    props.task.status,
+  );
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({
       id: props.task.id,
@@ -74,12 +76,12 @@ export function TaskListItem(props: Props) {
 
   const onUpdateStatus = () => {
     const newStatus =
-      status === "NOT_STARTED"
+      optimisticStatus === "NOT_STARTED"
         ? "IN_PROGRESS"
-        : status === "IN_PROGRESS"
+        : optimisticStatus === "IN_PROGRESS"
         ? "COMPLETED"
         : "NOT_STARTED";
-    setStatus(newStatus);
+    setOptimisticStatus(newStatus);
     onUpdateTask({ status: newStatus });
   };
 
@@ -94,17 +96,17 @@ export function TaskListItem(props: Props) {
       <button
         onClick={onUpdateStatus}
         aria-label={`Mark task as ${
-          status === "NOT_STARTED"
+          optimisticStatus === "NOT_STARTED"
             ? "in progress"
-            : status === "IN_PROGRESS"
+            : optimisticStatus === "IN_PROGRESS"
             ? "completed"
             : "not started"
         }`}
         className="transition-opacity hover:opacity-75"
       >
-        {status === "COMPLETED" ? (
+        {optimisticStatus === "COMPLETED" ? (
           <IconCheckSquareFilled className="h-5 w-5 text-green-500" />
-        ) : status === "IN_PROGRESS" ? (
+        ) : optimisticStatus === "IN_PROGRESS" ? (
           <IconMinusSquare className="h-5 w-5 text-blue-500" />
         ) : (
           <IconSquare className="h-5 w-5 text-neutral-500" />
@@ -139,15 +141,13 @@ export function TaskListItem(props: Props) {
         </div>
       </div>
       <div className="flex gap-1">
-        {props.task.status !== "COMPLETED" && (
-          <button
-            {...listeners}
-            aria-label="Reorder task"
-            className="rounded-md p-1 text-neutral-500 transition-colors hover:text-neutral-600 active:text-neutral-700 dark:hover:text-neutral-400 dark:active:text-neutral-300"
-          >
-            <IconMenu className="h-5 w-5" />
-          </button>
-        )}
+        <button
+          {...listeners}
+          aria-label="Reorder task"
+          className="rounded-md p-1 text-neutral-500 transition-colors hover:text-neutral-600 active:text-neutral-700 dark:hover:text-neutral-400 dark:active:text-neutral-300"
+        >
+          <IconMenu className="h-5 w-5" />
+        </button>
         {isLoadingDelete ? (
           <div className="p-1">
             <IconLoading className="h-5 w-5 animate-spin text-red-600" />
