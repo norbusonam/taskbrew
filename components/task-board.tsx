@@ -169,7 +169,7 @@ export function TaskBoard(props: Props) {
   };
 
   return (
-    <div className={`flex gap-4 overflow-x-scroll ${props.className}`}>
+    <div className={`flex h-full gap-4 overflow-x-scroll ${props.className}`}>
       <DndContext
         id={id}
         onDragStart={onDragStart}
