@@ -5,6 +5,7 @@ import {
   UpdateTaskBody,
   updateTask,
 } from "@taskbrew/server-actions/update-task";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { DueDatePopover } from "./due-date-popover";
 import { DurationMenu } from "./duration-menu";
@@ -17,6 +18,9 @@ type Props = {
 };
 
 export function TaskBoardItem(props: Props) {
+  const [optimisticTitle, setOptimisticTitle] = useState<Task["title"]>(
+    props.task.title,
+  );
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({
       id: props.task.id,
@@ -27,11 +31,15 @@ export function TaskBoardItem(props: Props) {
   };
 
   const onUpdateTask = (body: UpdateTaskBody) => {
-    toast.promise(updateTask(props.task.id, body), {
-      loading: "Updating task...",
-      success: "Task updated!",
-      error: "Failed to update task",
-    });
+    toast
+      .promise(updateTask(props.task.id, body), {
+        loading: "Updating task...",
+        success: "Task updated!",
+        error: "Failed to update task",
+      })
+      .catch(() => {
+        setOptimisticTitle(props.task.title);
+      });
   };
 
   return (
@@ -43,8 +51,11 @@ export function TaskBoardItem(props: Props) {
     >
       <div className="flex items-center justify-between">
         <EditableTitle
-          title={props.task.title}
-          onTitleChanged={(title) => onUpdateTask({ title })}
+          title={optimisticTitle}
+          onTitleChanged={(title) => {
+            setOptimisticTitle(title);
+            onUpdateTask({ title });
+          }}
         />
         <button
           {...listeners}

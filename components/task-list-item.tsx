@@ -45,6 +45,9 @@ export function TaskListItem(props: Props) {
   const [optimisticStatus, setOptimisticStatus] = useState<Task["status"]>(
     props.task.status,
   );
+  const [optimisticTitle, setOptimisticTitle] = useState<Task["title"]>(
+    props.task.title,
+  );
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({
       id: props.task.id,
@@ -56,11 +59,16 @@ export function TaskListItem(props: Props) {
   };
 
   const onUpdateTask = (body: UpdateTaskBody) => {
-    toast.promise(updateTask(props.task.id, body), {
-      loading: "Updating task...",
-      success: "Task updated!",
-      error: "Failed to update task",
-    });
+    toast
+      .promise(updateTask(props.task.id, body), {
+        loading: "Updating task...",
+        success: "Task updated!",
+        error: "Failed to update task",
+      })
+      .catch(() => {
+        setOptimisticStatus(props.task.status);
+        setOptimisticTitle(props.task.title);
+      });
   };
 
   const onDeleteTask = () => {
@@ -115,8 +123,11 @@ export function TaskListItem(props: Props) {
       <div className="w-full space-y-1">
         {/* editable title */}
         <EditableTitle
-          title={props.task.title}
-          onTitleChanged={(title) => onUpdateTask({ title })}
+          title={optimisticTitle}
+          onTitleChanged={(title) => {
+            setOptimisticTitle(title);
+            onUpdateTask({ title });
+          }}
         />
         <div className="flex gap-1">
           {/* due date */}
