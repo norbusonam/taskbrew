@@ -12,7 +12,6 @@ import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { Task } from "@taskbrew/prisma/db";
 import { createTask } from "@taskbrew/server-actions/create-task";
 import { reorderTasks } from "@taskbrew/server-actions/reorder-tasks";
-import { useRouter } from "next/navigation";
 import { useEffect, useId, useState } from "react";
 import toast from "react-hot-toast";
 import { IconPlus } from "./icons";
@@ -31,13 +30,12 @@ type Props = {
 };
 
 export function TaskList(props: Props) {
-  const [tasks, setTasks] = useState(props.tasks);
+  const [optimisticTasks, setOptimisticTasks] = useState<Task[]>([]);
   const [activeTask, setActiveTask] = useState<Task | undefined>(undefined);
   const id = useId();
-  const router = useRouter();
 
   useEffect(() => {
-    setTasks(props.tasks);
+    setOptimisticTasks(props.tasks);
   }, [props.tasks]);
 
   const onCreateTask = () => {
@@ -49,7 +47,7 @@ export function TaskList(props: Props) {
   };
 
   const onDragStart = (e: DragStartEvent) => {
-    setActiveTask(tasks.find((task) => task.id === e.active.id));
+    setActiveTask(optimisticTasks.find((task) => task.id === e.active.id));
   };
 
   const onDragEnd = (e: DragEndEvent) => {
@@ -57,31 +55,37 @@ export function TaskList(props: Props) {
     const { active, over } = e;
     if (over && over.id !== active.id) {
       // figure out new order
-      const fromIdx = tasks.findIndex((task) => task.id === active.id);
-      const toIdx = tasks.findIndex((task) => task.id === over.id);
-      const reorderedTasks = arrayMove(tasks, fromIdx, toIdx);
+      const fromIdx = optimisticTasks.findIndex(
+        (task) => task.id === active.id,
+      );
+      const toIdx = optimisticTasks.findIndex((task) => task.id === over.id);
+      const reorderedTasks = arrayMove(optimisticTasks, fromIdx, toIdx);
 
       // optimistically update state
       reorderedTasks.forEach((task, i) => {
         task.listOrder = i;
       });
-      setTasks(reorderedTasks);
+      setOptimisticTasks(reorderedTasks);
 
       // make update request w/ new order
-      toast.promise(
-        reorderTasks(
-          "LIST",
-          reorderedTasks.map((task, i) => ({
-            id: task.id,
-            order: i,
-          })),
-        ),
-        {
-          loading: "Updating task order...",
-          success: "Task order updated!",
-          error: "Failed to update task order",
-        },
-      );
+      toast
+        .promise(
+          reorderTasks(
+            "LIST",
+            reorderedTasks.map((task, i) => ({
+              id: task.id,
+              order: i,
+            })),
+          ),
+          {
+            loading: "Updating task order...",
+            success: "Task order updated!",
+            error: "Failed to update task order",
+          },
+        )
+        .catch(() => {
+          setOptimisticTasks(props.tasks);
+        });
     }
   };
 
@@ -101,8 +105,8 @@ export function TaskList(props: Props) {
             onDragEnd={onDragEnd}
             id={id}
           >
-            <SortableContext items={tasks.map((task) => task.id)}>
-              {tasks.map((task) => (
+            <SortableContext items={optimisticTasks.map((task) => task.id)}>
+              {optimisticTasks.map((task) => (
                 <TaskListItem
                   key={task.id}
                   task={task}

@@ -12,7 +12,6 @@ import { arrayMove } from "@dnd-kit/sortable";
 import { Task } from "@taskbrew/prisma/db";
 import { reorderTasks } from "@taskbrew/server-actions/reorder-tasks";
 import { updateTask } from "@taskbrew/server-actions/update-task";
-import { useRouter } from "next/navigation";
 import { useEffect, useId, useState } from "react";
 import toast from "react-hot-toast";
 import { TaskBoardColumn } from "./task-board-column";
@@ -24,44 +23,49 @@ type Props = {
 };
 
 export function TaskBoard(props: Props) {
-  const [notStartedTasks, setNotStartedTasks] = useState(
+  const [optimisticNotStartedTasks, setOptimisticNotStartedTasks] = useState(
     props.tasks.filter((task) => task.status === "NOT_STARTED"),
   );
-  const [inProgressTasks, setInProgressTasks] = useState(
+  const [optimisticInProgressTasks, setOptimisticInProgressTasks] = useState(
     props.tasks.filter((task) => task.status === "IN_PROGRESS"),
   );
-  const [completedTasks, setCompletedTasks] = useState(
+  const [optimisticCompletedTasks, setOptimisticCompletedTasks] = useState(
     props.tasks.filter((task) => task.status === "COMPLETED"),
   );
   const [activeTask, setActiveTask] = useState<Task | undefined>(undefined);
-  const router = useRouter();
   const id = useId();
 
-  useEffect(() => {
-    setNotStartedTasks(
+  const resetOptimisticState = () => {
+    setOptimisticNotStartedTasks(
       props.tasks.filter((task) => task.status === "NOT_STARTED"),
     );
-    setInProgressTasks(
+    setOptimisticInProgressTasks(
       props.tasks.filter((task) => task.status === "IN_PROGRESS"),
     );
-    setCompletedTasks(
+    setOptimisticCompletedTasks(
       props.tasks.filter((task) => task.status === "COMPLETED"),
     );
+  };
+
+  useEffect(() => {
+    resetOptimisticState();
+    // resetOptimisticState only changes when props.tasks changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.tasks]);
 
   const findColumn = (id: UniqueIdentifier) => {
     if (
-      notStartedTasks.find((task) => task.id === id) ||
+      optimisticNotStartedTasks.find((task) => task.id === id) ||
       id === "NOT_STARTED"
     ) {
       return "NOT_STARTED";
     } else if (
-      inProgressTasks.find((task) => task.id === id) ||
+      optimisticInProgressTasks.find((task) => task.id === id) ||
       id === "IN_PROGRESS"
     ) {
       return "IN_PROGRESS";
     } else if (
-      completedTasks.find((task) => task.id === id) ||
+      optimisticCompletedTasks.find((task) => task.id === id) ||
       id === "COMPLETED"
     ) {
       return "COMPLETED";
@@ -85,21 +89,21 @@ export function TaskBoard(props: Props) {
     // figure out new order
     const tasks =
       activeColumn === "NOT_STARTED"
-        ? notStartedTasks
+        ? optimisticNotStartedTasks
         : activeColumn === "IN_PROGRESS"
-        ? inProgressTasks
-        : completedTasks;
+        ? optimisticInProgressTasks
+        : optimisticCompletedTasks;
     const fromIdx = tasks.findIndex((task) => task.id === e.active.id);
     const toIdx = tasks.findIndex((task) => e.over && task.id === e.over.id);
     const reorderedTasks = arrayMove(tasks, fromIdx, toIdx);
 
     // optimistically update state
     if (activeColumn === "NOT_STARTED") {
-      setNotStartedTasks(reorderedTasks);
+      setOptimisticNotStartedTasks(reorderedTasks);
     } else if (activeColumn === "IN_PROGRESS") {
-      setInProgressTasks(reorderedTasks);
+      setOptimisticInProgressTasks(reorderedTasks);
     } else if (activeColumn === "COMPLETED") {
-      setCompletedTasks(reorderedTasks);
+      setOptimisticCompletedTasks(reorderedTasks);
     }
 
     // update server
@@ -126,11 +130,10 @@ export function TaskBoard(props: Props) {
           error: "Failed to update task",
         },
       )
-      // need to do this to avoid unhandled promise rejection
-      // can't do reset because one of the promises might have
-      // succeeded, while the other failed
-      .catch(() => {})
-      .finally(() => router.refresh());
+      .catch(() => {
+        // revert optimistic state
+        resetOptimisticState();
+      });
   };
 
   const onDragOver = (e: DragOverEvent) => {
@@ -142,25 +145,25 @@ export function TaskBoard(props: Props) {
     if (activeColumn !== overColumn) {
       // Remove the task from the old column
       if (activeColumn === "NOT_STARTED") {
-        setNotStartedTasks((tasks) =>
+        setOptimisticNotStartedTasks((tasks) =>
           tasks.filter((task) => task.id !== e.active.id),
         );
       } else if (activeColumn === "IN_PROGRESS") {
-        setInProgressTasks((tasks) =>
+        setOptimisticInProgressTasks((tasks) =>
           tasks.filter((task) => task.id !== e.active.id),
         );
       } else if (activeColumn === "COMPLETED") {
-        setCompletedTasks((tasks) =>
+        setOptimisticCompletedTasks((tasks) =>
           tasks.filter((task) => task.id !== e.active.id),
         );
       }
       // Add the task to the new column
       if (overColumn === "NOT_STARTED") {
-        setNotStartedTasks((tasks) => [...tasks, activeTask!]);
+        setOptimisticNotStartedTasks((tasks) => [...tasks, activeTask!]);
       } else if (overColumn === "IN_PROGRESS") {
-        setInProgressTasks((tasks) => [...tasks, activeTask!]);
+        setOptimisticInProgressTasks((tasks) => [...tasks, activeTask!]);
       } else if (overColumn === "COMPLETED") {
-        setCompletedTasks((tasks) => [...tasks, activeTask!]);
+        setOptimisticCompletedTasks((tasks) => [...tasks, activeTask!]);
       }
     }
   };
@@ -175,17 +178,17 @@ export function TaskBoard(props: Props) {
       >
         <TaskBoardColumn
           type="NOT_STARTED"
-          tasks={notStartedTasks}
+          tasks={optimisticNotStartedTasks}
           activeTask={activeTask}
         />
         <TaskBoardColumn
           type="IN_PROGRESS"
-          tasks={inProgressTasks}
+          tasks={optimisticInProgressTasks}
           activeTask={activeTask}
         />
         <TaskBoardColumn
           type="COMPLETED"
-          tasks={completedTasks}
+          tasks={optimisticCompletedTasks}
           activeTask={activeTask}
         />
         <DragOverlay>
