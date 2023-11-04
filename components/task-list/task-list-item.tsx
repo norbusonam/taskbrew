@@ -14,9 +14,9 @@ import {
 } from "@taskbrew/server-actions/update-task";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { DueDatePopover } from "./due-date-popover";
-import { DurationMenu } from "./duration-menu";
-import { EditableTitle } from "./editable-title";
+import { DueDatePopover } from "../due-date-popover";
+import { DurationMenu } from "../duration-menu";
+import { EditableTitle } from "../editable-title";
 import {
   IconCheckSquare,
   IconCheckSquareFilled,
@@ -25,7 +25,7 @@ import {
   IconMenu,
   IconMinusSquare,
   IconSquare,
-} from "./icons";
+} from "../icons";
 
 const animateLayoutChanges: AnimateLayoutChanges = (args) => {
   const { isSorting, wasDragging } = args;

@@ -1,4 +1,4 @@
-import { TaskBoardLoading } from "@taskbrew/components/task-board-loading";
+import { TaskBoardLoading } from "@taskbrew/components/task-board";
 
 export default function Loading() {
   return <TaskBoardLoading />;

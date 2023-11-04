@@ -7,10 +7,10 @@ import {
 } from "@taskbrew/server-actions/update-task";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { DueDatePopover } from "./due-date-popover";
-import { DurationMenu } from "./duration-menu";
-import { EditableTitle } from "./editable-title";
-import { IconHolder } from "./icons";
+import { DueDatePopover } from "../due-date-popover";
+import { DurationMenu } from "../duration-menu";
+import { EditableTitle } from "../editable-title";
+import { IconHolder } from "../icons";
 
 type Props = {
   task: Task;

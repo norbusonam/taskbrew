@@ -1,4 +1,4 @@
-import { ThemeMenu } from "./theme-menu";
+import { ThemeMenu } from "../theme-menu";
 
 export function SettingsModalContent() {
   return (

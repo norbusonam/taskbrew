@@ -1,6 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { IconClose } from "./icons";
+import { IconClose } from "../icons";
 
 type Props = {
   isOpen: boolean;

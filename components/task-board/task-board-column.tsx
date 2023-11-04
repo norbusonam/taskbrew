@@ -6,7 +6,7 @@ import { Task } from "@taskbrew/prisma/db";
 import { createTask } from "@taskbrew/server-actions/create-task";
 import { useMemo } from "react";
 import toast from "react-hot-toast";
-import { IconPlus } from "./icons";
+import { IconPlus } from "../icons";
 import { TaskBoardItem } from "./task-board-item";
 
 type Props = {

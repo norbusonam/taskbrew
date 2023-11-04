@@ -11,7 +11,7 @@ import {
   IconSend,
   IconSmile,
   IconSmileFilled,
-} from "./icons";
+} from "../icons";
 
 type Props = {
   closeModal: () => void;

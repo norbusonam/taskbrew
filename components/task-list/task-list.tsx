@@ -14,7 +14,7 @@ import { createTask } from "@taskbrew/server-actions/create-task";
 import { reorderTasks } from "@taskbrew/server-actions/reorder-tasks";
 import { useEffect, useId, useState } from "react";
 import toast from "react-hot-toast";
-import { IconPlus } from "./icons";
+import { IconPlus } from "../icons";
 import { TaskListItem } from "./task-list-item";
 
 const measuringConfig = {

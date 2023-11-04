@@ -1,7 +1,5 @@
 "use client";
 
-import { AccountModalContent } from "@taskbrew/components/account-modal-content";
-import { FeedbackModalContent } from "@taskbrew/components/feedback-modal-content";
 import {
   IconCalendar,
   IconCheckSquare,
@@ -13,8 +11,12 @@ import {
   IconUnorderedList,
   IconUser,
 } from "@taskbrew/components/icons";
-import { Modal } from "@taskbrew/components/modal";
-import { SettingsModalContent } from "@taskbrew/components/settings-modal-content";
+import {
+  AccountModalContent,
+  FeedbackModalContent,
+  Modal,
+  SettingsModalContent,
+} from "@taskbrew/components/modal";
 import { SidebarButton } from "@taskbrew/components/sidebar-button";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
