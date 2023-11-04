@@ -189,7 +189,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
       {/* width slider */}
       <button
-        className="h-screen w-1 bg-neutral-100 transition-all hover:cursor-ew-resize hover:bg-neutral-200 active:bg-neutral-300 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:active:bg-neutral-700"
+        className="h-screen w-1 bg-neutral-100 transition-colors hover:cursor-ew-resize hover:bg-neutral-200 active:bg-neutral-300 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:active:bg-neutral-700"
         onPointerDown={onStartResize}
       />
 
