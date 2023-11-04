@@ -16,7 +16,7 @@ export default async function Home() {
     <div className="flex h-screen w-screen flex-col items-center justify-center gap-4">
       <Link
         href="/"
-        className="transition-opacity hover:opacity-50"
+        className="transition-opacity hover:opacity-80 active:opacity-60"
         aria-label="Taskbrew home page"
       >
         <IconCoffee className="h-12 w-12" />

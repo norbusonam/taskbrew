@@ -60,7 +60,7 @@ export default function Page() {
       ) : (
         <>
           <Link
-            className="transition-opacity hover:opacity-50"
+            className="transition-opacity hover:opacity-80 active:opacity-60"
             href="/"
             aria-label="Taskbrew home page"
           >
