@@ -99,7 +99,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           >
             <Link
               href="/list"
-              className="mb-4 inline-block space-x-2 transition-opacity hover:opacity-50"
+              className="mb-4 inline-block space-x-2 transition-opacity hover:opacity-80 active:opacity-60"
             >
               <IconCoffee className="inline h-6 w-6" />
               <h2
