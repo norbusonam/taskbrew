@@ -1,8 +1,13 @@
 import { authOptions } from "@taskbrew/app/api/auth/[...nextauth]/route";
 import { TaskList } from "@taskbrew/components/task-list";
 import prisma from "@taskbrew/prisma/db";
+import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "Taskbrew | List",
+};
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
