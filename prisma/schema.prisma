@@ -62,6 +62,7 @@ model User {
   // relations
   tasks     Task[]
   feedbacks Feedback[]
+  mindsets  Mindset[]
 
   // next auth stuff
   name          String?
@@ -87,8 +88,10 @@ model Task {
   updatedAt   DateTime   @updatedAt
 
   // relations
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  mindset   Mindset? @relation(fields: [mindsetId], references: [id], onDelete: SetNull)
+  mindsetId String?
 
   // indexes
   @@index([userId])
@@ -107,6 +110,35 @@ model Feedback {
   userId String
 }
 
+model Mindset {
+  // properties
+  id          String              @id @default(cuid())
+  title       String
+  color       Color
+  timePeriods MindsetTimePeriod[]
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+
+  // relations
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  tasks  Task[]
+}
+
+model MindsetTimePeriod {
+  // properties
+  id        String        @id @default(cuid())
+  day       DaysOfTheWeek
+  startTime String
+  endTime   String
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  // relations
+  mindset   Mindset @relation(fields: [mindsetId], references: [id], onDelete: Cascade)
+  mindsetId String
+}
+
 // ***************************
 // ********** Enums **********
 // ***************************
@@ -121,4 +153,24 @@ enum FeedbackType {
   POSITIVE
   NEGATIVE
   IDEA
+}
+
+enum DaysOfTheWeek {
+  SUNDAY
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+}
+
+enum Color {
+  RED
+  ORANGE
+  YELLOW
+  GREEN
+  BLUE
+  PURPLE
+  BROWN
 }
