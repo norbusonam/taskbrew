@@ -18,9 +18,7 @@ type Props = {
 };
 
 export function TaskBoardItem(props: Props) {
-  const [optimisticTitle, setOptimisticTitle] = useState<Task["title"]>(
-    props.task.title,
-  );
+  const [optimisticTask, setOptimisticTask] = useState(props.task);
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({
       id: props.task.id,
@@ -38,7 +36,7 @@ export function TaskBoardItem(props: Props) {
         error: "Failed to update task",
       })
       .catch(() => {
-        setOptimisticTitle(props.task.title);
+        setOptimisticTask(props.task);
       });
   };
 
@@ -51,9 +49,9 @@ export function TaskBoardItem(props: Props) {
     >
       <div className="flex items-center justify-between">
         <EditableTitle
-          title={optimisticTitle}
+          title={optimisticTask.title}
           onTitleChanged={(title) => {
-            setOptimisticTitle(title);
+            setOptimisticTask((prev) => ({ ...prev, title }));
             onUpdateTask({ title });
           }}
         />
@@ -66,12 +64,18 @@ export function TaskBoardItem(props: Props) {
       </div>
       <div className="flex gap-1">
         <DueDatePopover
-          dueDate={props.task.dueDate}
-          onDueDateChanged={(dueDate) => onUpdateTask({ dueDate })}
+          dueDate={optimisticTask.dueDate}
+          onDueDateChanged={(dueDate) => {
+            setOptimisticTask((prev) => ({ ...prev, dueDate }));
+            onUpdateTask({ dueDate });
+          }}
         />
         <DurationMenu
-          duration={props.task.duration}
-          onDurationChanged={(duration) => onUpdateTask({ duration })}
+          duration={optimisticTask.duration}
+          onDurationChanged={(duration) => {
+            setOptimisticTask((prev) => ({ ...prev, duration }));
+            onUpdateTask({ duration });
+          }}
         />
       </div>
     </div>
