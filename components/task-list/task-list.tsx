@@ -12,7 +12,7 @@ import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { Task } from "@taskbrew/prisma/db";
 import { createTask } from "@taskbrew/server-actions/create-task";
 import { reorderTasks } from "@taskbrew/server-actions/reorder-tasks";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { IconPlus } from "../icons";
 import { TaskListItem } from "./task-list-item";
@@ -32,7 +32,6 @@ type Props = {
 export function TaskList(props: Props) {
   const [optimisticTasks, setOptimisticTasks] = useState<Task[]>([]);
   const [activeTask, setActiveTask] = useState<Task | undefined>(undefined);
-  const id = useId();
 
   useEffect(() => {
     setOptimisticTasks(props.tasks);
@@ -103,7 +102,6 @@ export function TaskList(props: Props) {
             modifiers={[restrictToVerticalAxis]}
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}
-            id={id}
           >
             <SortableContext items={optimisticTasks.map((task) => task.id)}>
               {optimisticTasks.map((task) => (
