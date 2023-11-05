@@ -1,5 +1,3 @@
-"use client";
-
 import { useDroppable } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
 import { Task } from "@taskbrew/prisma/db";
