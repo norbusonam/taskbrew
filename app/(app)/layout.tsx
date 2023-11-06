@@ -34,7 +34,9 @@ const computerNewWidth = (
   currentX: number,
 ) => {
   const newWidth = initialWidth + (currentX - initialX);
-  return Math.min(Math.max(newWidth, MIN_SIDEBAR_WIDTH), MAX_SIDEBAR_WIDTH);
+  return Math.round(
+    Math.min(Math.max(newWidth, MIN_SIDEBAR_WIDTH), MAX_SIDEBAR_WIDTH),
+  );
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
