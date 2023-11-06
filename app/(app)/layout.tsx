@@ -54,9 +54,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   }
 
   useEffect(() => {
-    const savedWidth = localStorage.getItem("sidebarWidth");
-    if (savedWidth) {
-      setSidebarWidth(parseInt(savedWidth));
+    if (window.innerWidth <= 768) {
+      setSidebarWidth(MIN_SIDEBAR_WIDTH);
+    } else {
+      const savedWidth = localStorage.getItem("sidebarWidth");
+      if (savedWidth) {
+        setSidebarWidth(parseInt(savedWidth));
+      }
     }
   }, []);
 
