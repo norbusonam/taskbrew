@@ -74,7 +74,7 @@ export default async function Page({
       },
     });
   } else {
-    // cover both "today" and no filter
+    // no filter is equivalent to today
     tasks = await prisma.task.findMany({
       where: {
         userId: session.user.id,
