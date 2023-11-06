@@ -2,7 +2,6 @@
 
 import {
   IconCalendar,
-  IconCheckSquare,
   IconCoffee,
   IconComment,
   IconLogout,
@@ -138,16 +137,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 hideText={isSmallSidebarView}
                 active={pathname === "/calendar"}
                 onClick={() => router.push("/calendar")}
-              />
-            </div>
-            <h3 className="text-xs font-bold">OTHER</h3>
-            <div className="space-y-1">
-              <SidebarButton
-                text="Completed"
-                icon={<IconCheckSquare className="h-6 w-6" />}
-                hideText={isSmallSidebarView}
-                active={pathname === "/completed"}
-                onClick={() => router.push("/completed")}
               />
             </div>
           </div>
