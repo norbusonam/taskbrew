@@ -150,13 +150,15 @@ export function TaskListItem(props: Props) {
         </div>
       </div>
       <div className="flex gap-1">
-        <button
-          {...listeners}
-          aria-label="Reorder task"
-          className="rounded-md p-1 text-neutral-500 transition-colors hover:text-neutral-600 active:text-neutral-700 dark:hover:text-neutral-400 dark:active:text-neutral-300"
-        >
-          <IconMenu className="h-5 w-5" />
-        </button>
+        {props.task.status !== "COMPLETED" && (
+          <button
+            {...listeners}
+            aria-label="Reorder task"
+            className="rounded-md p-1 text-neutral-500 transition-colors hover:text-neutral-600 active:text-neutral-700 dark:hover:text-neutral-400 dark:active:text-neutral-300"
+          >
+            <IconMenu className="h-5 w-5" />
+          </button>
+        )}
         {isLoadingDelete ? (
           <div className="p-1">
             <IconLoading className="h-5 w-5 animate-spin text-red-600" />
