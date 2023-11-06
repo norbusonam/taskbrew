@@ -24,6 +24,7 @@ import {
   IconMinusSquare,
   IconSquare,
 } from "../icons";
+import { ImportantToggle } from "../important-toggle";
 
 const animateLayoutChanges: AnimateLayoutChanges = (args) => {
   const { isSorting, wasDragging } = args;
@@ -136,6 +137,14 @@ export function TaskListItem(props: Props) {
             onDurationChanged={(duration) => {
               setOptimisticTask((prev) => ({ ...prev, duration }));
               onUpdateTask({ duration });
+            }}
+          />
+          {/* important */}
+          <ImportantToggle
+            isImportant={optimisticTask.isImportant}
+            onIsImportantChanged={(isImportant) => {
+              setOptimisticTask((prev) => ({ ...prev, isImportant }));
+              onUpdateTask({ isImportant });
             }}
           />
           {/* completed at */}

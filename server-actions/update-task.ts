@@ -10,6 +10,7 @@ export type UpdateTaskBody = {
   title?: Task["title"];
   status?: Task["status"];
   dueDate?: Task["dueDate"];
+  isImportant?: Task["isImportant"];
   duration?: Task["duration"];
 };
 
@@ -40,6 +41,7 @@ export async function updateTask(id: string, body: UpdateTaskBody) {
           ? new Date()
           : null,
       dueDate: body.dueDate,
+      isImportant: body.isImportant,
       duration: body.duration,
     },
   });

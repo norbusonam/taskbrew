@@ -11,6 +11,7 @@ import { DueDatePopover } from "../due-date-popover";
 import { DurationMenu } from "../duration-menu";
 import { EditableTitle } from "../editable-title";
 import { IconHolder } from "../icons";
+import { ImportantToggle } from "../important-toggle";
 
 type Props = {
   task: Task;
@@ -75,6 +76,13 @@ export function TaskBoardItem(props: Props) {
           onDurationChanged={(duration) => {
             setOptimisticTask((prev) => ({ ...prev, duration }));
             onUpdateTask({ duration });
+          }}
+        />
+        <ImportantToggle
+          isImportant={optimisticTask.isImportant}
+          onIsImportantChanged={(isImportant) => {
+            setOptimisticTask((prev) => ({ ...prev, isImportant }));
+            onUpdateTask({ isImportant });
           }}
         />
       </div>

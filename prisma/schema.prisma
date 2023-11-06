@@ -79,6 +79,7 @@ model Task {
   title       String
   status      TaskStatus @default(NOT_STARTED)
   completedAt DateTime?
+  isImportant Boolean    @default(false)
   startAt     DateTime?
   dueDate     DateTime?
   duration    Int?
