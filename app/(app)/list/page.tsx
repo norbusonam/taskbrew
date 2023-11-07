@@ -51,7 +51,7 @@ export default async function Page({
           not: "COMPLETED",
         },
         dueDate: {
-          lt: new Date(),
+          lt: new Date(new Date().setHours(0, 0, 0, 0)),
         },
       },
       orderBy: {
