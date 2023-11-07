@@ -25,7 +25,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </p>
       </div>
 
-      <FilterButtons baseRoute="/list" className="pb-2 pl-4" />
+      <FilterButtons baseRoute="/list" className="px-4 pb-2" />
       {children}
     </div>
   );
