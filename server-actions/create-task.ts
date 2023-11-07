@@ -1,12 +1,16 @@
 "use server";
 
-import prisma from "@taskbrew/prisma/db";
+import prisma, { Task } from "@taskbrew/prisma/db";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "../app/api/auth/[...nextauth]/route";
 import { revalidateTaskRoutes } from "./utils/revalidate-task-routes";
 
-export async function createTask() {
+export type CreateTaskBody = {
+  dueDate?: Task["dueDate"];
+};
+
+export async function createTask(body?: CreateTaskBody) {
   // check session
   const session = await getServerSession(authOptions);
   if (!session || !session.user || !session.user.id) {
@@ -40,6 +44,7 @@ export async function createTask() {
       userId: session.user.id,
       listOrder: highestListOrder ? highestListOrder.listOrder + 1 : 0,
       boardOrder: highestBoardOrder ? highestBoardOrder.boardOrder + 1 : 0,
+      dueDate: body?.dueDate,
     },
   });
 

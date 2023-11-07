@@ -111,6 +111,16 @@ export default async function Page({
           ? "No tasks 😢"
           : "No tasks due today 👍"
       }
+      defaultValuesForNewTask={
+        searchParams?.filter === "upcoming"
+          ? {
+              // next day
+              dueDate: new Date(new Date().setDate(new Date().getDate() + 1)),
+            }
+          : searchParams?.filter === undefined
+          ? { dueDate: new Date() }
+          : undefined
+      }
       className="overflow-y-scroll px-4 pb-4"
     />
   );

@@ -10,7 +10,10 @@ import {
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { Task } from "@taskbrew/prisma/db";
-import { createTask } from "@taskbrew/server-actions/create-task";
+import {
+  CreateTaskBody,
+  createTask,
+} from "@taskbrew/server-actions/create-task";
 import { reorderTasks } from "@taskbrew/server-actions/reorder-tasks";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -27,6 +30,7 @@ type Props = {
   tasks: Task[];
   noTasksMessage?: string;
   canCreateNewTask?: boolean;
+  defaultValuesForNewTask?: CreateTaskBody;
   className?: string;
 };
 
@@ -39,7 +43,7 @@ export function TaskList(props: Props) {
   }, [props.tasks]);
 
   const onCreateTask = () => {
-    toast.promise(createTask(), {
+    toast.promise(createTask(props.defaultValuesForNewTask), {
       loading: "Creating task...",
       success: "Task created!",
       error: "Failed to create task",
