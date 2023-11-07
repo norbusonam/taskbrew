@@ -124,6 +124,7 @@ export function TaskList(props: Props) {
                 {activeTask && (
                   <TaskListItem
                     task={activeTask}
+                    isDragOverlay
                     className="bg-neutral-100 dark:bg-neutral-900"
                   />
                 )}

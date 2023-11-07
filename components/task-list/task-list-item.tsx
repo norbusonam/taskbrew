@@ -4,6 +4,7 @@ import {
   useSortable,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { Transition } from "@headlessui/react";
 import { Task } from "@taskbrew/prisma/db";
 import { deleteTask } from "@taskbrew/server-actions/delete-task";
 import {
@@ -36,6 +37,7 @@ const animateLayoutChanges: AnimateLayoutChanges = (args) => {
 
 type Props = {
   task: Task;
+  isDragOverlay?: boolean;
   className?: string;
 };
 
@@ -51,6 +53,7 @@ export function TaskListItem(props: Props) {
     transform: CSS.Transform.toString(transform),
     transition,
   };
+  const [isActive, setIsActive] = useState(props.isDragOverlay ?? false);
 
   const onUpdateTask = (body: UpdateTaskBody) => {
     toast
@@ -93,6 +96,10 @@ export function TaskListItem(props: Props) {
       ref={setNodeRef}
       style={style}
       {...attributes}
+      onMouseEnter={() => setIsActive(true)}
+      onMouseLeave={() => setIsActive(false)}
+      onFocus={() => setIsActive(true)}
+      onBlur={() => setIsActive(false)}
     >
       <button
         onClick={onUpdateStatus}
@@ -158,30 +165,40 @@ export function TaskListItem(props: Props) {
           )}
         </div>
       </div>
-      <div className="flex gap-1">
-        {props.task.status !== "COMPLETED" && (
-          <button
-            {...listeners}
-            aria-label="Reorder task"
-            className="rounded-md p-1 text-neutral-500 transition-colors hover:text-neutral-600 active:text-neutral-700 dark:hover:text-neutral-400 dark:active:text-neutral-300"
-          >
-            <IconMenu className="h-5 w-5" />
-          </button>
-        )}
-        {isLoadingDelete ? (
-          <div className="p-1">
-            <IconLoading className="h-5 w-5 animate-spin text-red-600" />
-          </div>
-        ) : (
-          <button
-            onClick={onDeleteTask}
-            aria-label="Delete task"
-            className="rounded-md p-1 text-red-400 transition-colors  hover:text-red-500 active:text-red-600"
-          >
-            <IconDelete className="h-5 w-5" />
-          </button>
-        )}
-      </div>
+      <Transition
+        show={isActive}
+        enter="transition-opacity"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="transition-opacity"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+      >
+        <div className="flex gap-1">
+          {props.task.status !== "COMPLETED" && (
+            <button
+              {...listeners}
+              aria-label="Reorder task"
+              className="rounded-md p-1 text-neutral-500 transition-colors hover:text-neutral-600 active:text-neutral-700 dark:hover:text-neutral-400 dark:active:text-neutral-300"
+            >
+              <IconMenu className="h-5 w-5" />
+            </button>
+          )}
+          {isLoadingDelete ? (
+            <div className="p-1">
+              <IconLoading className="h-5 w-5 animate-spin text-red-600" />
+            </div>
+          ) : (
+            <button
+              onClick={onDeleteTask}
+              aria-label="Delete task"
+              className="rounded-md p-1 text-red-400 transition-colors  hover:text-red-500 active:text-red-600"
+            >
+              <IconDelete className="h-5 w-5" />
+            </button>
+          )}
+        </div>
+      </Transition>
     </div>
   );
 }
