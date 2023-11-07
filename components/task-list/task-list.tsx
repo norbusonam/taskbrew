@@ -25,6 +25,7 @@ const measuringConfig = {
 
 type Props = {
   tasks: Task[];
+  noTasksMessage?: string;
   canCreateNewTask?: boolean;
   className?: string;
 };
@@ -92,7 +93,11 @@ export function TaskList(props: Props) {
     <div className={props.className}>
       {props.tasks.length === 0 ? (
         <div className="flex items-center justify-center p-5">
-          <p className="text-neutral-500">No tasks here yet 😢</p>
+          <p className="text-neutral-500">
+            {props.noTasksMessage
+              ? props.noTasksMessage
+              : "No tasks here yet 😢"}
+          </p>
         </div>
       ) : (
         <>

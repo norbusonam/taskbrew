@@ -95,7 +95,22 @@ export default async function Page({
   return (
     <TaskList
       tasks={tasks}
-      canCreateNewTask
+      canCreateNewTask={
+        searchParams?.filter === "all" ||
+        searchParams?.filter === "upcoming" ||
+        searchParams?.filter === undefined
+      }
+      noTasksMessage={
+        searchParams?.filter === "completed"
+          ? "No completed tasks 😢"
+          : searchParams?.filter === "overdue"
+          ? "No overdue tasks 😎"
+          : searchParams?.filter === "upcoming"
+          ? "No upcoming tasks 🏝️"
+          : searchParams?.filter === "all"
+          ? "No tasks 😢"
+          : "No tasks due today 👍"
+      }
       className="overflow-y-scroll px-4 pb-4"
     />
   );
