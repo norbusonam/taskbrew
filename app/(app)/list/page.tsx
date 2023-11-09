@@ -74,7 +74,7 @@ export default async function Page({
       },
     });
   } else {
-    // no filter is equivalent to today
+    // default to due date for all other cases
     tasks = await prisma.task.findMany({
       where: {
         userId: session.user.id,
