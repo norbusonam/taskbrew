@@ -147,6 +147,7 @@ model MindsetTimePeriod {
 enum TaskStatus {
   NOT_STARTED
   IN_PROGRESS
+  BLOCKED
   COMPLETED
 }
 
