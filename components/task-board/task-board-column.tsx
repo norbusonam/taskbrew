@@ -60,7 +60,7 @@ export function TaskBoardColumn(props: Props) {
         </SortableContext>
       </div>
       {props.type === "NOT_STARTED" && (
-        <div className="p-2">
+        <div className="px-2 pb-2">
           <button
             onClick={onCreateTask}
             className="flex w-full flex-row items-center gap-2 rounded-md p-2 text-neutral-500 transition-colors hover:bg-neutral-200 active:bg-neutral-300 dark:border-neutral-800 dark:hover:bg-neutral-800 dark:active:bg-neutral-700"
