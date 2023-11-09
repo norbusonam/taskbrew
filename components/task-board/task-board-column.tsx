@@ -35,10 +35,10 @@ export function TaskBoardColumn(props: Props) {
       <div className="p-2">
         <h2 className="text-lg font-medium">
           {props.type === "NOT_STARTED"
-            ? "Not started"
+            ? "🗄️\u00a0\u00a0Not started"
             : props.type === "IN_PROGRESS"
-            ? "In progress"
-            : "Completed"}
+            ? "🚧\u00a0\u00a0In progress"
+            : "✅\u00a0\u00a0Completed"}
         </h2>
         <span className="text-sm text-neutral-500">
           {props.tasks.length} {props.tasks.length === 1 ? "task" : "tasks"}
