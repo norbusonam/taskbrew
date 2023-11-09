@@ -43,6 +43,9 @@ type Props = {
 
 export function TaskListItem(props: Props) {
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
+  const [isTaskActive, setIsTaskActive] = useState(
+    props.isDragOverlay ?? false,
+  );
   const [optimisticTask, setOptimisticTask] = useState(props.task);
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({
@@ -53,7 +56,6 @@ export function TaskListItem(props: Props) {
     transform: CSS.Transform.toString(transform),
     transition,
   };
-  const [isActive, setIsActive] = useState(props.isDragOverlay ?? false);
 
   const onUpdateTask = (body: UpdateTaskBody) => {
     toast
@@ -96,10 +98,10 @@ export function TaskListItem(props: Props) {
       ref={setNodeRef}
       style={style}
       {...attributes}
-      onMouseEnter={() => setIsActive(true)}
-      onMouseLeave={() => setIsActive(false)}
-      onFocus={() => setIsActive(true)}
-      onBlur={() => setIsActive(false)}
+      onMouseEnter={() => setIsTaskActive(true)}
+      onMouseLeave={() => setIsTaskActive(false)}
+      onFocus={() => setIsTaskActive(true)}
+      onBlur={() => setIsTaskActive(false)}
     >
       <button
         onClick={onUpdateStatus}
@@ -166,7 +168,7 @@ export function TaskListItem(props: Props) {
         </div>
       </div>
       <Transition
-        show={isActive}
+        show={isTaskActive}
         enter="transition-opacity"
         enterFrom="opacity-0"
         enterTo="opacity-100"
