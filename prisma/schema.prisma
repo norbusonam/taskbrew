@@ -75,18 +75,19 @@ model User {
 
 model Task {
   // properties
-  id          String     @id @default(cuid())
-  title       String
-  status      TaskStatus @default(NOT_STARTED)
-  completedAt DateTime?
-  isImportant Boolean    @default(false)
-  startAt     DateTime?
-  dueDate     DateTime?
-  duration    Int?
-  listOrder   Int
-  boardOrder  Int
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  id                  String     @id @default(cuid())
+  title               String
+  status              TaskStatus @default(NOT_STARTED)
+  completedAt         DateTime?
+  isImportant         Boolean    @default(false)
+  startAt             DateTime?
+  dueDate             DateTime?
+  dueDateIncludesTime Boolean    @default(false)
+  duration            Int?
+  listOrder           Int
+  boardOrder          Int
+  createdAt           DateTime   @default(now())
+  updatedAt           DateTime   @updatedAt
 
   // relations
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
