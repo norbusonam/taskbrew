@@ -153,7 +153,7 @@ export function DueDatePopover(props: Props) {
                   {Array(getNumberOfDaysInMonth(currentMonth + 1, currentYear))
                     .fill(0)
                     .map((_, i) => (
-                      <Popover.Button
+                      <button
                         key={i}
                         onClick={() =>
                           onDateSelected(
@@ -183,7 +183,7 @@ export function DueDatePopover(props: Props) {
                         } aspect-square rounded-md p-1 text-center text-xs transition-colors hover:bg-neutral-300 hover:text-black active:bg-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-white dark:active:bg-neutral-600`}
                       >
                         {i + 1}
-                      </Popover.Button>
+                      </button>
                     ))}
                 </div>
                 {/* today and clear buttons */}
@@ -198,12 +198,12 @@ export function DueDatePopover(props: Props) {
                   >
                     Go to today
                   </button>
-                  <Popover.Button
+                  <button
                     className="rounded-md p-1 text-center text-xs transition-colors hover:bg-neutral-300 active:bg-neutral-400 dark:hover:bg-neutral-700 dark:active:bg-neutral-600"
                     onClick={onClear}
                   >
                     Clear
-                  </Popover.Button>
+                  </button>
                 </div>
               </div>
             </Popover.Panel>
