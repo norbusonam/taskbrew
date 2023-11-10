@@ -189,7 +189,11 @@ export function DueDatePopover(props: Props) {
                 {/* today and clear buttons */}
                 <div className="flex justify-between">
                   <button
-                    className="rounded-md p-1  text-center text-xs transition-colors hover:bg-neutral-300 active:bg-neutral-400 dark:hover:bg-neutral-700 dark:active:bg-neutral-600"
+                    className="rounded-md p-1  text-center text-xs transition-colors hover:bg-neutral-300 active:bg-neutral-400 disabled:cursor-not-allowed disabled:opacity-50 dark:hover:bg-neutral-700 dark:active:bg-neutral-600"
+                    disabled={
+                      currentMonth === new Date().getMonth() &&
+                      currentYear === new Date().getFullYear()
+                    }
                     onClick={onToday}
                   >
                     Go to today
