@@ -139,9 +139,14 @@ export function TaskListItem(props: Props) {
           {/* due date */}
           <DueDatePopover
             dueDate={optimisticTask.dueDate}
+            dueDateIncludesTime={optimisticTask.dueDateIncludesTime}
             onDueDateChanged={(dueDate) => {
               setOptimisticTask((prev) => ({ ...prev, dueDate }));
               onUpdateTask({ dueDate });
+            }}
+            onDueDateIncludesTimeChanged={(dueDateIncludesTime) => {
+              setOptimisticTask((prev) => ({ ...prev, dueDateIncludesTime }));
+              onUpdateTask({ dueDateIncludesTime });
             }}
           />
           {/* duration */}

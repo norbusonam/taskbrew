@@ -16,7 +16,9 @@ import { IconCalendar, IconLeft, IconRight } from "./icons";
 
 type Props = {
   dueDate: Task["dueDate"];
+  dueDateIncludesTime: Task["dueDateIncludesTime"];
   onDueDateChanged: (dueDate: Task["dueDate"]) => void;
+  onDueDateIncludesTimeChanged: (dueDateIncludesTime: boolean) => void;
 };
 
 export function DueDatePopover(props: Props) {
@@ -97,6 +99,14 @@ export function DueDatePopover(props: Props) {
                       MONTHS[props.dueDate.getMonth()]
                     } ${props.dueDate.getDate()} ${props.dueDate.getFullYear()}`
                 : "Due date"}
+              {
+                // show time if due date includes time
+                props.dueDateIncludesTime &&
+                  props.dueDate &&
+                  ` at ${props.dueDate
+                    .toLocaleTimeString()
+                    .replace(/:\d+ /, " ")}`
+              }
             </span>
           </Popover.Button>
           <Transition
@@ -205,6 +215,58 @@ export function DueDatePopover(props: Props) {
                     Clear
                   </button>
                 </div>
+                {/* show includes time toggle if date is selected */}
+                {props.dueDate && (
+                  <>
+                    <div className="flex items-center justify-between px-1">
+                      <p className="text-xs">Includes time</p>
+                      {/* TODO:  update this to use a custom toggle */}
+                      <input
+                        type="checkbox"
+                        className="rounded-md"
+                        checked={props.dueDateIncludesTime}
+                        onChange={(e) =>
+                          props.onDueDateIncludesTimeChanged(e.target.checked)
+                        }
+                      />
+                    </div>
+                  </>
+                )}
+                {/*  show time picker if date is selected and includes time is true */}
+                {props.dueDate && props.dueDateIncludesTime && (
+                  <>
+                    <div className="flex items-center justify-between px-1">
+                      <p className="text-xs">Time</p>
+                      <div>
+                        {/* TODO: improve this from using the native time picker */}
+                        <input
+                          type="time"
+                          className="rounded-md bg-transparent text-right text-xs"
+                          value={`${props.dueDate
+                            .getHours()
+                            .toString()
+                            .padStart(2, "0")}:${props.dueDate
+                            .getMinutes()
+                            .toString()
+                            .padStart(2, "0")}`}
+                          onChange={(e) => {
+                            props.dueDate &&
+                              onDateSelected(
+                                new Date(
+                                  props.dueDate.getFullYear(),
+                                  props.dueDate.getMonth(),
+                                  props.dueDate.getDate(),
+                                  parseInt(e.target.value.split(":")[0]),
+                                  parseInt(e.target.value.split(":")[1]),
+                                  0,
+                                ),
+                              );
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </Popover.Panel>
           </Transition>

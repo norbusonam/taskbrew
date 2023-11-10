@@ -66,9 +66,14 @@ export function TaskBoardItem(props: Props) {
       <div className="flex gap-1">
         <DueDatePopover
           dueDate={optimisticTask.dueDate}
+          dueDateIncludesTime={optimisticTask.dueDateIncludesTime}
           onDueDateChanged={(dueDate) => {
             setOptimisticTask((prev) => ({ ...prev, dueDate }));
             onUpdateTask({ dueDate });
+          }}
+          onDueDateIncludesTimeChanged={(dueDateIncludesTime) => {
+            setOptimisticTask((prev) => ({ ...prev, dueDateIncludesTime }));
+            onUpdateTask({ dueDateIncludesTime });
           }}
         />
         <DurationMenu
