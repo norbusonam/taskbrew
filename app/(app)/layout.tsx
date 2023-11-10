@@ -7,6 +7,7 @@ import {
   IconLogout,
   IconProject,
   IconSetting,
+  IconTags,
   IconUnorderedList,
   IconUser,
 } from "@taskbrew/components/icons";
@@ -115,7 +116,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 Taskbrew
               </h2>
             </Link>
-            <h3 className="text-xs font-bold">VIEWS</h3>
             <div className="space-y-1">
               <SidebarButton
                 text="List"
@@ -137,6 +137,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 hideText={isSmallSidebarView}
                 active={pathname === "/calendar"}
                 onClick={() => router.push("/calendar")}
+              />
+              <SidebarButton
+                text="Mindsets"
+                icon={<IconTags className="h-6 w-6" />}
+                hideText={isSmallSidebarView}
+                active={pathname === "/mindsets"}
+                onClick={() => router.push("/mindsets")}
               />
             </div>
           </div>
