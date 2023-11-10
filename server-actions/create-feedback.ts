@@ -1,9 +1,9 @@
 "use server";
 
+import { authOptions } from "@taskbrew/app/api/auth/auth-options";
 import prisma, { FeedbackType } from "@taskbrew/prisma/db";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { authOptions } from "../app/api/auth/[...nextauth]/route";
 
 export async function createFeedback(body: {
   type: FeedbackType;

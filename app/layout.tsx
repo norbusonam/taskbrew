@@ -3,7 +3,7 @@ import { Theming } from "@taskbrew/components/theming";
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
+import { authOptions } from "./api/auth/auth-options";
 import "./globals.css";
 
 export const metadata: Metadata = {

@@ -3,7 +3,7 @@ import { ThemeMenu } from "@taskbrew/components/theme-menu";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { authOptions } from "./api/auth/[...nextauth]/route";
+import { authOptions } from "./api/auth/auth-options";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);

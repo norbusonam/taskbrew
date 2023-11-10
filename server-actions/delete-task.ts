@@ -1,6 +1,6 @@
 "use server";
 
-import { authOptions } from "@taskbrew/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@taskbrew/app/api/auth/auth-options";
 import prisma from "@taskbrew/prisma/db";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";

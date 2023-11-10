@@ -1,4 +1,4 @@
-import { authOptions } from "@taskbrew/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@taskbrew/app/api/auth/auth-options";
 import { TaskBoard } from "@taskbrew/components/task-board";
 import prisma from "@taskbrew/prisma/db";
 import { Metadata } from "next";

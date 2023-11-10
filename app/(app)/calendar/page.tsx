@@ -1,4 +1,4 @@
-import { authOptions } from "@taskbrew/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@taskbrew/app/api/auth/auth-options";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
