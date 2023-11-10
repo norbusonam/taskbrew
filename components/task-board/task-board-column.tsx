@@ -38,6 +38,8 @@ export function TaskBoardColumn(props: Props) {
             ? "🗄️\u00a0\u00a0Not started"
             : props.type === "IN_PROGRESS"
             ? "🚧\u00a0\u00a0In progress"
+            : props.type === "BLOCKED"
+            ? "🛑\u00a0\u00a0Blocked"
             : "✅\u00a0\u00a0Completed"}
         </h2>
         <span className="text-sm text-neutral-500">

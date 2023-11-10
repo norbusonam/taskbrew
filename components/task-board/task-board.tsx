@@ -29,6 +29,9 @@ export function TaskBoard(props: Props) {
   const [optimisticInProgressTasks, setOptimisticInProgressTasks] = useState(
     props.tasks.filter((task) => task.status === "IN_PROGRESS"),
   );
+  const [optimisticBlockedTasks, setOptimisticBlockedTasks] = useState(
+    props.tasks.filter((task) => task.status === "BLOCKED"),
+  );
   const [optimisticCompletedTasks, setOptimisticCompletedTasks] = useState(
     props.tasks.filter((task) => task.status === "COMPLETED"),
   );
@@ -41,6 +44,9 @@ export function TaskBoard(props: Props) {
     );
     setOptimisticInProgressTasks(
       props.tasks.filter((task) => task.status === "IN_PROGRESS"),
+    );
+    setOptimisticBlockedTasks(
+      props.tasks.filter((task) => task.status === "BLOCKED"),
     );
     setOptimisticCompletedTasks(
       props.tasks.filter((task) => task.status === "COMPLETED"),
@@ -64,6 +70,11 @@ export function TaskBoard(props: Props) {
       id === "IN_PROGRESS"
     ) {
       return "IN_PROGRESS";
+    } else if (
+      optimisticBlockedTasks.find((task) => task.id === id) ||
+      id === "BLOCKED"
+    ) {
+      return "BLOCKED";
     } else if (
       optimisticCompletedTasks.find((task) => task.id === id) ||
       id === "COMPLETED"
@@ -92,6 +103,8 @@ export function TaskBoard(props: Props) {
         ? optimisticNotStartedTasks
         : activeColumn === "IN_PROGRESS"
         ? optimisticInProgressTasks
+        : activeColumn === "BLOCKED"
+        ? optimisticBlockedTasks
         : optimisticCompletedTasks;
     const fromIdx = tasks.findIndex((task) => task.id === e.active.id);
     const toIdx = tasks.findIndex((task) => e.over && task.id === e.over.id);
@@ -102,6 +115,8 @@ export function TaskBoard(props: Props) {
       setOptimisticNotStartedTasks(reorderedTasks);
     } else if (activeColumn === "IN_PROGRESS") {
       setOptimisticInProgressTasks(reorderedTasks);
+    } else if (activeColumn === "BLOCKED") {
+      setOptimisticBlockedTasks(reorderedTasks);
     } else if (activeColumn === "COMPLETED") {
       setOptimisticCompletedTasks(reorderedTasks);
     }
@@ -152,6 +167,10 @@ export function TaskBoard(props: Props) {
         setOptimisticInProgressTasks((tasks) =>
           tasks.filter((task) => task.id !== e.active.id),
         );
+      } else if (activeColumn === "BLOCKED") {
+        setOptimisticBlockedTasks((tasks) =>
+          tasks.filter((task) => task.id !== e.active.id),
+        );
       } else if (activeColumn === "COMPLETED") {
         setOptimisticCompletedTasks((tasks) =>
           tasks.filter((task) => task.id !== e.active.id),
@@ -162,6 +181,8 @@ export function TaskBoard(props: Props) {
         setOptimisticNotStartedTasks((tasks) => [...tasks, activeTask!]);
       } else if (overColumn === "IN_PROGRESS") {
         setOptimisticInProgressTasks((tasks) => [...tasks, activeTask!]);
+      } else if (overColumn === "BLOCKED") {
+        setOptimisticBlockedTasks((tasks) => [...tasks, activeTask!]);
       } else if (overColumn === "COMPLETED") {
         setOptimisticCompletedTasks((tasks) => [...tasks, activeTask!]);
       }
@@ -184,6 +205,11 @@ export function TaskBoard(props: Props) {
         <TaskBoardColumn
           type="IN_PROGRESS"
           tasks={optimisticInProgressTasks}
+          activeTask={activeTask}
+        />
+        <TaskBoardColumn
+          type="BLOCKED"
+          tasks={optimisticBlockedTasks}
           activeTask={activeTask}
         />
         <TaskBoardColumn

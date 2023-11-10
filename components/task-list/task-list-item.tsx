@@ -110,6 +110,8 @@ export function TaskListItem(props: Props) {
             ? "in progress"
             : optimisticTask.status === "IN_PROGRESS"
             ? "completed"
+            : optimisticTask.status === "BLOCKED"
+            ? "blocked"
             : "not started"
         }`}
         className="transition-opacity hover:opacity-75"
@@ -118,6 +120,8 @@ export function TaskListItem(props: Props) {
           <IconCheckSquareFilled className="h-5 w-5 text-green-500" />
         ) : optimisticTask.status === "IN_PROGRESS" ? (
           <IconMinusSquare className="h-5 w-5 text-blue-500" />
+        ) : optimisticTask.status === "BLOCKED" ? (
+          <IconMinusSquare className="h-5 w-5 text-red-500" />
         ) : (
           <IconSquare className="h-5 w-5 text-neutral-500" />
         )}
