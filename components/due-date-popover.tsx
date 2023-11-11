@@ -14,6 +14,7 @@ import {
   parseTimeInputToDate,
 } from "@taskbrew/utils/date";
 import { Fragment, useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
 import { IconCalendar, IconLeft, IconRight } from "./icons";
 
 type Props = {
@@ -273,6 +274,7 @@ export function DueDatePopover(props: Props) {
                         const parseTime = parseTimeInputToDate(e.target.value);
                         if (!parseTime) {
                           setTimeValue(getTimeFromDate(props.dueDate));
+                          toast.error("Invalid time");
                           return;
                         }
                         if (
