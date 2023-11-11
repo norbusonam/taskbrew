@@ -22,6 +22,7 @@ type Props = {
   dueDateIncludesTime: Task["dueDateIncludesTime"];
   onDueDateChanged: (dueDate: Task["dueDate"]) => void;
   onDueDateIncludesTimeChanged: (dueDateIncludesTime: boolean) => void;
+  fadedAppearance?: boolean;
 };
 
 export function DueDatePopover(props: Props) {
@@ -90,7 +91,9 @@ export function DueDatePopover(props: Props) {
         <>
           <Popover.Button
             className={`flex items-center gap-1 rounded-md px-1 transition-colors hover:bg-neutral-200 active:bg-neutral-300 dark:hover:bg-neutral-800 dark:active:bg-neutral-700 ${
-              props.dueDate && isPastDue(props.dueDate)
+              props.fadedAppearance
+                ? "text-neutral-500"
+                : props.dueDate && isPastDue(props.dueDate)
                 ? "text-red-500"
                 : props.dueDate && isToday(props.dueDate)
                 ? "text-orange-500"

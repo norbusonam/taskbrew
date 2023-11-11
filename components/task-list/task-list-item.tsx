@@ -173,6 +173,7 @@ export function TaskListItem(props: Props) {
               setOptimisticTask((prev) => ({ ...prev, dueDateIncludesTime }));
               onUpdateTask({ dueDateIncludesTime });
             }}
+            fadedAppearance={optimisticTask.status === "COMPLETED"}
           />
           {/* duration */}
           <DurationMenu
