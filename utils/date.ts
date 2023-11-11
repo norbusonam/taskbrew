@@ -74,8 +74,10 @@ export const getNumberOfDaysInMonth = (month: number, year: number) => {
   return new Date(year, month, 0).getDate();
 };
 
-export const isPastDue = (date: Date) => {
-  return date < new Date();
+export const isOverdue = (date: Date, accountForTime: boolean) => {
+  return accountForTime
+    ? date < new Date()
+    : date < new Date(new Date().setHours(0, 0, 0, 0));
 };
 
 export const isYesterday = (date: Date) => {
