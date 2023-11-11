@@ -105,3 +105,26 @@ export const isLaterThisWeek = (date: Date) => {
 export const isThisYear = (date: Date) => {
   return date.getFullYear() === new Date().getFullYear();
 };
+
+export const getTimeFromDate = (date: Date) => {
+  return date.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
+
+export const parseTimeInputToDate = (time: string) => {
+  const timeRegex = /^(0?[1-9]|1[0-2]):[0-5]\d\s?(am|pm|a|p)?$/i;
+  const match = time.match(timeRegex);
+  if (!match) return null;
+  const [hour, minute] = match[0].split(":");
+  const isPm = match[2] && match[2].toLowerCase().startsWith("p");
+  const date = new Date();
+  if (hour === "12") {
+    date.setHours(isPm ? 12 : 0);
+  } else {
+    date.setHours(isPm ? parseInt(hour) + 12 : parseInt(hour));
+  }
+  date.setMinutes(parseInt(minute));
+  return date;
+};

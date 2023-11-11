@@ -4,14 +4,16 @@ import {
   DAYS,
   MONTHS,
   getNumberOfDaysInMonth,
+  getTimeFromDate,
   isLaterThisWeek,
   isPastDue,
   isThisYear,
   isToday,
   isTomorrow,
   isYesterday,
+  parseTimeInputToDate,
 } from "@taskbrew/utils/date";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { IconCalendar, IconLeft, IconRight } from "./icons";
 
 type Props = {
@@ -28,7 +30,17 @@ export function DueDatePopover(props: Props) {
   const [currentYear, setCurrentYear] = useState(
     props.dueDate ? props.dueDate.getFullYear() : new Date().getFullYear(),
   );
+  const [timeValue, setTimeValue] = useState(
+    props.dueDate ? getTimeFromDate(props.dueDate) : "",
+  );
+  const timeInputRef = useRef<HTMLInputElement>(null);
   const today = new Date();
+
+  useEffect(() => {
+    if (props.dueDate) {
+      setTimeValue(getTimeFromDate(props.dueDate));
+    }
+  }, [props.dueDate]);
 
   const nextMonth = () => {
     if (currentMonth === 11) {
@@ -63,6 +75,12 @@ export function DueDatePopover(props: Props) {
   const onToday = () => {
     setCurrentMonth(new Date().getMonth());
     setCurrentYear(new Date().getFullYear());
+  };
+
+  const handleTimeKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      timeInputRef.current?.blur();
+    }
   };
 
   return (
@@ -103,9 +121,7 @@ export function DueDatePopover(props: Props) {
                 // show time if due date includes time
                 props.dueDateIncludesTime &&
                   props.dueDate &&
-                  ` at ${props.dueDate
-                    .toLocaleTimeString()
-                    .replace(/:\d+ /, " ")}`
+                  ` at ${getTimeFromDate(props.dueDate)}`
               }
             </span>
           </Popover.Button>
@@ -217,65 +233,59 @@ export function DueDatePopover(props: Props) {
                 </div>
                 {/* show includes time toggle if date is selected */}
                 {props.dueDate && (
-                  <>
-                    <div className="flex items-center justify-between px-1">
-                      <p className="text-xs">Includes time</p>
-                      <Switch
-                        checked={props.dueDateIncludesTime}
-                        onChange={(checked) =>
-                          props.onDueDateIncludesTimeChanged(checked)
-                        }
-                        className={`inline-flex h-4 w-7 shrink-0 items-center rounded-full border-2 border-transparent bg-neutral-300 transition-colors duration-200 ease-in-out dark:bg-neutral-700 ${
-                          props.dueDateIncludesTime && "bg-blue-500"
-                        }`}
-                      >
-                        <span className="sr-only">Include time</span>
-                        <span
-                          aria-hidden="true"
-                          className={`${
-                            props.dueDateIncludesTime
-                              ? "translate-x-3"
-                              : "translate-x-0"
-                          } pointer-events-none inline-block h-3 w-3 transform rounded-full bg-white shadow-lg transition duration-200 ease-in-out`}
-                        />
-                      </Switch>
-                    </div>
-                  </>
+                  <div className="flex items-center justify-between px-1">
+                    <p className="text-xs">Includes time</p>
+                    <Switch
+                      checked={props.dueDateIncludesTime}
+                      onChange={(checked) =>
+                        props.onDueDateIncludesTimeChanged(checked)
+                      }
+                      className={`inline-flex h-4 w-7 shrink-0 items-center rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out ${
+                        props.dueDateIncludesTime
+                          ? "bg-blue-500"
+                          : "bg-neutral-300 dark:bg-neutral-700"
+                      }`}
+                    >
+                      <span className="sr-only">Include time</span>
+                      <span
+                        aria-hidden="true"
+                        className={`${
+                          props.dueDateIncludesTime
+                            ? "translate-x-3"
+                            : "translate-x-0"
+                        } pointer-events-none inline-block h-3 w-3 transform rounded-full bg-white shadow-lg transition duration-200 ease-in-out`}
+                      />
+                    </Switch>
+                  </div>
                 )}
                 {/*  show time picker if date is selected and includes time is true */}
                 {props.dueDate && props.dueDateIncludesTime && (
-                  <>
-                    <div className="flex items-center justify-between px-1">
-                      <p className="text-xs">Time</p>
-                      <div>
-                        {/* TODO: improve this from using the native time picker */}
-                        <input
-                          type="time"
-                          className="rounded-md bg-transparent text-right text-xs"
-                          value={`${props.dueDate
-                            .getHours()
-                            .toString()
-                            .padStart(2, "0")}:${props.dueDate
-                            .getMinutes()
-                            .toString()
-                            .padStart(2, "0")}`}
-                          onChange={(e) => {
-                            props.dueDate &&
-                              onDateSelected(
-                                new Date(
-                                  props.dueDate.getFullYear(),
-                                  props.dueDate.getMonth(),
-                                  props.dueDate.getDate(),
-                                  parseInt(e.target.value.split(":")[0]),
-                                  parseInt(e.target.value.split(":")[1]),
-                                  0,
-                                ),
-                              );
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </>
+                  <div className="flex items-center justify-between px-1">
+                    <p className="text-xs">Time</p>
+                    <input
+                      className="w-1/2 bg-transparent py-1 text-right text-xs outline-none"
+                      ref={timeInputRef}
+                      value={timeValue}
+                      onKeyDown={handleTimeKeyDown}
+                      onChange={(e) => setTimeValue(e.target.value)}
+                      onBlur={(e) => {
+                        if (!props.dueDate) return;
+                        const parseTime = parseTimeInputToDate(e.target.value);
+                        if (!parseTime) {
+                          setTimeValue(getTimeFromDate(props.dueDate));
+                          return;
+                        }
+                        if (
+                          parseTime.getHours() !== props.dueDate.getHours() ||
+                          parseTime.getMinutes() !== props.dueDate.getMinutes()
+                        ) {
+                          props.onDueDateChanged(parseTime);
+                        } else {
+                          setTimeValue(getTimeFromDate(props.dueDate));
+                        }
+                      }}
+                    />
+                  </div>
                 )}
               </div>
             </Popover.Panel>
