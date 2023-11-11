@@ -46,6 +46,7 @@ export function TaskListItem(props: Props) {
   const [isTaskActive, setIsTaskActive] = useState(
     props.isDragOverlay ?? false,
   );
+  const [isStatusActive, setIsStatusActive] = useState(false);
   const [optimisticTask, setOptimisticTask] = useState(props.task);
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({
@@ -103,29 +104,52 @@ export function TaskListItem(props: Props) {
       onFocus={() => setIsTaskActive(true)}
       onBlur={() => setIsTaskActive(false)}
     >
-      <button
-        onClick={onUpdateStatus}
-        aria-label={`Mark task as ${
-          optimisticTask.status === "NOT_STARTED"
-            ? "in progress"
-            : optimisticTask.status === "IN_PROGRESS"
-            ? "completed"
-            : optimisticTask.status === "BLOCKED"
-            ? "blocked"
-            : "not started"
-        }`}
-        className="transition-opacity hover:opacity-75"
-      >
-        {optimisticTask.status === "COMPLETED" ? (
-          <IconCheckSquareFilled className="h-5 w-5 text-green-500" />
-        ) : optimisticTask.status === "IN_PROGRESS" ? (
-          <IconMinusSquare className="h-5 w-5 text-blue-500" />
-        ) : optimisticTask.status === "BLOCKED" ? (
-          <IconMinusSquare className="h-5 w-5 text-red-500" />
-        ) : (
-          <IconSquare className="h-5 w-5 text-neutral-500" />
-        )}
-      </button>
+      <div className="flex">
+        <button
+          onClick={onUpdateStatus}
+          onMouseEnter={() => setIsStatusActive(true)}
+          onMouseLeave={() => setIsStatusActive(false)}
+          onFocus={() => setIsStatusActive(true)}
+          onBlur={() => setIsStatusActive(false)}
+          aria-label={`Mark task as ${
+            optimisticTask.status === "NOT_STARTED"
+              ? "in progress"
+              : optimisticTask.status === "IN_PROGRESS"
+              ? "completed"
+              : optimisticTask.status === "BLOCKED"
+              ? "blocked"
+              : "not started"
+          }`}
+          className="transition-opacity hover:opacity-75"
+        >
+          {optimisticTask.status === "COMPLETED" ? (
+            <IconCheckSquareFilled className="h-5 w-5 text-green-500" />
+          ) : optimisticTask.status === "IN_PROGRESS" ? (
+            <IconMinusSquare className="h-5 w-5 text-blue-500" />
+          ) : optimisticTask.status === "BLOCKED" ? (
+            <IconMinusSquare className="h-5 w-5 text-red-500" />
+          ) : (
+            <IconSquare className="h-5 w-5 text-neutral-500" />
+          )}
+        </button>
+
+        <Transition
+          show={isStatusActive}
+          leave="transition-opacity"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="absolute z-10 -translate-x-5 -translate-y-8 rounded-md bg-neutral-300 px-2 py-1 text-sm shadow-md dark:bg-neutral-700">
+            {optimisticTask.status === "NOT_STARTED"
+              ? "Not started"
+              : optimisticTask.status === "IN_PROGRESS"
+              ? "In progress"
+              : optimisticTask.status === "BLOCKED"
+              ? "Blocked"
+              : "Completed"}
+          </div>
+        </Transition>
+      </div>
       <div className="w-full space-y-1">
         {/* editable title */}
         <EditableTitle
