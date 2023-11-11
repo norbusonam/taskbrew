@@ -71,6 +71,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     // update width on mouse moves
     const onMouseMove = (e: MouseEvent) => {
       const newWidth = computerNewWidth(initialWidth, initialX, e.clientX);
+      if (newWidth === MIN_SIDEBAR_WIDTH) {
+        document.body.style.cursor = "e-resize";
+      } else if (newWidth === MAX_SIDEBAR_WIDTH) {
+        document.body.style.cursor = "w-resize";
+      } else {
+        document.body.style.cursor = "col-resize";
+      }
       setSidebarWidth(newWidth);
     };
 
@@ -80,10 +87,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       window.removeEventListener("mouseup", onMouseUp);
       const newWidth = computerNewWidth(initialWidth, initialX, e.clientX);
       setSidebarWidth(newWidth);
+      document.body.style.cursor = "";
       localStorage.setItem("sidebarWidth", newWidth.toString());
     };
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("mouseup", onMouseUp);
+    document.body.style.cursor = "col-resize";
   };
 
   return (
