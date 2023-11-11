@@ -4,6 +4,7 @@ import Markdown from "react-markdown";
 
 type Props = {
   title: Task["title"];
+  fadedAppearance?: boolean;
   onTitleChanged: (title: string) => void;
 };
 
@@ -30,14 +31,18 @@ export function EditableTitle(props: Props) {
       autoFocus
       ref={titleInputRef}
       type="text"
-      className="w-full rounded-md bg-transparent px-1 outline-none"
+      className={`w-full rounded-md bg-transparent px-1 outline-none ${
+        props.fadedAppearance && "text-neutral-500"
+      }`}
       onKeyDown={handleKeyDown}
       defaultValue={props.title}
       onBlur={updateTitle}
     />
   ) : (
     <button
-      className="rounded-md px-1 text-left transition-colors hover:bg-neutral-200 active:bg-neutral-300 dark:hover:bg-neutral-800 dark:active:bg-neutral-700"
+      className={`rounded-md px-1 text-left transition-colors hover:bg-neutral-200 active:bg-neutral-300 dark:hover:bg-neutral-800 dark:active:bg-neutral-700 ${
+        props.fadedAppearance && "text-neutral-500"
+      }`}
       onClick={() => setIsEditingTitle(true)}
     >
       <Markdown className="line-clamp-1 whitespace-pre-wrap">
