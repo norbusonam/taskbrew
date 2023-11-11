@@ -108,7 +108,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           }}
         >
           <div
-            className={`space-y-2 overflow-scroll ${
+            className={`space-y-2 ${
               isSmallSidebarView ? "text-center" : "text-left"
             }`}
           >
