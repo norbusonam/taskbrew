@@ -1,4 +1,4 @@
-import { Popover, Transition } from "@headlessui/react";
+import { Popover, Switch, Transition } from "@headlessui/react";
 import { Task } from "@taskbrew/prisma/db";
 import {
   DAYS,
@@ -220,15 +220,25 @@ export function DueDatePopover(props: Props) {
                   <>
                     <div className="flex items-center justify-between px-1">
                       <p className="text-xs">Includes time</p>
-                      {/* TODO:  update this to use a custom toggle */}
-                      <input
-                        type="checkbox"
-                        className="rounded-md"
+                      <Switch
                         checked={props.dueDateIncludesTime}
-                        onChange={(e) =>
-                          props.onDueDateIncludesTimeChanged(e.target.checked)
+                        onChange={(checked) =>
+                          props.onDueDateIncludesTimeChanged(checked)
                         }
-                      />
+                        className={`inline-flex h-4 w-7 shrink-0 items-center rounded-full border-2 border-transparent bg-neutral-300 transition-colors duration-200 ease-in-out dark:bg-neutral-700 ${
+                          props.dueDateIncludesTime && "bg-blue-500"
+                        }`}
+                      >
+                        <span className="sr-only">Include time</span>
+                        <span
+                          aria-hidden="true"
+                          className={`${
+                            props.dueDateIncludesTime
+                              ? "translate-x-3"
+                              : "translate-x-0"
+                          } pointer-events-none inline-block h-3 w-3 transform rounded-full bg-white shadow-lg transition duration-200 ease-in-out`}
+                        />
+                      </Switch>
                     </div>
                   </>
                 )}
