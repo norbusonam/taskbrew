@@ -118,7 +118,7 @@ export function DueDatePopover(props: Props) {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Popover.Panel className="absolute z-10 mt-1 w-48 origin-top-left overflow-scroll rounded-md bg-neutral-200 p-2 shadow-xl dark:bg-neutral-800">
+            <Popover.Panel className="absolute z-10 mt-1 w-48 origin-top-left rounded-md bg-neutral-200 p-2 shadow-xl dark:bg-neutral-800">
               <div className="space-y-1">
                 {/* current month and year with next and previous buttons */}
                 <div className="flex items-center justify-between">
