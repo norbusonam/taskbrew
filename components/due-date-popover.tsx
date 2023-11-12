@@ -64,6 +64,10 @@ export function DueDatePopover(props: Props) {
 
   const onDateSelected = (date: Date) => {
     if (props.dueDate?.getTime() !== date.getTime()) {
+      if (props.dueDate) {
+        date.setHours(props.dueDate.getHours());
+        date.setMinutes(props.dueDate.getMinutes());
+      }
       props.onDueDateChanged(date);
     }
   };
