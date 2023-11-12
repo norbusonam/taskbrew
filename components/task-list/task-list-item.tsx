@@ -13,6 +13,7 @@ import {
 } from "@taskbrew/server-actions/update-task";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { ButtonWithTooltip } from "../button-with-tooltip";
 import { DueDatePopover } from "../due-date-popover";
 import { DurationMenu } from "../duration-menu";
 import { EditableTitle } from "../editable-title";
@@ -46,7 +47,6 @@ export function TaskListItem(props: Props) {
   const [isTaskActive, setIsTaskActive] = useState(
     props.isDragOverlay ?? false,
   );
-  const [isStatusActive, setIsStatusActive] = useState(false);
   const [optimisticTask, setOptimisticTask] = useState(props.task);
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({
@@ -105,22 +105,19 @@ export function TaskListItem(props: Props) {
       onBlur={() => setIsTaskActive(false)}
     >
       <div className="flex">
-        <button
+        <ButtonWithTooltip
           onClick={onUpdateStatus}
-          onMouseEnter={() => setIsStatusActive(true)}
-          onMouseLeave={() => setIsStatusActive(false)}
-          onFocus={() => setIsStatusActive(true)}
-          onBlur={() => setIsStatusActive(false)}
-          aria-label={`Mark task as ${
-            optimisticTask.status === "NOT_STARTED"
-              ? "in progress"
-              : optimisticTask.status === "IN_PROGRESS"
-              ? "completed"
-              : optimisticTask.status === "BLOCKED"
-              ? "blocked"
-              : "not started"
-          }`}
           className="transition-opacity hover:opacity-75"
+          placement="top-start"
+          tooltip={
+            optimisticTask.status === "NOT_STARTED"
+              ? "Not started"
+              : optimisticTask.status === "IN_PROGRESS"
+              ? "In progress"
+              : optimisticTask.status === "BLOCKED"
+              ? "Blocked"
+              : "Completed"
+          }
         >
           {optimisticTask.status === "COMPLETED" ? (
             <IconCheckSquareFilled className="h-5 w-5 text-green-500" />
@@ -131,24 +128,7 @@ export function TaskListItem(props: Props) {
           ) : (
             <IconSquare className="h-5 w-5 text-neutral-500" />
           )}
-        </button>
-
-        <Transition
-          show={isStatusActive}
-          leave="transition-opacity"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div className="absolute z-10 -translate-x-5 -translate-y-8 rounded-md bg-neutral-300 px-2 py-1 text-sm shadow-md dark:bg-neutral-700">
-            {optimisticTask.status === "NOT_STARTED"
-              ? "Not started"
-              : optimisticTask.status === "IN_PROGRESS"
-              ? "In progress"
-              : optimisticTask.status === "BLOCKED"
-              ? "Blocked"
-              : "Completed"}
-          </div>
-        </Transition>
+        </ButtonWithTooltip>
       </div>
       <div className="w-full space-y-1">
         {/* editable title */}
