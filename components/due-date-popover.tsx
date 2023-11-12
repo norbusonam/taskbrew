@@ -68,6 +68,32 @@ export function DueDatePopover(props: Props) {
     }
   };
 
+  const onTimeSelected = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (!props.dueDate) return;
+    const parseTime = parseTimeInputToDate(e.target.value);
+    if (!parseTime) {
+      setTimeValue(getTimeFromDate(props.dueDate));
+      toast.error("Invalid time");
+      return;
+    }
+    if (
+      parseTime.getHours() !== props.dueDate.getHours() ||
+      parseTime.getMinutes() !== props.dueDate.getMinutes()
+    ) {
+      props.onDueDateChanged(
+        new Date(
+          props.dueDate.getFullYear(),
+          props.dueDate.getMonth(),
+          props.dueDate.getDate(),
+          parseTime.getHours(),
+          parseTime.getMinutes(),
+        ),
+      );
+    } else {
+      setTimeValue(getTimeFromDate(props.dueDate));
+    }
+  };
+
   const onClear = () => {
     if (props.dueDate) {
       props.onDueDateChanged(null);
@@ -273,31 +299,7 @@ export function DueDatePopover(props: Props) {
                       value={timeValue}
                       onKeyDown={handleTimeKeyDown}
                       onChange={(e) => setTimeValue(e.target.value)}
-                      onBlur={(e) => {
-                        if (!props.dueDate) return;
-                        const parseTime = parseTimeInputToDate(e.target.value);
-                        if (!parseTime) {
-                          setTimeValue(getTimeFromDate(props.dueDate));
-                          toast.error("Invalid time");
-                          return;
-                        }
-                        if (
-                          parseTime.getHours() !== props.dueDate.getHours() ||
-                          parseTime.getMinutes() !== props.dueDate.getMinutes()
-                        ) {
-                          props.onDueDateChanged(
-                            new Date(
-                              props.dueDate.getFullYear(),
-                              props.dueDate.getMonth(),
-                              props.dueDate.getDate(),
-                              parseTime.getHours(),
-                              parseTime.getMinutes(),
-                            ),
-                          );
-                        } else {
-                          setTimeValue(getTimeFromDate(props.dueDate));
-                        }
-                      }}
+                      onBlur={onTimeSelected}
                     />
                   </div>
                 )}
