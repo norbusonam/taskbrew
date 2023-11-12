@@ -285,7 +285,15 @@ export function DueDatePopover(props: Props) {
                           parseTime.getHours() !== props.dueDate.getHours() ||
                           parseTime.getMinutes() !== props.dueDate.getMinutes()
                         ) {
-                          props.onDueDateChanged(parseTime);
+                          props.onDueDateChanged(
+                            new Date(
+                              props.dueDate.getFullYear(),
+                              props.dueDate.getMonth(),
+                              props.dueDate.getDate(),
+                              parseTime.getHours(),
+                              parseTime.getMinutes(),
+                            ),
+                          );
                         } else {
                           setTimeValue(getTimeFromDate(props.dueDate));
                         }
