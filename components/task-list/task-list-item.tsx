@@ -13,20 +13,12 @@ import {
 } from "@taskbrew/server-actions/update-task";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { ButtonWithTooltip } from "../button-with-tooltip";
 import { DueDatePopover } from "../due-date-popover";
 import { DurationMenu } from "../duration-menu";
 import { EditableTitle } from "../editable-title";
-import {
-  IconCheckSquare,
-  IconCheckSquareFilled,
-  IconDelete,
-  IconLoading,
-  IconMenu,
-  IconMinusSquare,
-  IconSquare,
-} from "../icons";
+import { IconCheckSquare, IconDelete, IconLoading, IconMenu } from "../icons";
 import { ImportantToggle } from "../important-toggle";
+import { StatusButton } from "../status-button";
 
 const animateLayoutChanges: AnimateLayoutChanges = (args) => {
   const { isSorting, wasDragging } = args;
@@ -81,17 +73,6 @@ export function TaskListItem(props: Props) {
       .catch(() => setIsLoadingDelete(false));
   };
 
-  const onUpdateStatus = () => {
-    const newStatus =
-      optimisticTask.status === "NOT_STARTED"
-        ? "IN_PROGRESS"
-        : optimisticTask.status === "IN_PROGRESS"
-        ? "COMPLETED"
-        : "NOT_STARTED";
-    setOptimisticTask((prev) => ({ ...prev, status: newStatus }));
-    onUpdateTask({ status: newStatus });
-  };
-
   return (
     <div
       id={props.task.id}
@@ -104,32 +85,13 @@ export function TaskListItem(props: Props) {
       onFocus={() => setIsTaskActive(true)}
       onBlur={() => setIsTaskActive(false)}
     >
-      <div className="flex">
-        <ButtonWithTooltip
-          onClick={onUpdateStatus}
-          className="transition-opacity hover:opacity-75"
-          placement="top-start"
-          tooltip={
-            optimisticTask.status === "NOT_STARTED"
-              ? "Not started"
-              : optimisticTask.status === "IN_PROGRESS"
-              ? "In progress"
-              : optimisticTask.status === "BLOCKED"
-              ? "Blocked"
-              : "Completed"
-          }
-        >
-          {optimisticTask.status === "COMPLETED" ? (
-            <IconCheckSquareFilled className="h-5 w-5 text-green-500" />
-          ) : optimisticTask.status === "IN_PROGRESS" ? (
-            <IconMinusSquare className="h-5 w-5 text-blue-500" />
-          ) : optimisticTask.status === "BLOCKED" ? (
-            <IconMinusSquare className="h-5 w-5 text-red-500" />
-          ) : (
-            <IconSquare className="h-5 w-5 text-neutral-500" />
-          )}
-        </ButtonWithTooltip>
-      </div>
+      <StatusButton
+        status={optimisticTask.status}
+        onStatusChange={(status) => {
+          setOptimisticTask((prev) => ({ ...prev, status }));
+          onUpdateTask({ status });
+        }}
+      />
       <div className="w-full space-y-1">
         {/* editable title */}
         <EditableTitle
