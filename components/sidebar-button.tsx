@@ -14,7 +14,7 @@ export function SidebarButton(props: Props) {
     <ButtonWithTooltip
       tooltip={props.text}
       offset={{ mainAxis: 24 }}
-      placement="right-start"
+      placement="right"
       disableTooltip={!props.hideText}
       className={`flex w-full flex-row items-center justify-start gap-2 rounded-md p-2 transition-colors hover:bg-neutral-200 active:bg-neutral-300 dark:hover:bg-neutral-800 dark:active:bg-neutral-700 ${
         props.active && "bg-neutral-200 dark:bg-neutral-800"
