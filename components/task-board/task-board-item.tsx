@@ -1,5 +1,6 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { Transition } from "@headlessui/react";
 import { Task } from "@taskbrew/prisma/db";
 import {
   UpdateTaskBody,
@@ -15,11 +16,13 @@ import { ImportantToggle } from "../important-toggle";
 
 type Props = {
   task: Task;
+  isDragOverlay?: boolean;
   className?: string;
 };
 
 export function TaskBoardItem(props: Props) {
   const [optimisticTask, setOptimisticTask] = useState(props.task);
+  const [isTaskActive, setIsTaskActive] = useState(false);
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({
       id: props.task.id,
@@ -43,6 +46,10 @@ export function TaskBoardItem(props: Props) {
 
   return (
     <div
+      onMouseEnter={() => setIsTaskActive(true)}
+      onMouseLeave={() => setIsTaskActive(false)}
+      onFocus={() => setIsTaskActive(true)}
+      onBlur={() => setIsTaskActive(false)}
       className={`cursor-default space-y-1 rounded-md bg-neutral-50 p-2 shadow-md dark:bg-neutral-950 ${props.className}`}
       style={style}
       ref={setNodeRef}
@@ -56,12 +63,22 @@ export function TaskBoardItem(props: Props) {
             onUpdateTask({ title });
           }}
         />
-        <button
-          {...listeners}
-          className="cursor-move rounded-md p-1 transition-colors hover:bg-neutral-300 dark:hover:bg-neutral-700"
+        <Transition
+          show={props.isDragOverlay || isTaskActive}
+          enter="transition-opacity"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="transition-opacity"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
         >
-          <IconHolder className="h-3 w-3" />
-        </button>
+          <button
+            {...listeners}
+            className="cursor-move rounded-md p-1 transition-colors hover:bg-neutral-300 dark:hover:bg-neutral-700"
+          >
+            <IconHolder className="h-3 w-3" />
+          </button>
+        </Transition>
       </div>
       <div className="flex gap-1">
         <DueDatePopover

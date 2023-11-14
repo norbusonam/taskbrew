@@ -218,7 +218,9 @@ export function TaskBoard(props: Props) {
           activeTask={activeTask}
         />
         <DragOverlay>
-          {activeTask ? <TaskBoardItem task={activeTask} /> : null}
+          {activeTask ? (
+            <TaskBoardItem task={activeTask} isDragOverlay />
+          ) : null}
         </DragOverlay>
       </DndContext>
     </div>
