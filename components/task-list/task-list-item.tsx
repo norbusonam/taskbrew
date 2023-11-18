@@ -15,7 +15,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { DueDatePopover } from "../due-date-popover";
 import { DurationMenu } from "../duration-menu";
-import { EditableTitle } from "../editable-title";
+import { EditableText } from "../editable-text";
 import { IconCheckSquare, IconDelete, IconLoading, IconMenu } from "../icons";
 import { ImportantToggle } from "../important-toggle";
 import { StatusButton } from "../status-button";
@@ -94,10 +94,10 @@ export function TaskListItem(props: Props) {
       />
       <div className="w-full space-y-1">
         {/* editable title */}
-        <EditableTitle
-          title={optimisticTask.title}
+        <EditableText
+          text={optimisticTask.title}
           fadedAppearance={optimisticTask.status === "COMPLETED"}
-          onTitleChanged={(title) => {
+          onTextChanged={(title) => {
             setOptimisticTask((prev) => ({ ...prev, title }));
             onUpdateTask({ title });
           }}

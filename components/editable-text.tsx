@@ -1,52 +1,51 @@
-import { Task } from "@taskbrew/prisma/db";
 import { useRef, useState } from "react";
 import Markdown from "react-markdown";
 
 type Props = {
-  title: Task["title"];
+  text: string;
   fadedAppearance?: boolean;
-  onTitleChanged: (title: string) => void;
+  onTextChanged: (text: string) => void;
 };
 
-export function EditableTitle(props: Props) {
-  const [isEditingTitle, setIsEditingTitle] = useState(false);
-  const titleInputRef = useRef<HTMLInputElement>(null);
+export function EditableText(props: Props) {
+  const [isEditingText, setIsEditingText] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      titleInputRef.current?.blur();
+      inputRef.current?.blur();
     }
   };
 
-  const updateTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setIsEditingTitle(false);
-    const newTitle = e.target.value.trim();
-    if (newTitle && newTitle !== props.title) {
-      props.onTitleChanged(newTitle);
+  const updateText = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsEditingText(false);
+    const newText = e.target.value.trim();
+    if (newText && newText !== props.text) {
+      props.onTextChanged(newText);
     }
   };
 
-  return isEditingTitle ? (
+  return isEditingText ? (
     <input
       autoFocus
-      ref={titleInputRef}
+      ref={inputRef}
       type="text"
       className={`w-full rounded-md bg-transparent px-1 outline-none ${
         props.fadedAppearance && "text-neutral-500"
       }`}
       onKeyDown={handleKeyDown}
-      defaultValue={props.title}
-      onBlur={updateTitle}
+      defaultValue={props.text}
+      onBlur={updateText}
     />
   ) : (
     <button
       className={`rounded-md px-1 text-left transition-colors hover:bg-neutral-200 active:bg-neutral-300 dark:hover:bg-neutral-800 dark:active:bg-neutral-700 ${
         props.fadedAppearance && "text-neutral-500"
       }`}
-      onClick={() => setIsEditingTitle(true)}
+      onClick={() => setIsEditingText(true)}
     >
       <Markdown className="line-clamp-1 whitespace-pre-wrap">
-        {props.title}
+        {props.text}
       </Markdown>
     </button>
   );

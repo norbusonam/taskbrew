@@ -10,7 +10,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { DueDatePopover } from "../due-date-popover";
 import { DurationMenu } from "../duration-menu";
-import { EditableTitle } from "../editable-title";
+import { EditableText } from "../editable-text";
 import { IconHolder } from "../icons";
 import { ImportantToggle } from "../important-toggle";
 
@@ -56,9 +56,9 @@ export function TaskBoardItem(props: Props) {
       {...attributes}
     >
       <div className="flex items-center justify-between">
-        <EditableTitle
-          title={optimisticTask.title}
-          onTitleChanged={(title) => {
+        <EditableText
+          text={optimisticTask.title}
+          onTextChanged={(title) => {
             setOptimisticTask((prev) => ({ ...prev, title }));
             onUpdateTask({ title });
           }}
