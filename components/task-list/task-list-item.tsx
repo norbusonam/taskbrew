@@ -166,16 +166,18 @@ export function TaskListItem(props: Props) {
             tooltip="Show details"
             placement="top-start"
             onClick={() => props.onShowDetails?.(props.task)}
+            disableTooltip={props.isDragOverlay}
             className="rounded-md p-1 text-neutral-500 transition-colors hover:text-neutral-600 active:text-neutral-700 dark:hover:text-neutral-400 dark:active:text-neutral-300"
           >
             <IconExpandAlt className="h-5 w-5" />
           </ButtonWithTooltip>
           {props.task.status !== "COMPLETED" && (
             <ButtonWithTooltip
-              {...listeners}
               tooltip="Reorder task"
               placement="top"
               aria-label="Reorder task"
+              draggableListeners={listeners}
+              disableTooltip={props.isDragOverlay}
               className="rounded-md p-1 text-neutral-500 transition-colors hover:text-neutral-600 active:text-neutral-700 dark:hover:text-neutral-400 dark:active:text-neutral-300"
             >
               <IconMenu className="h-5 w-5" />
@@ -191,6 +193,7 @@ export function TaskListItem(props: Props) {
               placement="top-end"
               onClick={onDeleteTask}
               aria-label="Delete task"
+              disableTooltip={props.isDragOverlay}
               className="rounded-md p-1 text-red-400 transition-colors  hover:text-red-500 active:text-red-600"
             >
               <IconDelete className="h-5 w-5" />
