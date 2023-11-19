@@ -13,6 +13,7 @@ import {
 } from "@taskbrew/server-actions/update-task";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { ButtonWithTooltip } from "../button-with-tooltip";
 import { DueDatePopover } from "../due-date-popover";
 import { DurationMenu } from "../duration-menu";
 import { EditableText } from "../editable-text";
@@ -161,33 +162,39 @@ export function TaskListItem(props: Props) {
         leaveTo="opacity-0"
       >
         <div className="flex gap-1">
-          <button
+          <ButtonWithTooltip
+            tooltip="Show details"
+            placement="top-start"
             onClick={() => props.onShowDetails?.(props.task)}
             className="rounded-md p-1 text-neutral-500 transition-colors hover:text-neutral-600 active:text-neutral-700 dark:hover:text-neutral-400 dark:active:text-neutral-300"
           >
             <IconExpandAlt className="h-5 w-5" />
-          </button>
+          </ButtonWithTooltip>
           {props.task.status !== "COMPLETED" && (
-            <button
+            <ButtonWithTooltip
               {...listeners}
+              tooltip="Reorder task"
+              placement="top"
               aria-label="Reorder task"
               className="rounded-md p-1 text-neutral-500 transition-colors hover:text-neutral-600 active:text-neutral-700 dark:hover:text-neutral-400 dark:active:text-neutral-300"
             >
               <IconMenu className="h-5 w-5" />
-            </button>
+            </ButtonWithTooltip>
           )}
           {isLoadingDelete ? (
             <div className="p-1">
               <IconLoading className="h-5 w-5 animate-spin text-red-600" />
             </div>
           ) : (
-            <button
+            <ButtonWithTooltip
+              tooltip="Delete task"
+              placement="top-end"
               onClick={onDeleteTask}
               aria-label="Delete task"
               className="rounded-md p-1 text-red-400 transition-colors  hover:text-red-500 active:text-red-600"
             >
               <IconDelete className="h-5 w-5" />
-            </button>
+            </ButtonWithTooltip>
           )}
         </div>
       </Transition>
