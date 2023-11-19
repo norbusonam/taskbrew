@@ -1,3 +1,4 @@
+import { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
 import {
   OffsetOptions,
   Placement,
@@ -14,6 +15,7 @@ type Props = {
   disableTooltip?: boolean;
   className?: string;
   offset?: OffsetOptions;
+  draggableListeners?: SyntheticListenerMap;
   onClick?: () => void;
 };
 
@@ -28,6 +30,7 @@ export function ButtonWithTooltip(props: Props) {
   return (
     <>
       <button
+        {...props.draggableListeners}
         className={props.className}
         ref={refs.setReference}
         onMouseEnter={() => setIsActive(true)}
