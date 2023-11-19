@@ -16,7 +16,13 @@ import toast from "react-hot-toast";
 import { DueDatePopover } from "../due-date-popover";
 import { DurationMenu } from "../duration-menu";
 import { EditableText } from "../editable-text";
-import { IconCheckSquare, IconDelete, IconLoading, IconMenu } from "../icons";
+import {
+  IconCheckSquare,
+  IconDelete,
+  IconExpandAlt,
+  IconLoading,
+  IconMenu,
+} from "../icons";
 import { ImportantToggle } from "../important-toggle";
 import { StatusButton } from "../status-button";
 
@@ -30,6 +36,7 @@ const animateLayoutChanges: AnimateLayoutChanges = (args) => {
 
 type Props = {
   task: Task;
+  onShowDetails?: (task: Task) => void;
   isDragOverlay?: boolean;
   className?: string;
 };
@@ -154,6 +161,12 @@ export function TaskListItem(props: Props) {
         leaveTo="opacity-0"
       >
         <div className="flex gap-1">
+          <button
+            onClick={() => props.onShowDetails?.(props.task)}
+            className="rounded-md p-1 text-neutral-500 transition-colors hover:text-neutral-600 active:text-neutral-700 dark:hover:text-neutral-400 dark:active:text-neutral-300"
+          >
+            <IconExpandAlt className="h-5 w-5" />
+          </button>
           {props.task.status !== "COMPLETED" && (
             <button
               {...listeners}

@@ -18,6 +18,8 @@ import { reorderTasks } from "@taskbrew/server-actions/reorder-tasks";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { IconPlus } from "../icons";
+import { Modal } from "../modal";
+import { TaskModalContent } from "../modal/task-modal-content";
 import { TaskListItem } from "./task-list-item";
 
 const measuringConfig = {
@@ -36,6 +38,10 @@ type Props = {
 
 export function TaskList(props: Props) {
   const [optimisticTasks, setOptimisticTasks] = useState<Task[]>([]);
+  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+  const [taskModalTask, setTaskModalTask] = useState<Task | undefined>(
+    undefined,
+  );
   const [activeTask, setActiveTask] = useState<Task | undefined>(undefined);
 
   useEffect(() => {
@@ -93,6 +99,11 @@ export function TaskList(props: Props) {
     }
   };
 
+  const onShowDetails = (task: Task) => {
+    setTaskModalTask(task);
+    setIsTaskModalOpen(true);
+  };
+
   return (
     <div className={props.className}>
       {props.tasks.length === 0 ? (
@@ -117,6 +128,7 @@ export function TaskList(props: Props) {
                 <TaskListItem
                   key={task.id}
                   task={task}
+                  onShowDetails={onShowDetails}
                   className={`${task.id === activeTask?.id ? "opacity-0" : ""}`}
                 />
               ))}
@@ -143,6 +155,17 @@ export function TaskList(props: Props) {
           <IconPlus className="h-5 w-5" />
           <span>New task</span>
         </button>
+      )}
+
+      {taskModalTask && (
+        <Modal
+          isOpen={isTaskModalOpen}
+          closeModal={() => setIsTaskModalOpen(false)}
+          title="Task"
+          hasCloseButton
+        >
+          <TaskModalContent task={taskModalTask} />
+        </Modal>
       )}
 
       {/* whitespace to account for popover and menu */}
