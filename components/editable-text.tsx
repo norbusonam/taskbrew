@@ -7,6 +7,7 @@ type Props = {
   isTextArea?: boolean;
   fadedAppearance?: boolean;
   className?: string;
+  canBeEmpty?: boolean;
 };
 
 export function EditableText(props: Props) {
@@ -27,9 +28,10 @@ export function EditableText(props: Props) {
   ) => {
     setIsEditingText(false);
     const newText = e.target.value.trim();
-    if (newText && newText !== props.text) {
-      props.onTextChanged(newText);
-    }
+    // update if text exists
+    if (!props.canBeEmpty && newText === "") return;
+    if (newText === props.text) return;
+    props.onTextChanged(newText);
   };
 
   return isEditingText ? (
@@ -69,7 +71,7 @@ export function EditableText(props: Props) {
         <span className="italic text-neutral-500">Empty</span>
       ) : (
         <Markdown
-          className={`props.isTextArea ? "whitespace-pre-wrap" : "line-clamp-1"`}
+          className={props.isTextArea ? "whitespace-pre-wrap" : "line-clamp-1"}
         >
           {props.text}
         </Markdown>

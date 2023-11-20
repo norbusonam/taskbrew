@@ -44,6 +44,7 @@ export function TaskModalContent(props: Props) {
         }}
         className="h-32 w-full justify-start align-top"
         isTextArea
+        canBeEmpty
       />
     </div>
   );
