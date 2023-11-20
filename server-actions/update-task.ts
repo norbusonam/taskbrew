@@ -8,6 +8,7 @@ import { revalidateTaskRoutes } from "./utils/revalidate-task-routes";
 
 export type UpdateTaskBody = {
   title?: Task["title"];
+  notes?: Task["notes"];
   status?: Task["status"];
   dueDate?: Task["dueDate"];
   dueDateIncludesTime?: Task["dueDateIncludesTime"];
@@ -30,6 +31,7 @@ export async function updateTask(id: string, body: UpdateTaskBody) {
     },
     data: {
       title: body.title ? body.title.trim() : undefined,
+      notes: body.notes ? body.notes.trim() : undefined,
       status: body.status,
       completedAt:
         // if status is not changed, do not update completedAt
