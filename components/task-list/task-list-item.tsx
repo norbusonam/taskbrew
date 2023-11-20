@@ -11,7 +11,7 @@ import {
   UpdateTaskBody,
   updateTask,
 } from "@taskbrew/server-actions/update-task";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { ButtonWithTooltip } from "../button-with-tooltip";
 import { DueDatePopover } from "../due-date-popover";
@@ -57,6 +57,10 @@ export function TaskListItem(props: Props) {
     transform: CSS.Transform.toString(transform),
     transition,
   };
+
+  useEffect(() => {
+    setOptimisticTask(props.task);
+  }, [props.task]);
 
   const onUpdateTask = (body: UpdateTaskBody) => {
     toast
