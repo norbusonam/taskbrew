@@ -31,7 +31,7 @@ export async function updateTask(id: string, body: UpdateTaskBody) {
     },
     data: {
       title: body.title ? body.title.trim() : undefined,
-      notes: body.notes ? body.notes.trim() : undefined,
+      notes: typeof body.notes === "string" ? body.notes.trim() : undefined,
       status: body.status,
       completedAt:
         // if status is not changed, do not update completedAt
