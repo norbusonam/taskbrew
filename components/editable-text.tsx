@@ -3,8 +3,8 @@ import Markdown from "react-markdown";
 
 type Props = {
   text: string;
-  fadedAppearance?: boolean;
   onTextChanged: (text: string) => void;
+  fadedAppearance?: boolean;
 };
 
 export function EditableText(props: Props) {
@@ -44,9 +44,13 @@ export function EditableText(props: Props) {
       }`}
       onClick={() => setIsEditingText(true)}
     >
-      <Markdown className="line-clamp-1 whitespace-pre-wrap">
-        {props.text}
-      </Markdown>
+      {props.text === "" ? (
+        <span className="italic text-neutral-500">Empty</span>
+      ) : (
+        <Markdown className="line-clamp-1 whitespace-pre-wrap">
+          {props.text}
+        </Markdown>
+      )}
     </button>
   );
 }
