@@ -4,7 +4,7 @@ import { IconClose } from "../icons";
 
 type Props = {
   isOpen: boolean;
-  title: string;
+  title?: string;
   description?: string;
   hasCloseButton?: boolean;
   children: React.ReactNode;

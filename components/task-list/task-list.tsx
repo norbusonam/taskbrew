@@ -161,7 +161,6 @@ export function TaskList(props: Props) {
         <Modal
           isOpen={isTaskModalOpen}
           closeModal={() => setIsTaskModalOpen(false)}
-          title="Task"
           hasCloseButton
         >
           <TaskModalContent task={taskModalTask} />
