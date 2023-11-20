@@ -164,7 +164,7 @@ export function TaskListItem(props: Props) {
         <div className="flex gap-1">
           <ButtonWithTooltip
             tooltip="Show details"
-            placement="top-start"
+            placement="top-end"
             onClick={() => props.onShowDetails?.(props.task)}
             disableTooltip={props.isDragOverlay}
             className="rounded-md p-1 text-neutral-500 transition-colors hover:text-neutral-600 active:text-neutral-700 dark:hover:text-neutral-400 dark:active:text-neutral-300"
@@ -174,7 +174,7 @@ export function TaskListItem(props: Props) {
           {props.task.status !== "COMPLETED" && (
             <ButtonWithTooltip
               tooltip="Reorder task"
-              placement="top"
+              placement="top-end"
               aria-label="Reorder task"
               draggableListeners={listeners}
               disableTooltip={props.isDragOverlay}
