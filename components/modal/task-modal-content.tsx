@@ -41,6 +41,7 @@ export function TaskModalContent(props: Props) {
           setOptimisticTask((prev) => ({ ...prev, notes }));
           onUpdateTask({ notes });
         }}
+        isTextArea
       />
     </div>
   );
