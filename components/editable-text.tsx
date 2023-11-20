@@ -6,6 +6,7 @@ type Props = {
   onTextChanged: (text: string) => void;
   isTextArea?: boolean;
   fadedAppearance?: boolean;
+  className?: string;
 };
 
 export function EditableText(props: Props) {
@@ -38,7 +39,7 @@ export function EditableText(props: Props) {
         ref={textareaRef}
         className={`w-full rounded-md bg-transparent px-1 outline-none ${
           props.fadedAppearance && "text-neutral-500"
-        }`}
+        } ${props.className}`}
         onKeyDown={handleKeyDown}
         defaultValue={props.text}
         onBlur={updateText}
@@ -50,7 +51,7 @@ export function EditableText(props: Props) {
         type="text"
         className={`w-full rounded-md bg-transparent px-1 outline-none ${
           props.fadedAppearance && "text-neutral-500"
-        }`}
+        } ${props.className}`}
         onKeyDown={handleKeyDown}
         defaultValue={props.text}
         onBlur={updateText}
@@ -58,16 +59,17 @@ export function EditableText(props: Props) {
     )
   ) : (
     <button
-      className={`block rounded-md px-1 text-left transition-colors hover:bg-neutral-200 active:bg-neutral-300 dark:hover:bg-neutral-800 dark:active:bg-neutral-700 ${
+      // pot text on top
+      className={`flex overflow-hidden rounded-md px-1 text-left transition-colors hover:bg-neutral-200 active:bg-neutral-300 dark:hover:bg-neutral-800 dark:active:bg-neutral-700 ${
         props.fadedAppearance && "text-neutral-500"
-      }`}
+      } ${props.className}`}
       onClick={() => setIsEditingText(true)}
     >
       {props.text === "" ? (
         <span className="italic text-neutral-500">Empty</span>
       ) : (
         <Markdown
-          className={props.isTextArea ? "whitespace-pre-wrap" : "line-clamp-1"}
+          className={`props.isTextArea ? "whitespace-pre-wrap" : "line-clamp-1"`}
         >
           {props.text}
         </Markdown>
