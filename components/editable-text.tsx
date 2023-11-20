@@ -39,7 +39,7 @@ export function EditableText(props: Props) {
     />
   ) : (
     <button
-      className={`rounded-md px-1 text-left transition-colors hover:bg-neutral-200 active:bg-neutral-300 dark:hover:bg-neutral-800 dark:active:bg-neutral-700 ${
+      className={`block rounded-md px-1 text-left transition-colors hover:bg-neutral-200 active:bg-neutral-300 dark:hover:bg-neutral-800 dark:active:bg-neutral-700 ${
         props.fadedAppearance && "text-neutral-500"
       }`}
       onClick={() => setIsEditingText(true)}
