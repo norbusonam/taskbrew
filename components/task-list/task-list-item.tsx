@@ -108,6 +108,7 @@ export function TaskListItem(props: Props) {
         {/* editable title */}
         <EditableText
           text={optimisticTask.title}
+          placeholder="Title"
           fadedAppearance={optimisticTask.status === "COMPLETED"}
           onTextChanged={(title) => {
             setOptimisticTask((prev) => ({ ...prev, title }));

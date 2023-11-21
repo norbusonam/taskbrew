@@ -58,6 +58,7 @@ export function TaskBoardItem(props: Props) {
       <div className="flex items-center justify-between">
         <EditableText
           text={optimisticTask.title}
+          placeholder="Title"
           onTextChanged={(title) => {
             setOptimisticTask((prev) => ({ ...prev, title }));
             onUpdateTask({ title });

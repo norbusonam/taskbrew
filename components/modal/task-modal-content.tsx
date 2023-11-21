@@ -30,6 +30,7 @@ export function TaskModalContent(props: Props) {
     <div className="space-y-2 pt-2">
       <EditableText
         text={optimisticTask.title}
+        placeholder="Title"
         onTextChanged={(title) => {
           setOptimisticTask((prev) => ({ ...prev, title }));
           onUpdateTask({ title });
@@ -38,6 +39,7 @@ export function TaskModalContent(props: Props) {
       />
       <EditableText
         text={optimisticTask.notes}
+        placeholder="Notes"
         onTextChanged={(notes) => {
           setOptimisticTask((prev) => ({ ...prev, notes }));
           onUpdateTask({ notes });

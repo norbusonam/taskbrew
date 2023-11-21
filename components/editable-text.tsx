@@ -4,6 +4,7 @@ import Markdown from "react-markdown";
 type Props = {
   text: string;
   onTextChanged: (text: string) => void;
+  placeholder?: string;
   isTextArea?: boolean;
   fadedAppearance?: boolean;
   className?: string;
@@ -39,6 +40,7 @@ export function EditableText(props: Props) {
       <textarea
         autoFocus
         ref={textareaRef}
+        placeholder={props.placeholder}
         className={`w-full rounded-md bg-transparent px-1 outline-none ${
           props.fadedAppearance && "text-neutral-500"
         } ${props.className}`}
@@ -50,6 +52,7 @@ export function EditableText(props: Props) {
       <input
         autoFocus
         ref={inputRef}
+        placeholder={props.placeholder}
         type="text"
         className={`w-full rounded-md bg-transparent px-1 outline-none ${
           props.fadedAppearance && "text-neutral-500"
