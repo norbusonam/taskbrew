@@ -6,6 +6,7 @@ import {
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { EditableText } from "../editable-text";
+import { ImportantToggle } from "../important-toggle";
 
 type Props = {
   task: Task;
@@ -28,15 +29,24 @@ export function TaskModalContent(props: Props) {
 
   return (
     <div className="space-y-2 pt-2">
-      <EditableText
-        text={optimisticTask.title}
-        placeholder="Title"
-        onTextChanged={(title) => {
-          setOptimisticTask((prev) => ({ ...prev, title }));
-          onUpdateTask({ title });
-        }}
-        className="w-full text-3xl"
-      />
+      <div className="flex gap-2">
+        <EditableText
+          text={optimisticTask.title}
+          placeholder="Title"
+          onTextChanged={(title) => {
+            setOptimisticTask((prev) => ({ ...prev, title }));
+            onUpdateTask({ title });
+          }}
+          className="w-full text-3xl"
+        />
+        <ImportantToggle
+          isImportant={optimisticTask.isImportant}
+          onIsImportantChanged={(isImportant) => {
+            setOptimisticTask((prev) => ({ ...prev, isImportant }));
+            onUpdateTask({ isImportant });
+          }}
+        />
+      </div>
       <EditableText
         text={optimisticTask.notes}
         placeholder="Notes"
