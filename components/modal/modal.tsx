@@ -4,11 +4,12 @@ import { IconClose } from "../icons";
 
 type Props = {
   isOpen: boolean;
+  children: React.ReactNode;
+  closeModal: () => void;
   title?: string;
   description?: string;
   hasCloseButton?: boolean;
-  children: React.ReactNode;
-  closeModal: () => void;
+  className?: string;
 };
 
 export function Modal(props: Props) {
@@ -37,7 +38,9 @@ export function Modal(props: Props) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md rounded-lg bg-neutral-100 p-6 shadow-xl dark:bg-neutral-900">
+              <Dialog.Panel
+                className={`w-full max-w-md rounded-lg bg-neutral-100 p-6 shadow-xl dark:bg-neutral-900 ${props.className}`}
+              >
                 <div className="flex items-center justify-between">
                   <Dialog.Title as="h3" className="text-lg font-medium">
                     {props.title}

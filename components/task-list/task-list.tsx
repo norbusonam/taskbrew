@@ -161,6 +161,7 @@ export function TaskList(props: Props) {
         <Modal
           isOpen={isTaskModalOpen}
           closeModal={() => setIsTaskModalOpen(false)}
+          className="max-w-4xl"
           hasCloseButton
         >
           <TaskModalContent task={taskModalTask} />
