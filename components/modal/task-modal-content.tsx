@@ -34,7 +34,7 @@ export function TaskModalContent(props: Props) {
           setOptimisticTask((prev) => ({ ...prev, title }));
           onUpdateTask({ title });
         }}
-        className="w-full text-4xl"
+        className="w-full text-3xl"
       />
       <EditableText
         text={optimisticTask.notes}
@@ -42,7 +42,7 @@ export function TaskModalContent(props: Props) {
           setOptimisticTask((prev) => ({ ...prev, notes }));
           onUpdateTask({ notes });
         }}
-        className="h-32 w-full justify-start align-top"
+        className="h-32 w-full resize-none justify-start align-top"
         isTextArea
         canBeEmpty
       />
