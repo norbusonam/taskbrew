@@ -34,9 +34,11 @@ export function FilterButtons(props: Props) {
         }
       />
       <FilterButton
-        filter="All"
-        isActiveFilter={filter === "all"}
-        onFilterSelected={() => router.push(`${props.baseRoute}?filter=all`)}
+        filter="No due date"
+        isActiveFilter={filter === "noDueDate"}
+        onFilterSelected={() =>
+          router.push(`${props.baseRoute}?filter=noDueDate`)
+        }
       />
       <FilterButton
         filter="Completed"

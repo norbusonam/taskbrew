@@ -15,7 +15,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <p className="text-sm text-neutral-500">
           {filter === "completed"
             ? "Completed tasks"
-            : filter === "all"
+            : filter === "noDueDate"
             ? "All tasks"
             : filter === "overdue"
             ? "Overdue tasks"

@@ -31,13 +31,14 @@ export default async function Page({
         completedAt: "desc",
       },
     });
-  } else if (searchParams?.filter === "all") {
+  } else if (searchParams?.filter === "noDueDate") {
     tasks = await prisma.task.findMany({
       where: {
         userId: session.user.id,
         status: {
           not: "COMPLETED",
         },
+        dueDate: null,
       },
       orderBy: {
         listOrder: "asc",
@@ -96,7 +97,7 @@ export default async function Page({
     <TaskList
       tasks={tasks}
       canCreateNewTask={
-        searchParams?.filter === "all" ||
+        searchParams?.filter === "noDueDate" ||
         searchParams?.filter === "upcoming" ||
         searchParams?.filter === undefined
       }
@@ -107,7 +108,7 @@ export default async function Page({
           ? "No overdue tasks 😎"
           : searchParams?.filter === "upcoming"
           ? "No upcoming tasks 🏝️"
-          : searchParams?.filter === "all"
+          : searchParams?.filter === "noDueDate"
           ? "No tasks 😢"
           : "No tasks due today 👍"
       }
