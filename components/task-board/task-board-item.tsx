@@ -63,6 +63,7 @@ export function TaskBoardItem(props: Props) {
             setOptimisticTask((prev) => ({ ...prev, title }));
             onUpdateTask({ title });
           }}
+          fadedAppearance={props.task.status === "COMPLETED"}
         />
         <Transition
           show={props.isDragOverlay || isTaskActive}
@@ -93,6 +94,7 @@ export function TaskBoardItem(props: Props) {
             setOptimisticTask((prev) => ({ ...prev, dueDateIncludesTime }));
             onUpdateTask({ dueDateIncludesTime });
           }}
+          fadedAppearance={props.task.status === "COMPLETED"}
         />
         <DurationMenu
           duration={optimisticTask.duration}
