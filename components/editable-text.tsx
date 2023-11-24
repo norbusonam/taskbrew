@@ -67,7 +67,7 @@ export function EditableText(props: Props) {
   ) : (
     <button
       // pot text on top
-      className={`flex overflow-hidden rounded-md px-1 text-left transition-colors hover:bg-neutral-200 active:bg-neutral-300 dark:hover:bg-neutral-800 dark:active:bg-neutral-700 ${
+      className={`flex overflow-scroll rounded-md px-1 text-left transition-colors hover:bg-neutral-200 active:bg-neutral-300 dark:hover:bg-neutral-800 dark:active:bg-neutral-700 ${
         props.fadedAppearance && "text-neutral-500"
       } ${props.className}`}
       onClick={() => setIsEditingText(true)}
