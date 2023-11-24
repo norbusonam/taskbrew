@@ -114,6 +114,7 @@ export function TaskListItem(props: Props) {
             setOptimisticTask((prev) => ({ ...prev, title }));
             onUpdateTask({ title });
           }}
+          shouldTrimText
         />
         <div className="flex gap-1">
           {/* due date */}

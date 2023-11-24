@@ -64,6 +64,7 @@ export function TaskBoardItem(props: Props) {
             onUpdateTask({ title });
           }}
           fadedAppearance={props.task.status === "COMPLETED"}
+          shouldTrimText
         />
         <Transition
           show={props.isDragOverlay || isTaskActive}

@@ -8,6 +8,7 @@ type Props = {
   fadedAppearance?: boolean;
   className?: string;
   canBeEmpty?: boolean;
+  shouldTrimText?: boolean;
 };
 
 export function EditableText(props: Props) {
@@ -27,7 +28,9 @@ export function EditableText(props: Props) {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setIsEditingText(false);
-    const newText = e.target.value.trim();
+    const newText = props.shouldTrimText
+      ? e.target.value.trim()
+      : e.target.value;
     // update if text exists
     if (!props.canBeEmpty && newText === "") return;
     if (newText === props.text) return;

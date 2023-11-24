@@ -38,6 +38,7 @@ export function TaskModalContent(props: Props) {
             onUpdateTask({ title });
           }}
           className="w-full text-3xl"
+          shouldTrimText
         />
         <ImportantToggle
           isImportant={optimisticTask.isImportant}
