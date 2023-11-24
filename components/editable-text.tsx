@@ -42,6 +42,9 @@ export function EditableText(props: Props) {
       <textarea
         autoFocus
         ref={textareaRef}
+        onFocus={(e) => {
+          e.target.select();
+        }}
         placeholder={props.placeholder}
         className={`w-full rounded-md bg-transparent px-1 outline-none ${
           props.fadedAppearance && "text-neutral-500"
@@ -54,6 +57,9 @@ export function EditableText(props: Props) {
       <input
         autoFocus
         ref={inputRef}
+        onFocus={(e) => {
+          e.target.select();
+        }}
         placeholder={props.placeholder}
         type="text"
         className={`w-full rounded-md bg-transparent px-1 outline-none ${
