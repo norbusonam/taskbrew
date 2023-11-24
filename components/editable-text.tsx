@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import Markdown from "react-markdown";
 
 type Props = {
   text: string;
@@ -73,11 +72,11 @@ export function EditableText(props: Props) {
       {props.text === "" ? (
         <span className="italic text-neutral-500">Empty</span>
       ) : (
-        <Markdown
+        <p
           className={props.isTextArea ? "whitespace-pre-wrap" : "line-clamp-1"}
         >
           {props.text}
-        </Markdown>
+        </p>
       )}
     </button>
   );
