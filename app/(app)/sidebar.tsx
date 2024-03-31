@@ -1,3 +1,4 @@
+import { ThemeButton } from "@/components/theme-button";
 import { Button, buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -12,6 +13,7 @@ export function Sidebar() {
         <Link className={buttonVariants({ variant: "ghost" })} href="/tasks">
           Tasks
         </Link>
+        <ThemeButton />
       </div>
     </div>
   );
