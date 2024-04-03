@@ -1,5 +1,6 @@
+import { MeDropdown } from "@/components/me-dropdown";
 import { ThemeButton } from "@/components/theme-button";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 
 export function Sidebar() {
@@ -14,6 +15,7 @@ export function Sidebar() {
           Tasks
         </Link>
         <ThemeButton />
+        <MeDropdown />
       </div>
     </div>
   );
