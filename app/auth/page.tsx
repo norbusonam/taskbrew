@@ -27,8 +27,8 @@ export default function Auth() {
             </CardHeader>
             <CardContent className="space-y-2">
               <div className="space-y-1">
-                <Label htmlFor="username">Username</Label>
-                <Input id="username" placeholder="Username" />
+                <Label htmlFor="email">Email</Label>
+                <Input id="email" placeholder="Email" type="email" />
               </div>
               <div className="space-y-1">
                 <Label htmlFor="password">Password</Label>
@@ -50,8 +50,8 @@ export default function Auth() {
             </CardHeader>
             <CardContent className="space-y-2">
               <div className="space-y-1">
-                <Label htmlFor="username">Username</Label>
-                <Input id="username" placeholder="Username" />
+                <Label htmlFor="email">Email</Label>
+                <Input id="email" placeholder="Email" type="email" />
               </div>
               <div className="space-y-1">
                 <Label htmlFor="password">Password</Label>
