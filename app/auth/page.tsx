@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label";
 
 export default function Auth() {
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex justify-center mt-36">
       <Tabs defaultValue="log-in" className="w-[400px]">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="log-in">Login</TabsTrigger>
