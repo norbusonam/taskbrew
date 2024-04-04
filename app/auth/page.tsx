@@ -57,6 +57,14 @@ export default function Auth() {
                 <Label htmlFor="password">Password</Label>
                 <Input id="password" placeholder="Password" type="password" />
               </div>
+              <div className="space-y-1">
+                <Label htmlFor="confirm-password">Confirm Password</Label>
+                <Input
+                  id="confirm-password"
+                  placeholder="Confirm Password"
+                  type="password"
+                />
+              </div>
             </CardContent>
             <CardFooter>
               <Button>Sign up</Button>
