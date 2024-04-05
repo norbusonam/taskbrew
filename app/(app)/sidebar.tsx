@@ -6,6 +6,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
 import { Coffee, Home, List } from "lucide-react";
 import Link from "next/link";
 
@@ -15,7 +16,10 @@ export function Sidebar() {
       <div className="flex flex-col justify-between p-2 h-screen">
         <div className="flex flex-col gap-2">
           <Link
-            className={buttonVariants({ variant: "ghost", size: "icon" })}
+            className={cn(
+              buttonVariants({ variant: "ghost", size: "icon" }),
+              "mb-6",
+            )}
             href="/home"
           >
             <Coffee />
