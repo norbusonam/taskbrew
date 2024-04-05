@@ -8,15 +8,16 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { LogOut, Settings, User } from "lucide-react";
-import { Avatar, AvatarFallback } from "./ui/avatar";
 
 export function MeDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost">First Last</Button>
+        <Button variant="ghost" size="icon">
+          <User />
+        </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
+      <DropdownMenuContent align="end" side="right">
         <DropdownMenuLabel>First Last</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
