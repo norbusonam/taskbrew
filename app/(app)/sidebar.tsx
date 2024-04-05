@@ -25,7 +25,7 @@ export function Sidebar() {
             <Coffee />
           </Link>
           <Tooltip>
-            <TooltipTrigger>
+            <TooltipTrigger asChild>
               <Link
                 className={buttonVariants({ variant: "ghost", size: "icon" })}
                 href="/home"
@@ -36,7 +36,7 @@ export function Sidebar() {
             <TooltipContent side="right">Home</TooltipContent>
           </Tooltip>
           <Tooltip>
-            <TooltipTrigger>
+            <TooltipTrigger asChild>
               <Link
                 className={buttonVariants({ variant: "ghost", size: "icon" })}
                 href="/tasks"
