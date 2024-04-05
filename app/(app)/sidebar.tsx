@@ -13,7 +13,7 @@ import Link from "next/link";
 export function Sidebar() {
   return (
     <div>
-      <div className="flex flex-col justify-between p-2 h-screen">
+      <div className="flex flex-col justify-between p-2 h-screen border-r bg-background">
         <div className="flex flex-col gap-2">
           <Link
             className={cn(
