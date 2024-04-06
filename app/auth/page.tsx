@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -10,19 +12,29 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useRouter } from "next/navigation";
 
 export default function Auth() {
+  const router = useRouter();
+
+  const onSignUp = () => {
+    router.push("/home");
+  };
+
+  const onLogin = () => {
+    router.push("/home");
+  };
   return (
     <div className="flex justify-center mt-36">
-      <Tabs defaultValue="log-in" className="w-[400px]">
+      <Tabs defaultValue="sign-in" className="w-[400px]">
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="log-in">Login</TabsTrigger>
-          <TabsTrigger value="sign-up">Password</TabsTrigger>
+          <TabsTrigger value="sign-in">Sign in</TabsTrigger>
+          <TabsTrigger value="sign-up">Sign up</TabsTrigger>
         </TabsList>
-        <TabsContent value="log-in">
+        <TabsContent value="sign-in">
           <Card>
             <CardHeader>
-              <CardTitle>Login</CardTitle>
+              <CardTitle>Sign in</CardTitle>
               <CardDescription>Enter your credentials</CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
@@ -36,7 +48,7 @@ export default function Auth() {
               </div>
             </CardContent>
             <CardFooter>
-              <Button>Log in</Button>
+              <Button onClick={onLogin}>Sign in</Button>
             </CardFooter>
           </Card>
         </TabsContent>
@@ -67,7 +79,7 @@ export default function Auth() {
               </div>
             </CardContent>
             <CardFooter>
-              <Button>Sign up</Button>
+              <Button onClick={onSignUp}>Sign up</Button>
             </CardFooter>
           </Card>
         </TabsContent>
