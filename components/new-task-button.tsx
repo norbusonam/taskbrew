@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -11,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Plus } from "lucide-react";
+import { toast } from "sonner";
 
 export function NewTaskButton() {
   return (
@@ -40,7 +43,9 @@ export function NewTaskButton() {
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit">Create</Button>
+          <Button type="submit" onClick={() => toast("Task created")}>
+            Create
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
