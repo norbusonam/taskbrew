@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write \"**/*.{ts,tsx,json,css}\""
+    "format": "prettier --write \"**/*.{ts,tsx,json,css}\"",
+    "db:up": "ts-node ./scripts/db/migrate.ts up",
+    "db:down": "ts-node ./scripts/db/migrate.ts down",
+    "db:latest": "ts-node ./scripts/db/migrate.ts latest"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.0.5",
