@@ -20,7 +20,7 @@ export interface Database {
 // +------------+
 interface BaseTable {
   id: Generated<string>;
-  created_at: ColumnType<Date, Date>;
+  created_at: ColumnType<Date, never, never>;
 }
 
 // +------------+
