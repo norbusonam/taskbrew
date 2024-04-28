@@ -11,11 +11,32 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Plus } from "lucide-react";
 import { toast } from "sonner";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "./ui/form";
+
+const newTaskFormSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  description: z.string(),
+});
 
 export function NewTaskButton() {
+  const form = useForm<z.infer<typeof newTaskFormSchema>>({
+    resolver: zodResolver(newTaskFormSchema),
+    defaultValues: {
+      name: "",
+      description: "",
+    },
+  });
+
+  function onSubmit(data: z.infer<typeof newTaskFormSchema>) {
+    toast("Task created");
+    console.log(data);
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -28,25 +49,47 @@ export function NewTaskButton() {
           <DialogTitle>New Task</DialogTitle>
           <DialogDescription>Create a new task</DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Name
-            </Label>
-            <Input id="name" className="col-span-3" />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="description" className="text-right">
-              Description
-            </Label>
-            <Input id="description" className="col-span-3" />
-          </div>
-        </div>
-        <DialogFooter>
-          <Button type="submit" onClick={() => toast("Task created")}>
-            Create
-          </Button>
-        </DialogFooter>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="grid gap-4 py-4">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-4 items-center gap-4">
+                    <FormLabel htmlFor="name" className="text-right">
+                      Name
+                    </FormLabel>
+                    <FormControl>
+                      <Input id="name" className="col-span-3" {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-4 items-center gap-4">
+                    <FormLabel htmlFor="description" className="text-right">
+                      Description
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        id="description"
+                        className="col-span-3"
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
+            <DialogFooter>
+              <Button type="submit">Create</Button>
+            </DialogFooter>
+          </form>
+        </Form>
       </DialogContent>
     </Dialog>
   );
