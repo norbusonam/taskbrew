@@ -18,6 +18,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "./ui/form";
 import { createTask } from "@/actions/crud/task";
+import { useRouter } from "next/navigation";
 
 const newTaskFormSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -32,11 +33,13 @@ export function NewTaskButton() {
       description: "",
     },
   });
+  const router = useRouter();
 
   async function onSubmit(data: z.infer<typeof newTaskFormSchema>) {
     try {
       await createTask(data);
       toast.success("Task created");
+      router.refresh();
     } catch (e) {
       toast.error("Failed to create task");
     }
