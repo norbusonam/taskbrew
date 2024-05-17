@@ -9,3 +9,11 @@ export async function createTask(task: NewTask) {
 export async function getTasks() {
   return await db.selectFrom("task").selectAll().execute();
 }
+
+export async function deleteTask(id: number) {
+  return await db
+    .deleteFrom("task")
+    .where("id", "=", id)
+    .returningAll()
+    .execute();
+}
