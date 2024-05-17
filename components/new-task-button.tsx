@@ -18,8 +18,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "./ui/form";
 import { createTask } from "@/actions/crud/task";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const newTaskFormSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -34,25 +33,30 @@ export function NewTaskButton() {
       description: "",
     },
   });
-  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
-  async function onSubmit(data: z.infer<typeof newTaskFormSchema>) {
-    try {
-      await createTask(data);
-      toast.success("Task created");
-      setIsOpen(false);
-      router.refresh();
-    } catch (e) {
-      toast.error("Failed to create task");
+  useEffect(() => {
+    if (isOpen) {
+      form.reset();
     }
+  }, [isOpen, form]);
+
+  async function onSubmit(data: z.infer<typeof newTaskFormSchema>) {
+    toast.promise(createTask(data), {
+      loading: "Creating task...",
+      success: () => {
+        setIsOpen(false);
+        return "Task created";
+      },
+      error: "Failed to create task",
+    });
   }
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button variant="ghost" size="icon">
-          <Plus />
+          <Plus className="w-4 h-4" />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
