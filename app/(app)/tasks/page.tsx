@@ -1,9 +1,11 @@
 import { getTasks } from "@/actions/crud/task";
 import { NewTaskButton } from "@/components/new-task-button";
+import { TaskActions } from "@/components/task-actions";
 import { Card } from "@/components/ui/card";
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -25,6 +27,7 @@ export default async function Page() {
             <TableRow>
               <TableHead>Name</TableHead>
               <TableHead>Description</TableHead>
+              <TableHead></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -32,6 +35,9 @@ export default async function Page() {
               <TableRow key={task.id}>
                 <TableCell>{task.name}</TableCell>
                 <TableCell>{task.description}</TableCell>
+                <TableCell>
+                  <TaskActions task={task} />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
