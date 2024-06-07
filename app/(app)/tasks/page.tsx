@@ -32,7 +32,7 @@ export default async function Page() {
           </TableHeader>
           <TableBody>
             {tasks.map((task) => (
-              <TableRow key={task.id}>
+              <TableRow key={task.id} className="group">
                 <TableCell>{task.name}</TableCell>
                 <TableCell>{task.description}</TableCell>
                 <TableCell>

@@ -20,7 +20,7 @@ export function TaskActions(props: TaskActionsProps) {
   }
 
   return (
-    <div className="flex space-x-2 justify-end">
+    <div className="flex space-x-2 justify-end opacity-0 group-hover:opacity-100 transition-opacity">
       <Button variant="ghost" size="icon" onClick={onDelete}>
         <Trash className="w-4 h-4" />
       </Button>
